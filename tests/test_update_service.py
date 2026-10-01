@@ -21,6 +21,8 @@ def sha(b: bytes) -> str:
 @pytest.fixture
 def rig(tmp_path, monkeypatch):
     monkeypatch.setenv("LOCALAPPDATA", str(tmp_path / "local"))
+    # a Mac keeps app data in ~/Library, not LOCALAPPDATA: the updater's own state goes to the test folder too
+    monkeypatch.setattr(state, "data_dir", lambda: tmp_path / "local" / "Tiro")
     root = tmp_path / "Programs" / "Tiro"
     monkeypatch.setenv("TIRO_INSTALL_ROOT", str(root))
     monkeypatch.setattr(feed, "TRUSTED_KEYS", {"ci": base64.b64encode(ed25519.public_key(SEED)).decode()})
