@@ -1,6 +1,6 @@
 [project]
 name = "tiro"
-version = "2.0.1"
+version = "2.0.2"
 description = "Tiro: fast, private, local dictation for Windows and macOS (Apple Silicon)"
 readme = "README.md"
 license = { text = "MIT" }

@@ -227,7 +227,7 @@ class ParakeetEngine:
     # ------------------------------------------------------------------ loading
     def load(self) -> None:
         t0 = time.perf_counter()
-        want_gpu = self.requested_device in ("auto", "cuda")
+        want_gpu = self.requested_device in ("auto", "cuda") and sys.platform != "darwin"  # NVIDIA / CUDA
         info = gpu.detect_nvidia_gpu() if want_gpu else None
         self.gpu_info = info
         if want_gpu:
