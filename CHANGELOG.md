@@ -11,8 +11,9 @@
 - **Automatic updates.** Tiro checks for a new version now and then (never while you dictate), downloads only what
   changed, checks every file against a signed list, and installs it the next time it starts. If a new version
   doesn't start properly, Tiro goes back to the one you had. Settings → Updates has the controls, including
-  switching automatic checks off and going back a version. A check sends only Tiro's version, your Windows version
-  and processor type. This version has to be installed by hand once; after that, updates are automatic.
+  switching automatic checks off and going back a version. A check sends only Tiro's version, your Windows or macOS
+  version and processor type. This version has to be installed by hand once; after that, updates are automatic.
+  On a Mac, Tiro tells you about a new version and opens the download instead (not yet tried on a real Mac).
 - **Safe mode**: hold Shift while starting Tiro, or it starts that way by itself after two failed starts.
 
 ## 2.0.2 (2026-09-30)
