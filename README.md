@@ -133,7 +133,7 @@ Tiro for Mac needs a Mac with Apple Silicon (M1, M2, M3, M4 or newer) and macOS 
 |---|---|---|---|
 | Windows + NVIDIA RTX 20-series or newer (≥ 4 GB VRAM), driver 580+ | GPU (CUDA 13) | Qwen2.5 1.5B on the GPU (6 GB+ VRAM), else 0.5B | ≈ 0.05–0.1 s |
 | Windows + older NVIDIA (GTX 10-series), AMD or Intel graphics | Processor | Qwen2.5 0.5B on the processor, if the speed check passes | ≈ 0.3–1 s |
-| Mac with Apple Silicon (M1 or newer), macOS 13+ | Core ML (GPU / Neural Engine), with automatic fallback to the CPU | Qwen2.5 1.5B on the GPU (MLX) | fast (see note) |
+| Mac with Apple Silicon (M1 or newer), macOS 13+ | The chip's CPU cores, with the compact int8 model (see note) | Qwen2.5 1.5B on the GPU (MLX) | ≈ 0.1–0.6 s |
 | Intel Mac | not supported | — | — |
 
 \*For a typical phrase. Text streams while you talk, so long dictations don't wait until the end.
@@ -142,8 +142,11 @@ At least 8 GB of RAM is recommended. Disk space: about 1.5 GB for a processor se
 (most of it NVIDIA's libraries). AMD and Intel graphics aren't accelerated yet, so on those PCs Tiro uses the
 processor, which keeps up with real-time dictation.
 
-> **Mac note:** the Mac build is compiled and tested on GitHub's Apple Silicon machines, but I haven't measured
-> it on a real Mac yet. The setup's speed check measures your Mac and picks settings that keep up.
+> **Mac note:** the Mac build is compiled and smoke-tested on GitHub's Apple Silicon (M1) machines. There, the
+> compact int8 speech model on the CPU cores understood 6 seconds of speech in about 0.6 s. That was faster than
+> running it through Core ML, which either failed to compile this model or was 3–10× slower. Core ML is still
+> available as an experimental option. The AI check runs on the GPU with MLX, at about 150–250 ms per check on that
+> virtual machine. A real Mac has more cores and a faster GPU, and Tiro's speed check measures yours during setup.
 
 ## How Tiro picks the best setup for your computer
 
@@ -154,8 +157,8 @@ You never have to guess what "CUDA" means. The installer (Windows) and the first
 2. **Decide.** An NVIDIA RTX 20-series or newer with a recent driver and at least 4 GB of graphics memory runs speech
    on the GPU (about ten times faster than a processor, and it keeps your PC responsive). Otherwise the processor runs
    it, using the compact int8 edition of the model with the same accuracy. If the GPU isn't usable, Setup says why
-   ("your driver is too old: update to 580 or newer") and links to the fix. On a Mac, the speech model runs through
-   Core ML on the GPU and Neural Engine.
+   ("your driver is too old: update to 580 or newer") and links to the fix. On a Mac, speech runs on the Apple chip's
+   CPU cores (measured faster than Core ML for this model) and the AI check on its GPU.
 3. **Explain** it in plain English, with an estimated delay for each option ("Words appear ≈ 0.06 s after you stop
    talking"). The other option is one click away, and an **Advanced** section lets you choose the folder, the
    language model (English, or 25 European languages), startup and a desktop shortcut.
@@ -249,8 +252,8 @@ in their dictionary or history.
 | Setup | Word error rate | Tricky terms exactly right |
 |---|---|---|
 | Recogniser alone | 9.9% | 208 / 375 |
-| With the correction pass, out of the box | 8.4% | 235 / 375 |
-| With the correction pass and your words | **5.8%** | **295 / 375** |
+| With the correction pass, out of the box | 8.4% | 244 / 375 |
+| With the correction pass and your words | **6.3%** | **286 / 375** |
 
 **Same audio, different history.** For 13 ambiguous sentences (Rust/rust, Shaun/Sean, Teams/teams, Claude/cloud,
 Swift/SWIFT, Lyft/lift, Sydney/Sidney, ...), each spoken by 3 voices, Tiro chose the reading that matched the
@@ -260,9 +263,9 @@ user's history in **75 of 78** runs.
 voices, the correction pass changed a word that was already right in **0 of 810** sentences. It also fixed 4
 genuine misrecognitions.
 
-**Speed.** At the end of speech, the correction pass adds **0.1 ms** (median) and **1.8 ms** (95th percentile)
+**Speed.** At the end of speech, the correction pass adds **0.1 ms** (median) and **1.9 ms** (95th percentile)
 before the last words are typed, against targets of 30 ms and 150 ms. With nothing prepared in advance, the worst
-case, it's 12.5 ms at the 95th percentile.
+case, it's 12.2 ms at the 95th percentile.
 
 ## Privacy
 

@@ -294,7 +294,7 @@ class SetupWizard(QWidget):
         bl = QGridLayout(box)
         bl.setContentsMargins(18, 12, 18, 12)
         self.dev_combo = Combo()
-        gpu_label = "Apple GPU / Neural Engine" if IS_MAC else "NVIDIA GPU (CUDA)"
+        gpu_label = "Core ML (experimental)" if IS_MAC else "NVIDIA GPU (CUDA)"
         for key, label in (("auto", "Recommended"), ("cuda", gpu_label), ("cpu", "Processor only")):
             self.dev_combo.addItem(label, key)
         bl.addWidget(QLabel("Speech recognition runs on"), 0, 0)
@@ -481,7 +481,7 @@ class SetupWizard(QWidget):
             choice = choice if choice in LANGUAGE_MODELS else "tiny"
             mlx = IS_MAC and _has_mlx()
             lm = (MLX_LANGUAGE_MODELS if mlx else LANGUAGE_MODELS)[choice]
-            lm_variant = "fp32" if (mlx or want_gpu) else "int8"
+            lm_variant = "fp32" if (mlx or want_gpu) else "int8"  # (MLX has a single build)
             if find_model(lm, lm_variant) is None:
                 out.append(("ai", f"AI check · {lm.title}", lm, lm_variant))
         return out

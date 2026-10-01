@@ -1,4 +1,4 @@
-## Tiro 2.0: your words, right
+## Tiro 2.0.1: your words, right
 
 Hold a key, speak, let go: Tiro types what you said wherever your cursor is. Everything runs on your own computer.
 
@@ -10,7 +10,13 @@ Hold a key, speak, let go: Tiro types what you said wherever your cursor is. Eve
 | **Mac with Apple Silicon (M1 or newer), macOS 13+** | [Tiro-mac-arm64.dmg](https://github.com/Min3scon/tiro/releases/latest/download/Tiro-mac-arm64.dmg): open it and drag Tiro to Applications. **Intel Macs aren't supported.** The first launch needs one extra step because Tiro isn't signed with a paid Apple ID: see [the README](https://github.com/Min3scon/tiro#mac-apple-silicon). |
 | Portable Windows app | `Tiro-…-app-win64.zip` (plus `Tiro-…-gpu-runtime-win64.zip` for NVIDIA GPUs; the app's setup fetches it for you) |
 
-### What's new
+### What's new in 2.0.1
+
+- On Macs, speech now runs on the Apple chip's CPU cores with the compact model (about 6× faster than before on M1)
+  and the download is 1.8 GB smaller. Core ML stays available as an experimental option.
+- Safer corrections: a strong audio mismatch now vetoes a candidate outright, whatever else supports it.
+
+### Tiro 2.0
 
 - **A correction pass that learns what you mean.** Rare names, brands, places, games and jargon come out the way you
   write them: from your dictionary, fixes you teach it, and your own dictation history. Candidates are checked

@@ -105,10 +105,13 @@ def recommend(hw: Hardware) -> Plan:
     """Pick the backend and models, and say why."""
     if hw.apple_chip:
         ai = "small" if hw.ram_gb >= 8 else "tiny"
-        return Plan("coreml", "fp32", ai, f"Your {hw.apple_chip} will run Tiro on its GPU and Neural Engine.",
-                    ["Speech recognition runs through Core ML, on the Mac's own graphics and Neural Engine.",
-                     f"The AI check uses the {'1.5B' if ai == 'small' else '0.5B'} model on the GPU with Apple's MLX.",
-                     "Everything runs on your Mac, without an internet connection once it's downloaded."], 3.3)
+        return Plan("cpu", "int8", ai, f"Your {hw.apple_chip} will run Tiro.",
+                    ["Speech recognition runs on the chip's CPU cores with the compact model. On Apple Silicon this "
+                     "was faster than Core ML for Tiro's speech model in our tests, and it leaves the GPU free.",
+                     f"The AI check uses the {'1.5B' if ai == 'small' else '0.5B'} model on the GPU, through "
+                     "Apple's MLX.",
+                     "Everything runs on your Mac, without an internet connection once it's downloaded."],
+                    0.63 + (0.88 if ai == "small" else 0.29))
     g = hw.gpu
     if g is not None and g.usable and g.memory_gb >= 3.5:
         ai = "small" if g.memory_gb >= 6 else "tiny"

@@ -298,7 +298,7 @@ class SettingsWindow(QWidget):
         self.model.currentIndexChanged.connect(self._model_changed)
         self._row(grid, 0, "Model", self.model)
         self.device = Combo()
-        gpu = "Apple GPU / Neural Engine" if IS_MAC else "NVIDIA GPU (CUDA)"
+        gpu = "Core ML (GPU / Neural Engine, experimental)" if IS_MAC else "NVIDIA GPU (CUDA)"
         for key, label in (("auto", "Automatic (GPU when available)"), ("cuda", gpu), ("cpu", "CPU only")):
             self.device.addItem(label, key)
         self.device.setCurrentIndex(max(0, self.device.findData(s.device)))

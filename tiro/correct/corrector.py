@@ -80,8 +80,8 @@ ACOUSTIC_OK = 3.0  # "supports it well": at most this many nats worse than what 
 RULE_FLOOR = 0.3  # fixes you taught explicitly
 NO_AUDIO_SCALE = 16.0  # without audio, guess the acoustic penalty from spelling similarity
 SPELLING_SLACK = 2.0  # near-identical spellings sound the same: cap the penalty at the no-audio guess + this
-CAP_SIMILARITY = 0.8  # ... "near-identical" means at least this similar
-ACOUSTIC_VETO = 12.0  # an audio penalty this large rules a candidate out, whatever else supports it
+CAP_SIMILARITY = 0.6  # ... for spellings at least this similar
+ACOUSTIC_VETO = 20.0  # an audio mismatch this large (before any cap) rules a candidate out, whatever else supports it
 MAX_HOLD = 2  # doubtful words kept back at a commit boundary, so a name isn't split across commits
 LATE_TIMEOUT = 1.5  # seconds a late language-model check may take (after that the text stays as typed)
 
@@ -482,7 +482,7 @@ class Corrector:
                 cap = math.inf  # different enough that the audio's verdict stands
             penalty = min(d, cap) if d is not None else guess
             c.total = c.prior - penalty
-            c.vetoed = d is not None and penalty >= ACOUSTIC_VETO  # the audio clearly says no: nothing overrides it
+            c.vetoed = d is not None and d >= ACOUSTIC_VETO  # the audio clearly says no: nothing overrides it
 
 
 class _Cache:

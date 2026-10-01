@@ -247,7 +247,9 @@ class ParakeetEngine:
                 log.exception("CUDA initialisation failed, falling back to CPU")
                 self.fallback_reason = f"CUDA initialisation failed: {exc}"
                 self._asr = None
-        if self._asr is None and sys.platform == "darwin" and self.requested_device in ("auto", "cuda"):
+        if self._asr is None and sys.platform == "darwin" and self.requested_device == "cuda":
+            # Apple Silicon, "GPU / Neural Engine" chosen in Settings (experimental): Core ML for the encoder.
+            # Measured on M1: the int8 model on the CPU cores is faster for Parakeet, so that's the default.
             # Apple Silicon: the encoder runs through Core ML (GPU / Neural Engine), the small decoder on CPU
             try:
                 self._asr = self._build(coreml=True)
@@ -269,7 +271,7 @@ class ParakeetEngine:
                 log.warning("GPU requested but unavailable (%s); using CPU", self.fallback_reason)
             self._asr = self._build(cuda=False)
             self.device = "cpu"
-            self.device_label = "CPU"
+            self.device_label = "Apple Silicon CPU" if sys.platform == "darwin" else "CPU"
             self._warmup()
         self._apply_boost()
         log.info("ASR ready on %s in %.1fs (%s)", self.device_label, time.perf_counter() - t0, self.model_dir.name)
@@ -313,7 +315,7 @@ class ParakeetEngine:
                     {
                         "ModelFormat": "MLProgram",
                         "MLComputeUnits": "ALL",
-                        "RequireStaticInputShapes": "0",  # audio length varies (in a few fixed buckets)
+                        "RequireStaticInputShapes": "1",  # dynamic shapes fail to compile; the buckets keep it to a few
                         "ModelCacheDirectory": str(cache),
                     },
                 ),
@@ -326,14 +328,19 @@ class ParakeetEngine:
         full = (self.model_dir / "encoder-model.onnx").is_file() and (self.model_dir / "encoder-model.onnx.data").is_file()
         if (cuda or coreml) and not full:
             raise RuntimeError("GPU mode needs the full-precision model; this install has the compact CPU model")
-        quant = None if full else "int8"
+        int8 = (self.model_dir / "encoder-model.int8.onnx").is_file()
+        # On a CPU: x86 runs the fp32 encoder a little faster, Apple Silicon (ARM) the int8 one about 6x faster.
+        prefer_int8 = not (cuda or coreml) and int8 and (sys.platform == "darwin" or not full)
+        quant = "int8" if prefer_int8 or not full else None
+        if coreml:
+            so.add_session_config_entry("session.disable_cpu_ep_fallback", "0")
         files = Resolver(cls, None, self.model_dir, offline=True).resolve_model(quantization=quant)
         asr = cls(files, manager._create_preprocessor, manager.default_onnx_config)
         asr.bucket_frames = GPU_BUCKETS if (cuda or coreml) else ()
-        self.variant = "fp32" if full else "int8"
+        self.variant = "int8" if quant == "int8" else "fp32"
         if coreml:
             providers = ["CPUExecutionProvider"]  # the decoder runs step by step: CPU is faster for it
-        if not cuda and full:
+        if not cuda and full and quant is None:
             # The int8 joint network is ~4x faster on CPU with identical accuracy on our tests.
             dso = ort.SessionOptions()
             dso.log_severity_level = 3

@@ -889,7 +889,7 @@
   "after, out of the box (starter set only)": {
    "wer": 0.083710407239819,
    "terms": [
-    235,
+    244,
     375
    ],
    "by_category": {
@@ -899,9 +899,9 @@
     "numbers_units_acronyms": 0.18518518518518517,
     "people": 0.09848484848484848,
     "places": 0.09090909090909091,
-    "slang": 0.07692307692307693,
+    "slang": 0.09157509157509157,
     "split_merged": 0.05333333333333334,
-    "tech": 0.0462046204620462
+    "tech": 0.033003300330033
    },
    "samples": [
     [
@@ -978,7 +978,7 @@
     ],
     [
      "I lost the whole evening to Balatro chasing a flush build.",
-     "I lost the whole evening to BALATRO chasing a flush build."
+     "I lost the whole evening to Balatro chasing a flush build."
     ],
     [
      "I lost the whole evening to Balatro chasing a flush build.",
@@ -1050,11 +1050,11 @@
     ],
     [
      "We ordered Deliveroo again because nobody could be bothered to cook.",
-     "We ordered deliveroo again because nobody could be bothered to cook."
+     "We ordered Deliveroo again because nobody could be bothered to cook."
     ],
     [
      "We ordered Deliveroo again because nobody could be bothered to cook.",
-     "We ordered deliveroo again because nobody could be bothered to cook."
+     "We ordered Deliveroo again because nobody could be bothered to cook."
     ],
     [
      "We ordered Deliveroo again because nobody could be bothered to cook.",
@@ -1146,15 +1146,15 @@
     ],
     [
      "Add a Pydantic model for the request body and let FastAPI validate it.",
-     "Add a pydantic model for the request body and let FastAPI validate it."
+     "Add a Pydantic model for the request body and let FastAPI validate it."
     ],
     [
      "Add a Pydantic model for the request body and let FastAPI validate it.",
-     "Add a PyDantic model for the request body and let FastAPI validate it."
+     "Add a Pydantic model for the request body and let FastAPI validate it."
     ],
     [
      "Add a Pydantic model for the request body and let FastAPI validate it.",
-     "Add a pydantic model for the request body and let FastAPI validate it."
+     "Add a Pydantic model for the request body and let FastAPI validate it."
     ],
     [
      "Export the encoder to ONNX and run it with the CUDA execution provider.",
@@ -1170,23 +1170,23 @@
     ],
     [
      "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
-     "Our terraform plan keeps trying to recreate the Gruffagna dashboards on every deploy."
+     "Our Terraform plan keeps trying to recreate the Gruffagna dashboards on every deploy."
     ],
     [
      "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
-     "Our terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
     ],
     [
      "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
-     "Our terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
     ],
     [
      "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
-     "Swap the raw queries for SQL Alchemy sessions before we add more endpoints."
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints."
     ],
     [
      "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
-     "Swap the raw queries for SQL Alchemy sessions before we add more endpoints."
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints."
     ],
     [
      "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
@@ -1398,7 +1398,7 @@
     ],
     [
      "She's being so delulu about that situationship, he's never texting back.",
-     "She's being so delulu about that situationship, he's never texting back."
+     "She's being so delulu about that situation ship, he's never texting back."
     ],
     [
      "She's being so delulu about that situationship, he's never texting back.",
@@ -1406,7 +1406,7 @@
     ],
     [
      "She's being so delulu about that situationship, he's never texting back.",
-     "She's being so delulu about that situationship, he's never texting back."
+     "She's being so delulu about that situation ship, he's never texting back."
     ],
     [
      "That new ramen place was bussin, we should go again on Friday.",
@@ -1771,20 +1771,20 @@
    ]
   },
   "after, with your words (dictionary of the test terms)": {
-   "wer": 0.058069381598793365,
+   "wer": 0.06297134238310709,
    "terms": [
-    295,
+    286,
     375
    ],
    "by_category": {
     "apps_brands": 0.016666666666666666,
-    "games": 0.06872852233676977,
+    "games": 0.06529209621993128,
     "homophones": 0.01,
     "numbers_units_acronyms": 0.18518518518518517,
-    "people": 0.06060606060606061,
-    "places": 0.037037037037037035,
-    "slang": 0.07692307692307693,
-    "split_merged": 0.05333333333333334,
+    "people": 0.08333333333333333,
+    "places": 0.04713804713804714,
+    "slang": 0.09157509157509157,
+    "split_merged": 0.056666666666666664,
     "tech": 0.006600660066006601
    },
    "samples": [
@@ -1850,7 +1850,7 @@
     ],
     [
      "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
-     "We lost our Balatro's Gate 3 save, so a Astarion is gone forever."
+     "We lost our Baldur's Gate 3 save, so a Astarion is gone forever."
     ],
     [
      "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
@@ -2106,11 +2106,11 @@
     ],
     [
      "Can you loop in Saoirse from legal before we sign anything?",
-     "Can you loop in Saoirse from legal before we sign anything?"
+     "Can you loop in Siersha from legal before we sign anything?"
     ],
     [
      "Can you loop in Saoirse from legal before we sign anything?",
-     "Can you loop in Saoirse from legal before we sign anything?"
+     "Can you loop in Siersha from legal before we sign anything?"
     ],
     [
      "Joaquin is driving down with Xavier, so save them a couple of seats.",
@@ -2150,15 +2150,15 @@
     ],
     [
      "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
-     "Ask Krzysztof whether the Warsaw Office got the new laptops yet."
+     "Ask Kshish Tof whether the Warsaw Office got the new laptops yet."
     ],
     [
      "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
-     "Ask Krzysztof whether the Warsaw Office got the new laptops yet."
+     "Ask Shishtoff whether the Warsaw Office got the new laptops yet."
     ],
     [
      "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
-     "Ask Krzysztof whether the Warsaw Office got the new laptops yet."
+     "Ask Szishtov whether the Warsaw Office got the new laptops yet."
     ],
     [
      "Siddharth is presenting the roadmap, so keep your questions for the end.",
@@ -2182,7 +2182,7 @@
     ],
     [
      "We're staying in Worcester for two nights before heading up to Edinburgh.",
-     "We're staying in Worcester for two nights before heading up to Edinburgh."
+     "We're staying in Vestur for two nights before heading up to Edinburgh."
     ],
     [
      "The client is based in Loughborough, so it's a long drive from here.",
@@ -2198,7 +2198,7 @@
     ],
     [
      "I booked a little cabin near Llandudno for the bank holiday weekend.",
-     "I booked a little cabin near Llandudno for the bank holiday weekend."
+     "I booked a little cabin near Clan Didno for the bank holiday weekend."
     ],
     [
      "I booked a little cabin near Llandudno for the bank holiday weekend.",
@@ -2270,7 +2270,7 @@
     ],
     [
      "His rizz is honestly unmatched, she gave him her number straight away.",
-     "His Redis is honestly unmatched. She gave him her number straight away."
+     "His Riz is honestly unmatched. She gave him her number straight away."
     ],
     [
      "His rizz is honestly unmatched, she gave him her number straight away.",
@@ -2282,7 +2282,7 @@
     ],
     [
      "She's being so delulu about that situationship, he's never texting back.",
-     "She's being so delulu about that situationship, he's never texting back."
+     "She's being so delulu about that situation ship, he's never texting back."
     ],
     [
      "She's being so delulu about that situationship, he's never texting back.",
@@ -2290,7 +2290,7 @@
     ],
     [
      "She's being so delulu about that situationship, he's never texting back.",
-     "She's being so delulu about that situationship, he's never texting back."
+     "She's being so delulu about that situation ship, he's never texting back."
     ],
     [
      "That new ramen place was bussin, we should go again on Friday.",
@@ -2482,7 +2482,7 @@
     ],
     [
      "We're switching the backend from Firebase to Supabase next sprint.",
-     "We're switching the backhand from Firebase to Supabase next sprint."
+     "We're switching the backhand from Firebase to Superbase next sprint."
     ],
     [
      "Send me your LinkedIn and I'll pass it on to the hiring manager.",
@@ -3203,33 +3203,18 @@
  ],
  "noharm": {
   "sentences": 810,
-  "edits": 9,
-  "harmful": 2,
+  "edits": 8,
+  "harmful": 0,
   "helpful": 4,
-  "harmed_sentences": 2,
-  "rows": [
-   {
-    "id": "nh-179",
-    "voice": "hazel",
-    "expect": "Whomst among us has not eaten cereal at midnight?",
-    "raw": "Whomst among us has not eaten cereal at midnight?",
-    "out": "Whomst Among Us has not eaten cereal at midnight?"
-   },
-   {
-    "id": "nh-198",
-    "voice": "zira",
-    "expect": "Leave the keys in the drop box by the front desk.",
-    "raw": "Leave the keys in the drop box by the front desk.",
-    "out": "Leave the keys in the Dropbox by the front desk."
-   }
-  ],
+  "harmed_sentences": 0,
+  "rows": [],
   "by_category": {
    "everyday": [
     0,
     258
    ],
    "names_common": [
-    1,
+    0,
     138
    ],
    "numbers": [
@@ -3237,7 +3222,7 @@
     120
    ],
    "odd": [
-    1,
+    0,
     144
    ],
    "slang": [
@@ -3248,27 +3233,27 @@
  },
  "speed": {
   "on_commit_ms": {
-   "median": 0.02429999949526973,
-   "p95": 1.5759999987494666,
-   "max": 188.09650000002875,
+   "median": 0.02519999907235615,
+   "p95": 1.4751999988220632,
+   "max": 152.30909999809228,
    "n": 1381
   },
   "on_final_ms": {
-   "median": 0.05295000028127106,
-   "p95": 1.8466999990778277,
-   "max": 157.9691000006278,
+   "median": 0.05395000152930152,
+   "p95": 1.8564999991212972,
+   "max": 152.30909999809228,
    "n": 216
   },
   "on_cold_commit_ms": {
-   "median": 0.024499999199179,
-   "p95": 9.25439999991795,
-   "max": 67.2749000004842,
+   "median": 0.025399996957276016,
+   "p95": 9.363999997731298,
+   "max": 85.11230000294745,
    "n": 1381
   },
   "on_cold_final_ms": {
-   "median": 0.053700000535172876,
-   "p95": 12.52339999882679,
-   "max": 29.492300000129035,
+   "median": 0.053899999329587445,
+   "p95": 12.193200000183424,
+   "max": 29.53689999776543,
    "n": 216
   }
  },

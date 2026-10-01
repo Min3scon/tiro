@@ -9,22 +9,22 @@ Word error rate (lower is better) and how many of the tricky terms came out exac
 | Setup | WER | Terms right |
 |---|---|---|
 | before (no correction) | 9.9% | 208/375 |
-| after, out of the box (starter set only) | 8.4% | 235/375 |
-| after, with your words (dictionary of the test terms) | 5.8% | 295/375 |
+| after, out of the box (starter set only) | 8.4% | 244/375 |
+| after, with your words (dictionary of the test terms) | 6.3% | 286/375 |
 
 By category (WER):
 
 | Category | before (no correction) | after, out of the box (starter set only) | after, with your words (dictionary of the test terms) |
 |---|---|---|---|
 | apps_brands | 6.7% | 5.3% | 1.7% |
-| games | 15.8% | 13.4% | 6.9% |
+| games | 15.8% | 13.4% | 6.5% |
 | homophones | 0.7% | 1.0% | 1.0% |
 | numbers_units_acronyms | 17.6% | 18.5% | 18.5% |
-| people | 12.9% | 9.8% | 6.1% |
-| places | 10.1% | 9.1% | 3.7% |
-| slang | 10.3% | 7.7% | 7.7% |
-| split_merged | 7.7% | 5.3% | 5.3% |
-| tech | 7.6% | 4.6% | 0.7% |
+| people | 12.9% | 9.8% | 8.3% |
+| places | 10.1% | 9.1% | 4.7% |
+| slang | 10.3% | 9.2% | 9.2% |
+| split_merged | 7.7% | 5.3% | 5.7% |
+| tech | 7.6% | 3.3% | 0.7% |
 
 Numbers, units and acronyms are scored against written forms ("1.4 kg", "USB-C"); the correction pass never reformats text, so that category shows the recogniser's own formatting.
 
@@ -82,13 +82,8 @@ Each sentence is ambiguous (Rust/rust, Shaun/Sean, Teams/teams...). It is run tw
 
 Everyday speech, slang, odd phrasing, common names and numbers, with a personal dictionary loaded. An unwanted change is any edit to a word that was already right.
 
-- Unwanted-change rate: **0.25%** of sentences (2/810)
-- Edits made: 9 (4 fixed a misrecognition, 2 were unwanted)
-
-| Expected | Recognised | After correction |
-|---|---|---|
-| Whomst among us has not eaten cereal at midnight? | Whomst among us has not eaten cereal at midnight? | Whomst Among Us has not eaten cereal at midnight? |
-| Leave the keys in the drop box by the front desk. | Leave the keys in the drop box by the front desk. | Leave the keys in the Dropbox by the front desk. |
+- Unwanted-change rate: **0.00%** of sentences (0/810)
+- Edits made: 8 (4 fixed a misrecognition, 0 were unwanted)
 
 ## Speed (NVIDIA GeForce RTX 3070 (CUDA))
 
@@ -96,8 +91,8 @@ Time the correction pass adds before the final words are typed (end of speech ->
 
 | | median | p95 | max |
 |---|---|---|---|
-| Final commit, warm | 0.1 ms | 1.8 ms | 158.0 ms |
-| Final commit, cold | 0.1 ms | 12.5 ms | 29.5 ms |
-| Every commit, warm | 0.0 ms | 1.6 ms | 188.1 ms |
+| Final commit, warm | 0.1 ms | 1.9 ms | 152.3 ms |
+| Final commit, cold | 0.1 ms | 12.2 ms | 29.5 ms |
+| Every commit, warm | 0.0 ms | 1.5 ms | 152.3 ms |
 
 Targets: median under 30 ms, p95 under 150 ms.
