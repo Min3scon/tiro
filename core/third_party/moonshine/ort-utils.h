@@ -1,0 +1,160 @@
+#ifndef ORT_UTILS_H
+#define ORT_UTILS_H
+
+#include <filesystem>
+#include <string>
+#include <vector>
+
+#if defined(ANDROID)
+#include <android/asset_manager.h>
+#endif
+
+#include "debug-utils.h"
+#include "onnxruntime_c_api.h"
+
+struct OrtExecutionProviderOptions {
+  const char *coreml_cache_dir = nullptr;
+};
+
+#define RETURN_ON_ORT_ERROR(ort_api, expr)                     \
+  do {                                                         \
+    OrtStatus *onnx_status = (expr);                           \
+    if (onnx_status != NULL) {                                 \
+      const char *msg = ort_api->GetErrorMessage(onnx_status); \
+      LOGF("ORT Error: %s", msg);                              \
+      ort_api->ReleaseStatus(onnx_status);                     \
+      return -1;                                               \
+    }                                                          \
+  } while (0);
+
+#define LOG_ORT_ERROR(ort_api, expr)                           \
+  do {                                                         \
+    OrtStatus *onnx_status = (expr);                           \
+    if (onnx_status != NULL) {                                 \
+      const char *msg = ort_api->GetErrorMessage(onnx_status); \
+      LOGF("ORT Error: %s", msg);                              \
+      ort_api->ReleaseStatus(onnx_status);                     \
+    }                                                          \
+  } while (0);
+
+// Creates an OrtEnv. On the multithreaded WebAssembly build ORT defaults
+// SessionOptions::use_per_session_threads to false (see ORT's
+// core/framework/session_options.h), so every session then requires the env to
+// own the process-wide (global) thread pools -- otherwise session creation
+// fails with "the env must be created with the CreateEnvWithGlobalThreadPools
+// API". Everywhere else the per-session default holds and plain CreateEnv is
+// correct. Always create envs through this helper so the wasm-threaded build
+// runs inference instead of aborting at session construction.
+OrtStatus *ort_create_env(const OrtApi *ort_api, OrtLoggingLevel logging_level,
+                          const char *logid, OrtEnv **out);
+
+int ort_session_from_path(const OrtApi *ort_api, OrtEnv *env,
+                          OrtSessionOptions *session_options, const char *path,
+                          OrtSession **session, const char **mmapped_data,
+                          size_t *mmapped_data_size);
+
+#ifdef _WIN32
+// TIRO: releases a view created by ort_session_from_path on Windows.
+void ort_unmap(const char **data, size_t *size);
+#endif
+
+int ort_session_from_memory(const OrtApi *ort_api, OrtEnv *env,
+                            OrtSessionOptions *session_options,
+                            const uint8_t *data, size_t data_size,
+                            OrtSession **session);
+
+#if defined(ANDROID)
+int ort_session_from_asset(const OrtApi *ort_api, OrtEnv *env,
+                           OrtSessionOptions *session_options,
+                           AAssetManager *assetManager, const char *path,
+                           OrtSession **session, const char **mmapped_data,
+                           size_t *mmapped_data_size);
+#endif
+
+std::vector<int64_t> ort_get_shape(const OrtApi *ort_api,
+                                   OrtTypeInfo *type_info);
+
+ONNXTensorElementDataType ort_get_type(const OrtApi *ort_api,
+                                       OrtTypeInfo *type_info);
+
+std::vector<int64_t> ort_get_input_shape(const OrtApi *ort_api,
+                                         OrtSession *session, int index);
+
+ONNXTensorElementDataType ort_get_input_type(const OrtApi *ort_api,
+                                             OrtSession *session, int index);
+
+std::vector<int64_t> ort_get_output_shape(const OrtApi *ort_api,
+                                          OrtSession *session, int index);
+
+ONNXTensorElementDataType ort_get_output_type(const OrtApi *ort_api,
+                                              OrtSession *session, int index);
+
+std::vector<int64_t> ort_get_value_shape(const OrtApi *ort_api,
+                                         const OrtValue *value);
+
+ONNXTensorElementDataType ort_get_value_type(const OrtApi *ort_api,
+                                             const OrtValue *value);
+
+#define ORT_RUN(ort_api, session, input_names, inputs, input_count,         \
+                output_names, output_count, outputs)                        \
+  ort_run(ort_api, session, input_names, inputs, input_count, output_names, \
+          output_count, outputs, #session, this->log_ort_run)
+
+OrtStatus *ort_run(const OrtApi *ort_api, OrtSession *session,
+                   const char *const *input_names,
+                   const OrtValue *const *inputs, size_t input_len,
+                   const char *const *output_names, size_t output_names_len,
+                   OrtValue **outputs, const char *session_name,
+                   bool log_ort_run);
+
+// Reliability-only escape hatch: when the MOONSHINE_ORT_SINGLE_THREAD
+// environment variable is set to a non-empty value other than "0", force this
+// session to run entirely on the calling thread (intra-op = inter-op = 1,
+// sequential execution) so onnxruntime spawns no internal thread pool.
+//
+// This is intended solely for running the library under ThreadSanitizer, whose
+// interceptors deadlock inside onnxruntime's uninstrumented thread-pool
+// synchronization. Production builds never set the variable, so this is a no-op
+// there with zero performance impact. Call immediately after
+// CreateSessionOptions.
+void ort_maybe_force_single_thread(const OrtApi *ort_api,
+                                   OrtSessionOptions *session_options);
+
+// TIRO: called for every session's options (threads, spinning) right after creation.
+typedef void (*TiroSessionHook)(const OrtApi *ort_api, OrtSessionOptions *session_options);
+extern TiroSessionHook g_tiro_session_hook;
+// TIRO: when false, ONNX Runtime prepacks weights (faster int8 MatMul, more private memory).
+extern bool g_tiro_disable_prepacking;
+
+// Session flags for already-optimized .ort files loaded via mmap +
+// CreateSessionFromArray. use_ort_model_bytes_directly keeps ORT on the
+// mapped bytes instead of copying the weight buffer at load; disable_prepacking
+// and DisableCpuMemArena skip work the converter already did. Call after
+// CreateSessionOptions (and ort_maybe_force_single_thread).
+void ort_configure_ort_file_session(const OrtApi *ort_api,
+                                    OrtSessionOptions *session_options);
+
+std::vector<std::string> ort_parse_provider_names(const std::string &csv);
+
+OrtStatus *ort_append_execution_providers(
+    const OrtApi *ort_api, OrtSessionOptions *session_options,
+    const std::vector<std::string> &provider_names,
+    const OrtExecutionProviderOptions *config);
+
+inline void ort_configure_execution_providers(
+    const OrtApi *ort_api, OrtSessionOptions *session_options,
+    const std::vector<std::string> &provider_names,
+    const std::string &coreml_cache_dir) {
+  if (provider_names.empty()) {
+    return;
+  }
+  OrtExecutionProviderOptions config{};
+  if (!coreml_cache_dir.empty()) {
+    config.coreml_cache_dir = coreml_cache_dir.c_str();
+  }
+  LOG_ORT_ERROR(ort_api,
+                ort_append_execution_providers(ort_api, session_options,
+                                               provider_names, &config));
+}
+
+#endif

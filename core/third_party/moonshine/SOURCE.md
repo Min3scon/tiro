@@ -1,0 +1,1 @@
+Vendored from https://github.com/moonshine-ai/moonshine (core/), commit 234f60faa0eb388b01cdf7e60aca232af37aefda (2026-08-24), MIT licence (see LICENSE). Only the speech-to-text streaming runtime is included. Local changes are marked with 'TIRO:' comments.

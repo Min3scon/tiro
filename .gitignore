@@ -18,6 +18,9 @@ installer/out/
 # models are downloaded, never committed
 models/
 
+# training workspace: datasets, labels, checkpoints, exports (hundreds of GB, never committed)
+work/
+
 # regenerable test audio (dev/synth.ps1 recreates it)
 tests/accuracy/audio/
 tests/accuracy/REPORT-*.md

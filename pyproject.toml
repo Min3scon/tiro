@@ -38,4 +38,5 @@ testpaths = ["tests"]
 addopts = "-q"
 
 [tool.ruff]
+extend-exclude = ["work"]
 line-length = 120

@@ -1,0 +1,300 @@
+# How a TTS voice should read a term that its letter-to-sound rules get wrong (term <TAB> spoken form).
+# Only the audio uses this; the training label keeps the real spelling.
+Siobhan	shiv awn
+Niamh	neev
+Saoirse	seer sha
+Aoife	ee fa
+Caoimhe	kee va
+Sinéad	shin aid
+Clodagh	klo da
+Gráinne	graw nya
+Róisín	ro sheen
+Orlaith	or la
+Ciara	keera
+Ciarán	keer awn
+Oisín	usheen
+Pádraig	paw drig
+Séamus	shay mus
+Tadhg	tige
+Cillian	kill ee an
+Darragh	darra
+Eoin	owen
+Eoghan	owen
+Fionn	fin
+Cathal	ka hal
+Diarmuid	deer mid
+Aisling	ash ling
+Sadhbh	sive
+Nuala	noo la
+Úna	oona
+Eimear	ee mer
+Niall	nye al
+Ailsa	ale sa
+Eilidh	ay lee
+Mhairi	vah ree
+Iain	ee an
+Catriona	katreena
+Rhys	reess
+Siân	shahn
+Dafydd	dav ith
+Gethin	geth in
+Ioan	yo an
+Llewelyn	loo ell in
+Ffion	fee on
+Angharad	ang harad
+Gruffydd	griffith
+Huw	hue
+Owain	oh wine
+Lowri	loh ree
+Ptolemy	tol emmy
+Hermione	her my oh nee
+Persephone	per seff oh nee
+Imogen	im oh jen
+Joaquin	wah keen
+Xavier	zay vee er
+Ximena	hee may na
+Iñaki	in yaki
+Guillermo	gee air mo
+João	zhwow
+Gonçalo	gon salo
+Benoît	ben wah
+François	fran swah
+Thibault	tee bow
+Gaël	gah ell
+Loïc	lo eek
+Étienne	ay tee en
+Søren	sir en
+Jürgen	yur gen
+Joachim	yo ah kim
+Thijs	tice
+Joost	yoast
+Wojciech	voy chek
+Grzegorz	gzheh gosh
+Krzysztof	kshish toff
+Małgorzata	mow go zhata
+Agnieszka	ag nyesh ka
+Łukasz	woo kash
+Michał	mee how
+Paweł	pah vel
+Jiří	yir zhee
+Václav	vahts lahv
+Volodymyr	volo dimmer
+Xanthe	zan thee
+Giuseppe	joo zeppy
+Giacomo	jah como
+Niccolò	nicko lo
+Zsófia	zho fee a
+György	jurj
+László	lahss lo
+Mehmet	meh met
+Gökhan	gur han
+Ayşe	eye sheh
+Hüseyin	hoo say in
+Siddharth	sid arth
+Aishwarya	aish wary a
+Srinivasan	shree nee vah san
+Chaitanya	chai tun ya
+Xiaoming	shyow ming
+Zhou	joe
+Qian	chyen
+Xie	shyeh
+Zhao	jow
+Zheng	jung
+Jiang	jyahng
+Xiao	shyow
+Qiu	chyoh
+Xinyi	shin ee
+Nguyen	win
+Huynh	win
+Phuong	fung
+Seo-yeon	saw yun
+Oluwaseun	oh loo wa shay oon
+Chukwuemeka	chook woo eh meh ka
+Chimamanda	chee ma man da
+Ngozi	en go zee
+Nkechi	en keh chee
+Thandiwe	tan dee way
+Ngaio	nye oh
+Cholmondeley	chum lee
+Menzies	ming iss
+Dalziel	dee el
+Farquharson	far kerson
+Urquhart	er kurt
+Colquhoun	ka hoon
+Marjoribanks	march banks
+Chalamet	shala may
+Galifianakis	gally fee a nah kiss
+Nietzsche	nee cha
+Kierkegaard	keer kuh gard
+Wittgenstein	vit gen stine
+Goethe	ger tuh
+Dvořák	dvor zhahk
+Saint-Saëns	san sahns
+Schrödinger	shrer ding er
+Dijkstra	dike stra
+Torvalds	tor valds
+Reykjavík	rake ya vick
+Kyiv	keev
+Qatar	cutter
+Kraków	krack off
+Worcester	wuster
+Leicester	lester
+Loughborough	luff bra
+Edinburgh	edin bra
+Aberystwyth	aber ist with
+Llandudno	clan did no
+Tucson	too sahn
+Albuquerque	al buh kur kee
+Poughkeepsie	puh kip see
+Yosemite	yo sem it ee
+Phuket	poo ket
+Gloucester	gloster
+Bicester	bister
+Cirencester	siren sester
+Alnwick	annick
+Greenwich	grennich
+Norwich	norritch
+Southwark	suthuck
+Marylebone	marly bun
+Slough	slow
+Shrewsbury	shrooz bree
+Woolwich	woolitch
+Dulwich	dullitch
+Chiswick	chizzick
+Mousehole	mowzel
+Milngavie	mill guy
+Kirkcudbright	kir koo bree
+Kirkcaldy	kir kody
+Machynlleth	ma hun cleth
+Llanelli	clan ethly
+Pwllheli	pool heli
+Caernarfon	kire nar von
+Betws-y-Coed	bettoos uh koyd
+Dún Laoghaire	dun leery
+Cobh	cove
+Youghal	yawl
+Worcestershire	wuster sher
+Leicestershire	lester sher
+Gloucestershire	gloster sher
+Middlesbrough	middles bruh
+Schenectady	skuh neck tuh dee
+Ypsilanti	ipsy lanty
+Puyallup	pew al up
+Willamette	will am it
+Arkansas	ar kan saw
+Natchitoches	nack uh tish
+Coeur d'Alene	core duh lane
+La Jolla	la hoya
+Iqaluit	ee ka loo it
+Gatineau	gat in oh
+Wrocław	vrots wahf
+Łódź	wooj
+Gdańsk	g dansk
+Poznań	poz nan
+Szczecin	shcheh cheen
+Ljubljana	lyoob lyah na
+Chișinău	kee shee now
+Leuven	ler ven
+Liège	lee ezh
+Scheveningen	skay ven ing en
+'s-Hertogenbosch	sair toe hen boss
+Tromsø	trom sir
+Eyjafjallajökull	ay ya fyat la yer kutl
+Nuuk	nook
+Würzburg	vurts burg
+Göttingen	gut ing en
+Kharkiv	kar keev
+Lviv	luh veev
+Zaporizhzhia	zapo reezh zhya
+Gqeberha	keh beh ha
+Ouagadougou	wa ga doo goo
+Chefchaouen	shef sha wen
+Xi'an	shee ahn
+Ürümqi	oo room chee
+Xinjiang	shin jyahng
+Thiruvananthapuram	tiru vanan ta puram
+Woolloomooloo	wool uh muh loo
+Whangārei	fahng a ray
+Taupō	toe paw
+Kiribati	kiri bass
+Oaxaca	wa hah ka
+Querétaro	keh reh ta ro
+Guanajuato	gwana hwa to
+Chichén Itzá	chee chen eet sa
+Teotihuacán	tay oh tee wa kahn
+Tegucigalpa	teh goo see gal pa
+Curaçao	cure a so
+Eswatini	es wah tee nee
+Kubernetes	koo ber net eez
+K8s	kates
+kubectl	koob control
+PostgreSQL	post gress Q L
+MySQL	my S Q L
+SQLite	S Q L ite
+SQL Server	sequel server
+nginx	engine x
+Neo4j	neo for J
+PySpark	pie spark
+DuckDB	duck D B
+Golang	go lang
+Zsh	zed shell
+Neovim	neo vim
+PyPI	pie P I
+npm	N P M
+npx	N P X
+pnpm	P N P M
+Deno	dee no
+Nuxt	nukst
+Vite	veet
+Vitest	vee test
+pytest	pie test
+Pydantic	pie dantic
+Uvicorn	you vee corn
+Gunicorn	gee unicorn
+NumPy	num pie
+SciPy	sigh pie
+PyTorch	pie torch
+LlamaIndex	llama index
+spaCy	spacey
+Ollama	oh llama
+vLLM	V L L M
+cuDNN	coo D N N
+Godot	go doe
+Tokio	tokyo
+rustup	rust up
+sudo	soo doo
+chmod	ch mod
+chown	ch own
+rsync	R sync
+tmux	tee mux
+htop	H top
+FFmpeg	F F M peg
+jq	J Q
+gRPC	G R P C
+GraphQL	graph Q L
+OAuth	oh auth
+JWT	J W T
+YAML	yammel
+TOML	tom ul
+LaTeX	lay tech
+WSL2	W S L 2
+GGUF	G G U F
+LoRA	lora
+Qwen	chwen
+DeepSeek	deep seek
+x86-64	x eighty six sixty four
+NVMe	N V M E
+PCIe	P C I E
+DDR5	D D R 5
+i18n	internationalization
+a11y	accessibility
+Wasm	wazzum
+SwiftUI	swift U I
+Chromium	chrome ee um
+Tauri	tow ree
+GeoGuessr	geo guesser
+Valorant	val or ant
+Silksong	silk song
+Balatro	bal ah tro
+Genshin Impact	gen shin impact
+Honkai: Star Rail	hon kai star rail

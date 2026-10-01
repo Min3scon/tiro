@@ -1,0 +1,305 @@
+#include "debug-utils.h"
+
+#include <fcntl.h>
+
+#include <algorithm>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <numeric>
+
+#if defined(__APPLE__)
+#include <cxxabi.h>
+#include <execinfo.h>
+#endif
+
+void log_backtrace() {
+  // Only supported on Apple platforms for now
+#if defined(__APPLE__)
+  const int max_frames = 100;
+  void *callstack[max_frames];
+  int frames = backtrace(callstack, max_frames);
+  char **symbols = backtrace_symbols(callstack, frames);
+
+  LOGF("Backtrace (%d frames):", frames);
+
+  for (int i = 0; i < frames; ++i) {
+    std::string symbol_str(symbols[i]);
+
+    // Attempt to demangle the C++ symbol name
+    size_t begin = symbol_str.find_first_of('(');
+    size_t end = symbol_str.find_last_of('+');
+    if (begin != std::string::npos && end != std::string::npos && begin < end) {
+      std::string mangled_name = symbol_str.substr(begin + 1, end - begin - 1);
+      int status;
+      char *demangled_name =
+          abi::__cxa_demangle(mangled_name.c_str(), nullptr, nullptr, &status);
+
+      if (status == 0) {
+        LOGF("%d: %s [0x%lx]", i, demangled_name, (uintptr_t)callstack[i]);
+        std::free(demangled_name);
+        continue;  // Continue to next frame
+      }
+    }
+    // Fallback for non-c++ or failed demangling
+    LOGF("%d: %s", i, symbol_str.c_str());
+  }
+
+  std::free(symbols);
+#endif
+}
+
+bool load_wav_data(const char *path, float **out_float_data,
+                   size_t *out_num_samples, int32_t *out_sample_rate) {
+  *out_float_data = nullptr;
+  *out_num_samples = 0;
+
+  // Open the file in binary mode
+  FILE *file = std::fopen(path, "rb");
+  if (!file) {
+    std::perror("Failed to open WAV file");
+    return false;
+  }
+
+  // Read the RIFF header
+  char riff_header[4];
+  if (std::fread(riff_header, 1, 4, file) != 4 ||
+      std::strncmp(riff_header, "RIFF", 4) != 0) {
+    std::fclose(file);
+    std::fprintf(stderr, "Not a RIFF file\n");
+    return false;
+  }
+
+  // Skip chunk size and check WAVE
+  std::fseek(file, 4, SEEK_CUR);
+  char wave_header[4];
+  if (std::fread(wave_header, 1, 4, file) != 4 ||
+      std::strncmp(wave_header, "WAVE", 4) != 0) {
+    std::fclose(file);
+    std::fprintf(stderr, "Not a WAVE file\n");
+    return false;
+  }
+
+  // Find the "fmt " chunk
+  char chunk_id[4];
+  uint32_t chunk_size = 0;
+  bool found_fmt = false;
+  while (std::fread(chunk_id, 1, 4, file) == 4) {
+    if (std::fread(&chunk_size, 4, 1, file) != 1) break;
+    if (std::strncmp(chunk_id, "fmt ", 4) == 0) {
+      found_fmt = true;
+      break;
+    }
+    std::fseek(file, chunk_size, SEEK_CUR);
+  }
+  if (!found_fmt) {
+    std::fclose(file);
+    std::fprintf(stderr, "No fmt chunk found\n");
+    return false;
+  }
+
+  // Read fmt chunk
+  uint16_t audio_format = 0, num_channels = 0, bits_per_sample = 0;
+  uint32_t sample_rate = 0, byte_rate = 0;
+  uint16_t block_align = 0;
+  if (chunk_size < 16) {
+    std::fclose(file);
+    std::fprintf(stderr, "fmt chunk too small\n");
+    return false;
+  }
+  if (std::fread(&audio_format, sizeof(uint16_t), 1, file) != 1 ||
+      std::fread(&num_channels, sizeof(uint16_t), 1, file) != 1 ||
+      std::fread(&sample_rate, sizeof(uint32_t), 1, file) != 1 ||
+      std::fread(&byte_rate, sizeof(uint32_t), 1, file) != 1 ||
+      std::fread(&block_align, sizeof(uint16_t), 1, file) != 1 ||
+      std::fread(&bits_per_sample, sizeof(uint16_t), 1, file) != 1) {
+    std::fclose(file);
+    std::fprintf(stderr, "Truncated fmt chunk\n");
+    return false;
+  }
+  // Skip any extra fmt bytes
+  if (chunk_size > 16) std::fseek(file, chunk_size - 16, SEEK_CUR);
+
+  if (audio_format != 1 || bits_per_sample != 16) {
+    std::fclose(file);
+    std::fprintf(stderr, "Only 16-bit PCM WAV files are supported\n");
+    return false;
+  }
+
+  // Find the "data" chunk
+  bool found_data = false;
+  while (std::fread(chunk_id, 1, 4, file) == 4) {
+    if (std::fread(&chunk_size, 4, 1, file) != 1) break;
+    if (std::strncmp(chunk_id, "data", 4) == 0) {
+      found_data = true;
+      break;
+    }
+    std::fseek(file, chunk_size, SEEK_CUR);
+  }
+  if (!found_data) {
+    std::fclose(file);
+    std::fprintf(stderr, "No data chunk found\n");
+    return false;
+  }
+
+  // The data chunk size comes straight from the (untrusted) file header, so a
+  // corrupt or malicious WAV can claim a chunk far larger than the file. Clamp
+  // it to the bytes actually present before allocating, otherwise the malloc
+  // below can request gigabytes and OOM the process.
+  const long data_start = std::ftell(file);
+  if (data_start < 0 || std::fseek(file, 0, SEEK_END) != 0) {
+    std::fclose(file);
+    std::fprintf(stderr, "Failed to determine WAV data size\n");
+    return false;
+  }
+  const long file_end = std::ftell(file);
+  if (file_end < data_start || std::fseek(file, data_start, SEEK_SET) != 0) {
+    std::fclose(file);
+    std::fprintf(stderr, "Failed to seek to WAV data\n");
+    return false;
+  }
+  const size_t available_bytes = static_cast<size_t>(file_end - data_start);
+  const size_t bytes_per_sample = bits_per_sample / 8;
+  if (chunk_size > available_bytes) {
+    chunk_size = static_cast<uint32_t>(available_bytes);
+  }
+
+  // Read PCM data
+  size_t num_samples = chunk_size / bytes_per_sample;
+  if (num_samples == 0) {
+    std::fclose(file);
+    std::fprintf(stderr, "No samples found\n");
+    return false;
+  }
+  float *result_data = (float *)malloc(num_samples * sizeof(float));
+  if (result_data == nullptr) {
+    std::fclose(file);
+    std::fprintf(stderr, "Failed to allocate %zu samples\n", num_samples);
+    return false;
+  }
+  for (size_t i = 0; i < num_samples; ++i) {
+    int16_t sample = 0;
+    if (std::fread(&sample, sizeof(int16_t), 1, file) != 1) {
+      free(result_data);
+      std::fclose(file);
+      std::fprintf(stderr, "Failed to read sample %zu\n", i);
+      return false;
+    }
+    result_data[i] = static_cast<float>(sample) / 32768.0f;
+  }
+  std::fclose(file);
+  *out_float_data = result_data;
+  *out_num_samples = num_samples;
+  *out_sample_rate = sample_rate;
+  return true;
+}
+
+bool save_wav_data(const char *path, const float *audio_data,
+                   size_t num_samples, uint32_t sample_rate) {
+  FILE *file = std::fopen(path, "wb");
+  if (!file) {
+    std::perror("Failed to open WAV file");
+    return false;
+  }
+
+  std::vector<int16_t> audio_int16(num_samples);
+  for (size_t i = 0; i < num_samples; i++) {
+    const float float_value = gate(audio_data[i], -1.0f, 1.0f);
+    audio_int16[i] = static_cast<int16_t>(float_value * 32768.0f);
+  }
+
+  // Write the RIFF header
+  char riff_header[4] = {'R', 'I', 'F', 'F'};
+  std::fwrite(riff_header, 1, 4, file);
+  // Write the chunk size
+  uint32_t chunk_size = 36 + (uint32_t)num_samples * 2;
+  std::fwrite(&chunk_size, 4, 1, file);
+  // Write the format
+  char format[4] = {'W', 'A', 'V', 'E'};
+  std::fwrite(format, 1, 4, file);
+  // Write the fmt chunk
+  char fmt_chunk[4] = {'f', 'm', 't', ' '};
+  std::fwrite(fmt_chunk, 1, 4, file);
+  // Write the fmt chunk size
+  uint32_t fmt_chunk_size = 16;
+  std::fwrite(&fmt_chunk_size, 4, 1, file);
+  // Write the fmt chunk data
+  uint16_t audio_format = 1;
+  std::fwrite(&audio_format, 2, 1, file);
+  uint16_t num_channels = 1;
+  std::fwrite(&num_channels, 2, 1, file);
+  std::fwrite(&sample_rate, 4, 1, file);
+  uint32_t byte_rate = sample_rate * 2;
+  std::fwrite(&byte_rate, 4, 1, file);
+  uint16_t block_align = 2;
+  std::fwrite(&block_align, 2, 1, file);
+  uint16_t bits_per_sample = 16;
+  std::fwrite(&bits_per_sample, 2, 1, file);
+  // Write the data chunk
+  char data_chunk[4] = {'d', 'a', 't', 'a'};
+  std::fwrite(data_chunk, 1, 4, file);
+  // Write the data chunk size
+  uint32_t data_chunk_size = (uint32_t)num_samples * 2;
+  std::fwrite(&data_chunk_size, 4, 1, file);
+  // Write the data
+  std::fwrite(audio_int16.data(), 2, num_samples, file);
+  std::fclose(file);
+  return true;
+}
+
+std::string float_vector_stats_to_string(const std::vector<float> &vector) {
+  std::string result =
+      "float_vector_stats(size=" + std::to_string(vector.size()) + ", ";
+  float min = *std::min_element(vector.begin(), vector.end());
+  result += "min=" + std::to_string(min) + ", ";
+  float max = *std::max_element(vector.begin(), vector.end());
+  result += "max=" + std::to_string(max) + ", ";
+  float mean =
+      std::accumulate(vector.begin(), vector.end(), 0.0f) / vector.size();
+  result += "mean=" + std::to_string(mean) + ", ";
+  float std = std::sqrt(std::accumulate(vector.begin(), vector.end(), 0.0f,
+                                        [mean](float acc, float x) {
+                                          return acc + (x - mean) * (x - mean);
+                                        }) /
+                        vector.size());
+  result += "std=" + std::to_string(std) + ")";
+  return result;
+}
+
+std::vector<uint8_t> load_file_into_memory(const std::string &path) {
+  FILE *file = std::fopen(path.c_str(), "rb");
+  if (!file) {
+    THROW_WITH_LOG(("Failed to open file: '" + path + "'").c_str());
+  }
+  std::fseek(file, 0, SEEK_END);
+  size_t size = std::ftell(file);
+  std::fseek(file, 0, SEEK_SET);
+  std::vector<uint8_t> data(size);
+  size_t bytes_read = std::fread(data.data(), 1, size, file);
+  if (bytes_read != size) {
+    THROW_WITH_LOG(("Failed to read file: '" + path +
+                    "' completely. Expected " + std::to_string(size) +
+                    " bytes, but read " + std::to_string(bytes_read) +
+                    " bytes.")
+                       .c_str());
+  }
+  std::fclose(file);
+  return data;
+}
+
+void save_memory_to_file(const std::string &path,
+                         const std::vector<uint8_t> &data) {
+  FILE *file = std::fopen(path.c_str(), "wb");
+  if (!file) {
+    THROW_WITH_LOG(("Failed to open file: '" + path + "'").c_str());
+  }
+  size_t bytes_written = std::fwrite(data.data(), 1, data.size(), file);
+  if (bytes_written != data.size()) {
+    THROW_WITH_LOG(("Failed to write file: '" + path +
+                    "' completely. Expected " + std::to_string(data.size()) +
+                    " bytes, but wrote " + std::to_string(bytes_written) +
+                    " bytes.")
+                       .c_str());
+  }
+  std::fclose(file);
+}

@@ -84,6 +84,8 @@ class Settings:
         if isinstance(raw, dict) and "setup_done" not in raw and raw.get("welcome_shown"):
             raw["setup_done"] = True  # upgrading from 1.x: already set up
         types = {f.name: f.type for f in fields(cls)}
+        # keys this version doesn't know (e.g. Tiro Lite's settings in the same file) are kept and saved back
+        s._extra = {k: v for k, v in raw.items() if k not in types} if isinstance(raw, dict) else {}
         for key, value in raw.items():
             if key not in types:
                 continue
@@ -117,7 +119,8 @@ class Settings:
     def save(self) -> None:
         try:
             tmp = self.path().with_suffix(".tmp")
-            tmp.write_text(json.dumps(asdict(self), indent=2), encoding="utf-8")
+            data = {**getattr(self, "_extra", {}), **asdict(self)}
+            tmp.write_text(json.dumps(data, indent=2), encoding="utf-8")
             tmp.replace(self.path())
         except Exception:
             log.exception("could not save settings")
