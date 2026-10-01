@@ -23,7 +23,7 @@ Hold a key, speak, let go: Tiro types what you said wherever your cursor is. Eve
   against the audio, and a small local AI model breaks ties. It only ever swaps a misheard word for one that
   sounds like it, and the rules are enforced in code.
 - **Fix last transcription** (Ctrl+Alt+F): correct a word once, and Tiro remembers it.
-- **Mac version** (Apple Silicon): a menu-bar app with Core ML speech recognition and an MLX AI check.
+- **Mac version** (Apple Silicon): a menu-bar app; speech on the Apple chip, AI check on its GPU with MLX.
 - **New installer and setup**: hardware detection with a plain-English recommendation, verified resumable
   downloads, a real speed test, microphone, shortcut, permissions on Mac, and a live test.
 - **Privacy**: everything stays on your device. You can switch history learning off or clear it with one click,
