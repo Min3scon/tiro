@@ -145,8 +145,8 @@ From version 2.0.3, Tiro on Windows keeps itself up to date:
 - The new version is installed **next to** the current one and takes over the next time Tiro starts (or click
   **Restart to update**). If it doesn't start properly twice, Tiro goes back to the version you had and won't try that
   one again. **Settings → Updates → Go back** returns to the previous version at any time.
-- **What a check sends:** only Tiro's version, your Windows version and your processor type (in the request's
-  User-Agent), like any download. No account, no ID, nothing you said or typed.
+- **What a check sends:** only Tiro's version, your Windows or macOS version and your processor type (in the
+  request's User-Agent), like any download. No account, no ID, nothing you said or typed.
 - **Settings → Updates** shows the status and lets you switch automatic checks off (then Tiro never goes online
   unless you click **Check now**), choose the Stable or Beta channel, and allow downloads on metered connections.
 - **Safe mode:** hold **Shift** while starting Tiro to start it with the extras off (corrections, learning, GPU). It
@@ -313,7 +313,7 @@ case, it's 12.2 ms at the 95th percentile.
   secure input mode and secure text fields. If it can't tell, it doesn't learn.
 - Logs never contain what you dictate.
 - The only network traffic is downloading Tiro and its models (from GitHub and Hugging Face) during setup, and the
-  update check (see [Updates](#updates): it sends only Tiro's version, your Windows version and processor type). You
+  update check (see [Updates](#updates): it sends only Tiro's version, your Windows or macOS version and processor type). You
   can switch automatic update checks off in **Settings → Updates**.
 
 <div align="center"><img src="docs/images/settings-privacy.png" width="640" alt="Privacy settings"></div>
