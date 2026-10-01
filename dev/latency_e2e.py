@@ -250,16 +250,21 @@ class Browser(Target):
         target = self
         self.length = 0
         self.base = 0
+        self.reports: list[tuple[float, int]] = []  # (time, length) as the page reported them (diagnostics)
+        self.ready = False  # the page has painted and can take input
         page = (ROOT / "dev" / "latency" / "browser.html").read_bytes()
 
         class Handler(http.server.BaseHTTPRequestHandler):
             def do_GET(self):
-                if self.path.startswith("/len?n="):
+                body, ctype = b"", "text/plain"
+                if self.path.startswith("/ready"):
+                    target.ready = True
+                elif self.path.startswith("/len?n="):
                     try:
                         target.length = int(self.path.split("=", 1)[1])
+                        target.reports.append((time.time(), target.length))
                     except ValueError:
                         pass
-                    body, ctype = b"", "text/plain"
                 else:
                     body, ctype = page, "text/html; charset=utf-8"
                 self.send_response(200)
@@ -276,11 +281,30 @@ class Browser(Target):
         url = f"http://127.0.0.1:{self.server.server_address[1]}/"
         chrome = Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
         exe = chrome if chrome.exists() else Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
-        self.profile = Path(tempfile.mkdtemp(prefix="tiro-latency-browser-"))
-        self.proc = subprocess.Popen([str(exe), f"--app={url}", f"--user-data-dir={self.profile}",
-                                      "--no-first-run", "--no-default-browser-check", "--disable-extensions",
-                                      "--window-size=900,700"])
-        self.hwnd = find_title("TIRO-TEST-BROWSER", 20)
+        flags = ["--disable-gpu"] if os.environ.get("TIRO_TEST_BROWSER_NO_GPU") else []
+        # A window that opens behind another one (a maximised app, the previous test window) counts as covered:
+        # Chrome then stops drawing the page, so it never reports ready. Keep it drawing, and bring it forward.
+        flags += ["--disable-backgrounding-occluded-windows", "--disable-renderer-backgrounding",
+                  "--disable-features=CalculateNativeWinOcclusion"]
+        for attempt in range(2):  # Chrome sometimes shows a window that never paints: start it again once
+            self.profile = Path(tempfile.mkdtemp(prefix="tiro-latency-browser-"))
+            # Chrome gets its own null stdio so its log lines never go into the harness's output pipe
+            self.proc = subprocess.Popen([str(exe), f"--app={url}", f"--user-data-dir={self.profile}",
+                                          "--no-first-run", "--no-default-browser-check", "--disable-extensions",
+                                          "--window-size=900,700", *flags], stdin=subprocess.DEVNULL,
+                                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            self.hwnd = find_title("TIRO-TEST-BROWSER", 20)
+            if self.hwnd:
+                focus(self.hwnd)
+            end = time.time() + 20
+            while time.time() < end and not self.ready:
+                time.sleep(0.1)
+            if self.ready:
+                return
+            print(f"browser: the page never became ready (attempt {attempt + 1})", flush=True)
+            subprocess.run(["taskkill", "/PID", str(self.proc.pid), "/T", "/F"], capture_output=True, check=False)
+            time.sleep(1)
+        self.hwnd = 0  # give up: the target is reported as not found
 
     def read(self):
         return "x" * max(0, self.length - self.base)
@@ -401,6 +425,10 @@ def main() -> int:
                 tim = last_timing(timing, n_before)
                 run = {"visible_ms": round((t_last - t_release) * 1000, 1) if t_last else None,
                        "chars": len(last), "tiro": tim}
+                if isinstance(tgt, Browser):
+                    recent = [(round((t - t_release) * 1000), n) for t, n in tgt.reports if t > t_release - 20]
+                    run["page_reports"] = recent[-8:]
+                    run["foreground_is_target"] = user32.GetForegroundWindow() == tgt.hwnd
                 runs.append(run)
                 print(f"{name} run {r}: text done {run['visible_ms']} ms after release; tiro {tim}", flush=True)
                 time.sleep(1.0)

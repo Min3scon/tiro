@@ -28,6 +28,8 @@
     requestAnimationFrame(() => setTimeout(report, 0));
   });
   window.addEventListener("focus", () => t.focus());
+  // tell the harness once the page has been painted and can take input
+  requestAnimationFrame(() => setTimeout(() => fetch("/ready", {cache: "no-store"}).catch(() => {}), 0));
 </script>
 </body>
 </html>

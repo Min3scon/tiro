@@ -3,11 +3,10 @@
 ## Current state
 
 - **Round:** "beat Wispr Flow" plan (pasted 2026-10-01 17:30). Branch `lite`; `main` stays releasable.
-- **Phase:** A done in code and measured (A1 table below); A2 updater built and unit/launcher-tested; version 2.0.3.
-- **Next:** update end-to-end test on frozen test builds (`dev/update_e2e.py`), installer test
-  (`dev/installer_e2e.py`), local full build + `dev/release_smoke.ps1`, merge `lite` -> `main`, tag v2.0.3 (CI
-  builds, publishes, signs the feed), install on this PC with `dev/install_on_pc.ps1` (backup + roll back), then
-  Phase B.
+- **Phase:** A done and tested: A1 measured (table below); A2 updater passed the unit, launcher, update
+  end-to-end (9/9) and installer end-to-end (8/8) tests; the 2.0.3 build passed the release smoke test.
+- **Next:** merge `lite` -> `main`, tag v2.0.3 (CI builds, publishes, signs the feed), check the Release, feed and
+  site, install on this PC with `dev/install_on_pc.ps1` (backup + roll back), then Phase B.
 - **Keys:** update-signing key `ci-2026a` is the GitHub secret `TIRO_UPDATE_KEY`; the offline key
   `offline-2026a` is only in `work/keys/` (never committed) until you move it to a password manager.
 - **Background jobs:** `training/scheduler.py` (pid file `work/logs/scheduler.pid`). It runs the queue in
@@ -20,7 +19,7 @@
 The block below is rewritten every 5 minutes by `training/status.py`.
 
 <!-- LIVE-STATUS:BEGIN -->
-_Updated 2026-10-01 19:27. GPU 5% busy, 2.9/8.0 GB, 50 °C. Disk: 185 GB free on the work drive._
+_Updated 2026-10-01 19:52. GPU 5% busy, 2.9/8.0 GB, 50 °C. Disk: 185 GB free on the work drive._
 
 - ▶ **scheduler** (running, started 01 Oct 17:42): Working until 21:00: nothing left to run; queued: prepare_all, label_parakeet, tts, bench_devmini, lite_suite
   - `2026-10-01 17:42:07  scheduler up (pid 17140)`
@@ -353,9 +352,12 @@ and fixed on the way: a quit request sent while Tiro was still starting was drop
 `state.json` and `app-9.0.0` and passes its self-test; installing over an old flat install (2.0.x layout) moves it
 into its own folder as the previous version, keeps the models, and the new version becomes current.
 
-**Release smoke test of the 2.0.3 build** (`dev/release_smoke.ps1`): health check with only the release keys,
-GPU self-test 52 ms, CPU self-test 266 ms, dictation into Notepad 26 ms and a console 58 ms (median after key
-release); Chrome 30 ms when re-checked.
+**Release smoke test of the 2.0.3 build** (`dev/release_smoke.ps1`, 19:52, passed): health check with only the
+release keys, GPU self-test 51 ms, CPU self-test 262 ms, dictation into Notepad 32 ms, a console 42 ms and Chrome
+23 ms (median time from key release to the text on screen). Chrome had failed earlier runs with a blank window.
+Cause: the test's Chrome window opened behind other windows, Chrome treated it as covered and stopped drawing, so
+the page never said it was ready. That was a test problem, not a Tiro one. Fix: the test brings the window forward
+and tells Chrome to keep drawing covered windows. Software rendering, tried first, was not needed and is gone.
 
 **Incident, 19:18 (fixed):** the update test's Tiro copies used the F24 hotkey and the real microphone, and the
 release smoke test (also F24) ran at the same time, so those copies opened your microphone 4 times for a few

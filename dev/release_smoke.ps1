@@ -14,10 +14,10 @@ if ($others) { Write-Host "another test's copy of Tiro is running; not starting 
 function Check($name, $ok, $detail) {
     if ($ok) { Write-Host "PASS $name $detail" } else { Write-Host "FAIL $name $detail"; $script:fail++ }
 }
-$profile = Join-Path $out "profile"
-New-Item -ItemType Directory -Force $profile | Out-Null
-'{"hotkey": "f24", "setup_done": true, "welcome_shown": true, "auto_update_check": false}' | Out-File (Join-Path $profile "settings.json") -Encoding ascii
-$env:TIRO_CONFIG_DIR = $profile
+$smokeProfile = Join-Path $out "profile"
+New-Item -ItemType Directory -Force $smokeProfile | Out-Null
+'{"hotkey": "f24", "setup_done": true, "welcome_shown": true, "auto_update_check": false}' | Out-File (Join-Path $smokeProfile "settings.json") -Encoding ascii
+$env:TIRO_CONFIG_DIR = $smokeProfile
 
 $p = Start-Process -FilePath $Exe -ArgumentList "--health", "$out\health.json" -Wait -PassThru
 $h = Get-Content "$out\health.json" | ConvertFrom-Json
