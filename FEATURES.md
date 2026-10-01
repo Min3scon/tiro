@@ -25,16 +25,16 @@ A cell holds the test name or `n/a` (with a reason) when that kind of test doesn
 
 | Feature | Unit | Int | E2E | Fail | Result |
 |---|---|---|---|---|---|
-| Background update check (launch + ~6 h jittered, never while dictating, offline/metered aware) | `tests/test_update_service.py` (metered, offline, busy) | `dev/update_e2e.py` | pending | offline / metered / bad feed | - |
-| Background download with resume; only changed packs; unchanged files hard-linked | `tests/test_update_stage.py` | `dev/update_e2e.py` | pending | tampered pack, corrupted local file | - |
+| Background update check (launch + ~6 h jittered, never while dictating, offline/metered aware) | `tests/test_update_service.py` (metered, offline, busy) | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | offline / metered / bad feed | ship |
+| Background download with resume; only changed packs; unchanged files hard-linked | `tests/test_update_stage.py` | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | tampered pack, corrupted local file | ship |
 | "Tiro x.y is ready" notification (click: restart now; otherwise installs at next start) | n/a (Qt) | `dev/render_settings.py` | pending | dictating: restart refused | - |
 | Tray badge + "Check for updates" / "Restart to update" menu item | n/a (Qt) | manual render | pending | n/a | - |
-| Install at next start (default on; off = only when you click Restart) | `tests/test_update_service.py` | `dev/update_e2e.py` | pending | n/a | - |
+| Install at next start (default on; off = only when you click Restart) | `tests/test_update_service.py` | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | n/a | ship |
 | What's new after updating (CHANGELOG section, once) | n/a | `tiro/update/whatsnew.py` | pending | n/a | - |
 | Settings > Updates (status, Check now, Restart, auto toggle, install at start, channel, metered, go back) | n/a | `dev/render_settings.py` | pending | n/a | - |
-| Signed feed (Ed25519, DSSE envelope) + SHA-256 of every file; bad signature / tampering rejected | `tests/test_ed25519.py` (RFC 8032), `tests/test_update_feed.py` | `dev/update_e2e.py` | pending | wrong key, tampered feed, junk, replay, expired | - |
+| Signed feed (Ed25519, DSSE envelope) + SHA-256 of every file; bad signature / tampering rejected | `tests/test_ed25519.py` (RFC 8032), `tests/test_update_feed.py` | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | wrong key, tampered feed, junk, replay, expired | ship |
 | Downgrade protection (except explicit roll back or a withdrawn version) | `tests/test_update_feed.py` | `tests/test_update_service.py` | pending | replayed old manifest | - |
-| Side-by-side install, previous version kept, trial start, roll back after 2 failed starts, safe mode after 2 crashes | `tests/test_launcher.py` (6 cases, fake app) | `dev/update_e2e.py` | pending | crashing build | - |
+| Side-by-side install, previous version kept, trial start, roll back after 2 failed starts, safe mode after 2 crashes | `tests/test_launcher.py` (6 cases, fake app) | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | crashing build | ship |
 | Critical-update flag (skips staged rollout, stronger notice) | `tests/test_update_feed.py` | n/a | n/a | n/a | - |
 | Staged rollout percentage + withdrawn release (`update-feed.yml`) | `tests/test_update_feed.py`, `tests/test_update_service.py` | `tools/feed.py compose --rollout-all / --revoke` | pending | n/a | - |
 | Minimum OS / architecture respected | `tests/test_update_feed.py` | n/a | n/a | n/a | - |
@@ -54,6 +54,7 @@ A cell holds the test name or `n/a` (with a reason) when that kind of test doesn
 | Smallest rung < ~200 MB peak RAM (native engine) | - | - | - | - | - |
 | Switch Lite <-> Standard in Settings without reinstalling | - | - | - | - | - |
 | Installer: detect CPU/GPU/VRAM/RAM/OS, short benchmark, pick Lite/Standard + rung, explain, override | - | - | - | - | - |
+| Installer: versioned layout (launcher + app-X.Y.Z), migration from the flat 2.0.x layout, stops only its own copies | n/a | `dev/installer_e2e.py` (8 checks) | fresh + flat upgrade | n/a | ship |
 | Installer: download progress, resume, checksum; Lite works offline (smallest rungs bundled) | - | - | - | - | - |
 | Installer: live test dictation showing the user's own delay | - | - | - | - | - |
 | Standard model decision (keep v2 / Unified / fine-tuned) by the ship rule | - | - | - | - | - |

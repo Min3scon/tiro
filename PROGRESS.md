@@ -20,7 +20,7 @@
 The block below is rewritten every 5 minutes by `training/status.py`.
 
 <!-- LIVE-STATUS:BEGIN -->
-_Updated 2026-10-01 19:22. GPU 5% busy, 2.9/8.0 GB, 50 °C. Disk: 182 GB free on the work drive._
+_Updated 2026-10-01 19:27. GPU 5% busy, 2.9/8.0 GB, 50 °C. Disk: 185 GB free on the work drive._
 
 - ▶ **scheduler** (running, started 01 Oct 17:42): Working until 21:00: nothing left to run; queued: prepare_all, label_parakeet, tts, bench_devmini, lite_suite
   - `2026-10-01 17:42:07  scheduler up (pid 17140)`
@@ -338,8 +338,24 @@ Research: `work/research/updater.md` (Velopack, tufup, WinSparkle/Sparkle, custo
 - **Release pipeline:** builds the native hook and launcher, publishes the update packs, then a `feed` job signs
   and publishes the feed with the `TIRO_UPDATE_KEY` secret (set; offline key kept off-line).
 
-Tests so far: RFC 8032 vectors, feed rules (17), staging (7), service (11), launcher with a fake app (6), feed
-tool dry run with the real key. End-to-end on frozen builds: `dev/update_e2e.py` (see below).
+Tests: RFC 8032 vectors, feed rules (17), staging (8), service (11), network (4: what a check sends, resume after a
+dropped download, corrupted download refused, other hosts refused), launcher with a fake app (6), feed tool dry
+run with the real key.
+
+**End-to-end on real frozen builds** (`dev/update_e2e.py`, 19:25, all 9 checks passed): an install of 9.0.0 with a
+local signed feed. A feed signed with an unknown key is refused. 9.0.1 is found 3 s after start, staged next to
+9.0.0 with 347 files reused (104 DLLs as hard links) and only the 10 MB core pack downloaded, queued, started on
+trial after a restart and committed (9.0.0 kept as previous). 9.0.2, built to fail on start, is found, staged,
+tried twice, rolled back to 9.0.1 and never tried again. A tampered pack is refused and nothing is queued. Found
+and fixed on the way: a quit request sent while Tiro was still starting was dropped.
+
+**Installer end-to-end** (`dev/installer_e2e.py`, 19:30, all 8 checks passed): a fresh install lays out the launcher,
+`state.json` and `app-9.0.0` and passes its self-test; installing over an old flat install (2.0.x layout) moves it
+into its own folder as the previous version, keeps the models, and the new version becomes current.
+
+**Release smoke test of the 2.0.3 build** (`dev/release_smoke.ps1`): health check with only the release keys,
+GPU self-test 52 ms, CPU self-test 266 ms, dictation into Notepad 26 ms and a console 58 ms (median after key
+release); Chrome 30 ms when re-checked.
 
 **Incident, 19:18 (fixed):** the update test's Tiro copies used the F24 hotkey and the real microphone, and the
 release smoke test (also F24) ran at the same time, so those copies opened your microphone 4 times for a few
