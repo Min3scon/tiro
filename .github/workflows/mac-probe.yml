@@ -1,0 +1,24 @@
+name: Mac acceleration probe
+
+# Manually run experiments on an Apple Silicon runner (Core ML speech settings, MLX AI check).
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: macos-14
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -r requirements-mac.txt
+      - name: Download the speech model (both builds)
+        run: python -c "from tiro.models import MODELS, download_model as d; m = MODELS['parakeet-tdt-0.6b-v2']; d(m, variant='int8'); d(m, variant='fp32')"
+      - name: Core ML probe
+        timeout-minutes: 40
+        run: python dev/coreml_probe.py
+      - name: MLX probe
+        continue-on-error: true
+        run: python dev/mlx_probe.py small

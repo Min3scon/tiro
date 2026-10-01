@@ -101,8 +101,6 @@ class Injector:
             return False
 
     def _type(self, text: str) -> bool:
-        import Quartz
-
         src = _source()
         buf = ""
         for ch in text.replace("\r\n", "\n"):
@@ -121,7 +119,6 @@ class Injector:
                 buf = ""
         if buf:
             self._type_chunk(src, buf)
-        del Quartz
         return True
 
     @staticmethod
