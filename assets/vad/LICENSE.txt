@@ -1,0 +1,2 @@
+silero_vad.onnx: Silero VAD (https://github.com/snakers4/silero-vad), MIT licence, Copyright (c) 2020-present
+Silero Team. ONNX export via https://huggingface.co/istupakov/silero-vad-onnx.

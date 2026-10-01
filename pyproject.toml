@@ -1,0 +1,41 @@
+[project]
+name = "tiro"
+version = "2.0.0"
+description = "Tiro: fast, private, local dictation for Windows and macOS (Apple Silicon)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12"
+dependencies = [
+    "onnxruntime-gpu[cuda,cudnn]==1.30.0; sys_platform == 'win32'",
+    "onnxruntime==1.30.0; sys_platform == 'darwin'",
+    "onnx-asr==0.12.0",
+    "numpy>=2.1",
+    "sounddevice>=0.5",
+    "soxr>=1.0",
+    "PySide6-Essentials>=6.9",
+    "tokenizers>=0.21",
+    "rapidfuzz>=3.0",
+    "pyobjc-core; sys_platform == 'darwin'",
+    "pyobjc-framework-Quartz; sys_platform == 'darwin'",
+    "pyobjc-framework-Cocoa; sys_platform == 'darwin'",
+    "pyobjc-framework-ApplicationServices; sys_platform == 'darwin'",
+    "pyobjc-framework-AVFoundation; sys_platform == 'darwin'",
+    "pyobjc-framework-ServiceManagement; sys_platform == 'darwin'",
+    "mlx; sys_platform == 'darwin'",
+    "mlx-lm; sys_platform == 'darwin'",
+]
+
+[project.urls]
+Homepage = "https://min3scon.github.io/tiro/"
+Source = "https://github.com/Min3scon/tiro"
+
+[project.optional-dependencies]
+dev = ["pytest", "jiwer", "soundfile", "pillow", "huggingface_hub", "pyinstaller>=6.20"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120

@@ -1,0 +1,371 @@
+[
+  {
+    "id": "hc-01",
+    "say": "I've been fighting with rust all weekend and I'm completely fed up.",
+    "expect_with_history_a": "I've been fighting with Rust all weekend and I'm completely fed up.",
+    "expect_with_history_b": "I've been fighting with rust all weekend and I'm completely fed up.",
+    "ambiguous": [
+      "Rust",
+      "rust"
+    ],
+    "history_a": [
+      "The borrow checker rejected my code again, but at least the error message was helpful.",
+      "I'm rewriting the log parser in Rust because the Python version is far too slow.",
+      "Cargo builds take forever on this laptop, I really need more RAM.",
+      "Can you review my pull request for the async Rust client before Friday?",
+      "Lifetimes finally clicked for me today after a week of confusion.",
+      "We should publish the crate once the documentation is in better shape.",
+      "Rust analyzer keeps eating all my memory in VS Code.",
+      "I'm giving a short talk about Rust at the meetup next month."
+    ],
+    "history_b": [
+      "The wheel arches on the old Land Rover are in a worse state than I thought.",
+      "I picked up a wire brush and some primer from the hardware shop.",
+      "There's rust all along the bottom of the garden gate again.",
+      "The sills need cutting out and welding before the MOT.",
+      "I left my bike out in the rain and the chain has gone orange.",
+      "Can you grab a can of WD-40 when you're in town?",
+      "My dad swears vinegar is the best way to get rust off old tools.",
+      "I spent the afternoon sanding the trailer down to bare metal."
+    ]
+  },
+  {
+    "id": "hc-02",
+    "say": "Shawn said he'd bring the speakers round on Saturday.",
+    "expect_with_history_a": "Shaun said he'd bring the speakers round on Saturday.",
+    "expect_with_history_b": "Sean said he'd bring the speakers round on Saturday.",
+    "ambiguous": [
+      "Shaun",
+      "Sean"
+    ],
+    "history_a": [
+      "Shaun's birthday drinks are at the Crown on Friday night.",
+      "Can you send Shaun the photos from the wedding?",
+      "I'm getting a lift to football with Shaun tomorrow.",
+      "Shaun reckons the new manager will be sacked by Christmas.",
+      "Tell Shaun I've still got his drill and I'll drop it back this week.",
+      "Shaun and Priya are hosting the barbecue this year.",
+      "I think Shaun is bringing his new girlfriend to the party."
+    ],
+    "history_b": [
+      "Sean from accounts approved the travel budget this morning.",
+      "I'm meeting Sean for coffee before the client call.",
+      "Sean wants the slides by Thursday, so let's aim for Wednesday.",
+      "Did Sean ever get back to you about the venue?",
+      "Sean's kids are in the same class as ours.",
+      "Ask Sean if he can cover my shift next Tuesday.",
+      "Sean recommended a great plumber, I'll forward you his number."
+    ]
+  },
+  {
+    "id": "hc-03",
+    "say": "We spent most of the morning in teams going over the plan.",
+    "expect_with_history_a": "We spent most of the morning in Teams going over the plan.",
+    "expect_with_history_b": "We spent most of the morning in teams going over the plan.",
+    "ambiguous": [
+      "Teams",
+      "teams"
+    ],
+    "history_a": [
+      "Teams crashed halfway through my presentation again.",
+      "Can you send me the Teams link for the three o'clock?",
+      "I'll share my screen on Teams once everyone has joined.",
+      "My Teams status keeps saying away even when I'm at my desk.",
+      "The client wants to do the review over Teams instead of in person.",
+      "I've muted the Teams notifications so I can actually focus.",
+      "Post the agenda in the Teams channel before the meeting starts."
+    ],
+    "history_b": [
+      "The kids worked in small groups to build bridges out of straws.",
+      "I split the class into four teams for the science quiz.",
+      "Each group has to present their poster on Friday afternoon.",
+      "The red team won the scavenger hunt by a mile.",
+      "We ran a workshop where people swapped tables every twenty minutes.",
+      "Next week the pupils will pair up and interview each other.",
+      "Sports day is on Thursday, so the house teams are training for the relay."
+    ]
+  },
+  {
+    "id": "hc-04",
+    "say": "Honestly, unity has been the hardest part of this whole project.",
+    "expect_with_history_a": "Honestly, Unity has been the hardest part of this whole project.",
+    "expect_with_history_b": "Honestly, unity has been the hardest part of this whole project.",
+    "ambiguous": [
+      "Unity",
+      "unity"
+    ],
+    "history_a": [
+      "The Unity build for Android keeps failing at the signing step.",
+      "I rewrote the player controller and the jumping feels much better now.",
+      "Can you check why the prefabs lost their materials after the Unity upgrade?",
+      "We're thinking about porting the prototype from Unity to Godot.",
+      "The frame rate drops whenever more than fifty enemies spawn.",
+      "I spent all night fighting with the Unity editor layout.",
+      "Our game jam entry is due Sunday and the menus still don't work."
+    ],
+    "history_b": [
+      "The residents' association meeting went on for three hours last night.",
+      "Getting both villages to agree on the festival budget is exhausting.",
+      "Half the volunteers want a quiz night and the other half want a barn dance.",
+      "We need everyone pulling in the same direction before the council vote.",
+      "The merger only works if there's real unity between the two clubs.",
+      "The new committee has been arguing since day one.",
+      "Sometimes keeping people together is harder than the actual work."
+    ]
+  },
+  {
+    "id": "hc-05",
+    "say": "The echo in the kitchen is driving me absolutely mad.",
+    "expect_with_history_a": "The Echo in the kitchen is driving me absolutely mad.",
+    "expect_with_history_b": "The echo in the kitchen is driving me absolutely mad.",
+    "ambiguous": [
+      "Echo",
+      "echo"
+    ],
+    "history_a": [
+      "Alexa keeps mishearing me whenever I ask for the weather.",
+      "I bought a second Echo for the bedroom so we can both set alarms.",
+      "The Echo Show in the hallway now shows the doorbell camera.",
+      "Can you turn off the drop in feature on the Echo, it really freaks me out.",
+      "The kids keep asking Alexa to play the same song over and over.",
+      "Our Echo dropped off the internet again after the router update.",
+      "The Echo in the kitchen keeps lighting up when nobody has said anything.",
+      "I set up a routine so the Echo turns the lights on at seven."
+    ],
+    "history_b": [
+      "We ripped out the carpet and now every footstep sounds like thunder.",
+      "The new tiles look great, but the room is really loud now.",
+      "I'm thinking about rugs or curtains to soften the sound a bit.",
+      "You can hear every word from the kitchen when you're upstairs.",
+      "The builder reckons acoustic panels would help in the dining room.",
+      "Phone calls in the kitchen make me sound like I'm in a cave.",
+      "There's such a bad echo when we all talk over dinner."
+    ]
+  },
+  {
+    "id": "hc-06",
+    "say": "We're paying way too much for cloud at the moment.",
+    "expect_with_history_a": "We're paying way too much for Claude at the moment.",
+    "expect_with_history_b": "We're paying way too much for cloud at the moment.",
+    "ambiguous": [
+      "Claude",
+      "cloud"
+    ],
+    "history_a": [
+      "I asked Claude to tidy up the release notes and it did a great job.",
+      "Claude wrote most of the unit tests for the parser yesterday.",
+      "Can you share the prompt you used with Claude for the customer emails?",
+      "I hit my Claude usage limit before lunch again.",
+      "Claude caught a bug in the date handling that we all missed.",
+      "We moved the whole team onto a paid Claude plan this month.",
+      "Claude Code refactored the settings module in about ten minutes."
+    ],
+    "history_b": [
+      "Our AWS bill jumped again because someone left the GPU instances running.",
+      "We're moving the last of the servers out of our own server room next quarter.",
+      "The cloud migration is about two weeks behind schedule.",
+      "Can you set up budget alerts on the Azure subscription?",
+      "Storage costs keep creeping up, so we need a retention policy.",
+      "I'm presenting the cloud cost report to finance on Thursday.",
+      "The backups now go to a separate region in case the main one goes down."
+    ]
+  },
+  {
+    "id": "hc-07",
+    "say": "Can you send me the swift code when you get a minute?",
+    "expect_with_history_a": "Can you send me the Swift code when you get a minute?",
+    "expect_with_history_b": "Can you send me the SWIFT code when you get a minute?",
+    "ambiguous": [
+      "Swift",
+      "SWIFT"
+    ],
+    "history_a": [
+      "The SwiftUI preview keeps crashing whenever I add the map view.",
+      "I rewrote the networking layer in Swift and deleted the old Objective-C code.",
+      "Xcode took twenty minutes to index the project this morning.",
+      "Can you review my Swift package before I tag the release?",
+      "We're dropping support for older iPhones in the next update.",
+      "The Swift concurrency warnings are driving me up the wall.",
+      "The TestFlight build is up, let me know if logging in works for you."
+    ],
+    "history_b": [
+      "The supplier in Germany needs our IBAN before they can refund us.",
+      "International transfers are taking three working days at the moment.",
+      "I've attached the bank details for the new Singapore office.",
+      "Finance flagged the payment because the beneficiary name didn't match.",
+      "Can you confirm the sort code and account number for the payroll account?",
+      "Our bank charges a flat fee on every outgoing SWIFT transfer.",
+      "The invoice is in euros, so please double check the exchange rate."
+    ]
+  },
+  {
+    "id": "hc-08",
+    "say": "I'll just grab a lift home after the party.",
+    "expect_with_history_a": "I'll just grab a Lyft home after the party.",
+    "expect_with_history_b": "I'll just grab a lift home after the party.",
+    "ambiguous": [
+      "Lyft",
+      "lift"
+    ],
+    "history_a": [
+      "My Lyft driver got lost twice on the way to the airport.",
+      "Lyft prices are crazy tonight because of the concert.",
+      "I left my umbrella in the Lyft, so I've reported it in the app.",
+      "Can you split the Lyft with me and I'll send you half?",
+      "The Lyft pickup spot at the stadium is a total mess.",
+      "I usually take a Lyft to work when it's raining.",
+      "I got a free Lyft ride code, want to use it on Friday?"
+    ],
+    "history_b": [
+      "My sister is giving me a lift to the station in the morning.",
+      "Can you pick me up after football because Dad's car is in the garage?",
+      "Thanks for driving me home last night, I owe you a coffee.",
+      "I'm walking to work this week because the buses are on strike.",
+      "Jess offered me a lift to the wedding, so I don't need the train.",
+      "The car is booked in for a service on Monday, so I'll need a lift.",
+      "Mum dropped me at the airport at four in the morning, what a legend."
+    ]
+  },
+  {
+    "id": "hc-09",
+    "say": "Everyone at work is talking about severance this week.",
+    "expect_with_history_a": "Everyone at work is talking about Severance this week.",
+    "expect_with_history_b": "Everyone at work is talking about severance this week.",
+    "ambiguous": [
+      "Severance",
+      "severance"
+    ],
+    "history_a": [
+      "The new season of Severance is even weirder than the first one.",
+      "No spoilers please, I'm only on episode four.",
+      "That finale had me shouting at the TV at midnight.",
+      "Have you seen the behind the scenes video about the Lumon office sets?",
+      "We're having a watch party for the Severance finale on Friday.",
+      "I can't stop thinking about what happened to Mark in the last episode.",
+      "The Severance theme tune has been stuck in my head all week."
+    ],
+    "history_b": [
+      "HR announced another round of layoffs this morning.",
+      "Half my team is updating their CVs just in case.",
+      "The union is pushing for better redundancy terms for the warehouse staff.",
+      "I've been told my role is safe, but nobody really believes it.",
+      "My manager said the severance offer depends on years of service.",
+      "Can you read the settlement agreement before I sign it?",
+      "The town hall about the restructure has been pushed to Monday."
+    ]
+  },
+  {
+    "id": "hc-10",
+    "say": "We're doing turkey this year for the holidays.",
+    "expect_with_history_a": "We're doing Turkey this year for the holidays.",
+    "expect_with_history_b": "We're doing turkey this year for the holidays.",
+    "ambiguous": [
+      "Turkey",
+      "turkey"
+    ],
+    "history_a": [
+      "I've been looking at hotels in Istanbul near the Grand Bazaar.",
+      "Flights to Turkey are surprisingly cheap in September.",
+      "Do we need a visa for Turkey or can we sort it out on arrival?",
+      "My cousin says Cappadocia is worth it just for the balloon rides.",
+      "We could do a week on the coast and finish with a few days in Istanbul.",
+      "I'm trying to learn a bit of Turkish before we go.",
+      "Turkey was amazing last time and I'd happily go back."
+    ],
+    "history_b": [
+      "I'm hosting the whole family for dinner on Christmas Day.",
+      "Can you pick up cranberry sauce and stuffing on your way home?",
+      "My oven is too small for anything bigger than a chicken.",
+      "We had beef last year and everyone said they missed the turkey.",
+      "I need to order the bird from the butcher by the twelfth.",
+      "The turkey needs to come out of the freezer a couple of days early.",
+      "Grandma always made the gravy, so I'm nervous about doing it myself.",
+      "How long do you think a five kilo bird takes to roast?"
+    ]
+  },
+  {
+    "id": "hc-11",
+    "say": "I honestly can't wait to see Sydney again.",
+    "expect_with_history_a": "I honestly can't wait to see Sydney again.",
+    "expect_with_history_b": "I honestly can't wait to see Sidney again.",
+    "ambiguous": [
+      "Sydney",
+      "Sidney"
+    ],
+    "history_a": [
+      "I miss the ferry ride over from Manly so much.",
+      "Flights to Australia are cheaper if we go in February.",
+      "We used to get breakfast near Bondi every Sunday.",
+      "My old flatmate still lives in Sydney and keeps sending me beach photos.",
+      "The Sydney Opera House tour is worth it, even if it sounds touristy.",
+      "I'm trying to plan a stopover in Singapore on the way to Sydney.",
+      "It'll be summer there when we land, so pack plenty of sunscreen."
+    ],
+    "history_b": [
+      "Grandad Sidney turns ninety next month, so we're planning a party.",
+      "Sidney's hip operation went well and he's already asking to go home.",
+      "Can you call Sidney and remind him about the dentist on Friday?",
+      "Sidney still does the crossword in pen every single morning.",
+      "I'm taking Sidney out for lunch on Saturday.",
+      "Sidney told the same old story three times at dinner and we loved it.",
+      "The care home says Sidney has been in great spirits this week."
+    ]
+  },
+  {
+    "id": "hc-12",
+    "say": "She handled the whole situation with grace, to be fair.",
+    "expect_with_history_a": "She handled the whole situation with Grace, to be fair.",
+    "expect_with_history_b": "She handled the whole situation with grace, to be fair.",
+    "ambiguous": [
+      "Grace",
+      "grace"
+    ],
+    "history_a": [
+      "Grace and I are running the onboarding sessions this week.",
+      "Can you add Grace to the invite for the budget review?",
+      "Grace found a much cheaper venue for the team offsite.",
+      "I'm working from the Leeds office with Grace on Thursday.",
+      "Grace is off on Friday, so send the contracts to me instead.",
+      "Grace and Tom are presenting the results to the board.",
+      "Ask Grace, she knows the supplier better than anyone.",
+      "Me and Grace sorted out the client complaint between us."
+    ],
+    "history_b": [
+      "My sister dealt with the whole funeral so calmly.",
+      "I was really impressed with how the new manager dealt with the complaints.",
+      "My aunt stayed so composed when the airline lost all our luggage.",
+      "He took the criticism really well, no drama at all.",
+      "She gave a lovely speech even though she was clearly nervous.",
+      "Whatever happens, I just want to handle it with a bit of grace.",
+      "Honestly, she kept her dignity the whole time, which is more than I would have."
+    ]
+  },
+  {
+    "id": "hc-13",
+    "say": "I think I left my mac on the train this morning.",
+    "expect_with_history_a": "I think I left my Mac on the train this morning.",
+    "expect_with_history_b": "I think I left my mac on the train this morning.",
+    "ambiguous": [
+      "Mac",
+      "mac"
+    ],
+    "history_a": [
+      "My Mac takes ages to wake up from sleep since the last update.",
+      "I'm thinking of getting the new MacBook Air for uni.",
+      "Can you AirDrop me the photos from your phone?",
+      "The Mac version of the app is missing half the features.",
+      "I had to take my Mac in for repair because the keyboard died.",
+      "Time Machine finally finished backing up my Mac last night.",
+      "I use my Mac for editing and the PC for gaming."
+    ],
+    "history_b": [
+      "It's chucking it down again, so I'm taking the bus.",
+      "I need a proper raincoat before the walking holiday in the Lakes.",
+      "My umbrella turned inside out on the way to work.",
+      "Can you grab my wellies from the shed before we leave?",
+      "The forecast says showers all week, typical.",
+      "I found my old mac at the back of the wardrobe and it's still waterproof.",
+      "We got soaked waiting for the train this morning."
+    ]
+  }
+]

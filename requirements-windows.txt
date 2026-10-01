@@ -1,0 +1,16 @@
+# Tiro on Windows (x64). The app:
+onnxruntime-gpu[cuda,cudnn]==1.30.0
+onnx-asr==0.12.0
+numpy==2.5.3
+sounddevice==0.5.6
+soxr==1.1.0
+PySide6-Essentials==6.11.2
+tokenizers==0.23.2
+rapidfuzz==3.14.6
+# development, tests and packaging:
+pytest
+jiwer
+soundfile
+pillow
+huggingface_hub
+pyinstaller==6.22.3

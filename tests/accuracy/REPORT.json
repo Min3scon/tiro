@@ -1,0 +1,3276 @@
+{
+ "device": "NVIDIA GeForce RTX 3070 (CUDA)",
+ "lm": "qwen2.5-1.5b-instruct",
+ "phrases": {
+  "before (no correction)": {
+   "wer": 0.09917043740573152,
+   "terms": [
+    208,
+    375
+   ],
+   "by_category": {
+    "apps_brands": 0.06666666666666667,
+    "games": 0.15807560137457044,
+    "homophones": 0.006666666666666667,
+    "numbers_units_acronyms": 0.17592592592592593,
+    "people": 0.12878787878787878,
+    "places": 0.10101010101010101,
+    "slang": 0.10256410256410256,
+    "split_merged": 0.07666666666666666,
+    "tech": 0.07590759075907591
+   },
+   "samples": [
+    [
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?",
+     "Anyone up for a few rounds of GeoGuesser after dinner tonight?"
+    ],
+    [
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?",
+     "Anyone up for a few rounds of GeoGuesser after dinner tonight?"
+    ],
+    [
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?",
+     "Anyone up for a few rounds of Geoguessa after dinner tonight?"
+    ],
+    [
+     "I finally beat Malenia in Elden Ring after a whole week of trying.",
+     "I finally beat Meh Le Naya in Elden Ring after a whole week of trying."
+    ],
+    [
+     "I finally beat Malenia in Elden Ring after a whole week of trying.",
+     "I finally beat Malay Ni R in Elden Ring after a whole week of trying."
+    ],
+    [
+     "I finally beat Malenia in Elden Ring after a whole week of trying.",
+     "I finally beat Melanie R in Elden Ring after a whole week of trying."
+    ],
+    [
+     "Do you want to queue Valorant ranked tonight or are you too tired?",
+     "Do you want to queue valor and rank tonight or are you too tired?"
+    ],
+    [
+     "Do you want to queue Valorant ranked tonight or are you too tired?",
+     "Do you want to cue Vela and ranked tonight or are you too tired?"
+    ],
+    [
+     "Do you want to queue Valorant ranked tonight or are you too tired?",
+     "Do you want to Q Vela and rank tonight or are you too tired?"
+    ],
+    [
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs.",
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs."
+    ],
+    [
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs.",
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs."
+    ],
+    [
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs.",
+     "My Star Dew Valley farm finally has enough ancient fruit for the wine cakes."
+    ],
+    [
+     "Silksong finally came out and the boss fights are absolutely brutal.",
+     "Silk Song finally came out and the boss fights are absolutely brutal."
+    ],
+    [
+     "Silksong finally came out and the boss fights are absolutely brutal.",
+     "Silk Song finally came out and the boss fights are absolutely brutal."
+    ],
+    [
+     "Silksong finally came out and the boss fights are absolutely brutal.",
+     "Silk Song finally came out and the boss fights are absolutely brutal."
+    ],
+    [
+     "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
+     "We lost our Baldur's Gate 3 save, so a star Eon is gone forever."
+    ],
+    [
+     "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
+     "We lost our Balguskate 3 save, so our star Eon is gone forever."
+    ],
+    [
+     "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
+     "We lost our Bulgi Escape 3 save, so Astar Eon is gone forever."
+    ],
+    [
+     "I lost the whole evening to Balatro chasing a flush build.",
+     "I lost the whole evening to BALATRO chasing a flush build."
+    ],
+    [
+     "I lost the whole evening to Balatro chasing a flush build.",
+     "I lost the whole evening to ballatro chasing a flush build."
+    ],
+    [
+     "I lost the whole evening to Balatro chasing a flush build.",
+     "I lost the whole evening to ballatro chasing a flush build."
+    ],
+    [
+     "Factorio is basically a second job at this point, the factory must grow.",
+     "Fact Oreo is basically a second job at this point, the factory must grow."
+    ],
+    [
+     "Factorio is basically a second job at this point, the factory must grow.",
+     "Factorio is basically a second job at this point, the factory must grow."
+    ],
+    [
+     "Factorio is basically a second job at this point, the factory must grow.",
+     "Factorio is basically a second job at this point, the factory must grow."
+    ],
+    [
+     "I sent you the rent money on Revolut, let me know when it arrives.",
+     "I sent you the rent money on Revolut, let me know when it arrives."
+    ],
+    [
+     "I sent you the rent money on Revolut, let me know when it arrives.",
+     "I sent you the rent money on Revo Loot, let me know when it arrives."
+    ],
+    [
+     "I sent you the rent money on Revolut, let me know when it arrives.",
+     "I sent you the rent money on Revolut, let me know when it arrives."
+    ],
+    [
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications.",
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications."
+    ],
+    [
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications.",
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications."
+    ],
+    [
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications.",
+     "My Duolingo streak is about to die and the aisle keeps sending me sad notifications."
+    ],
+    [
+     "I got these leggings from Lululemon and the hoodie from Uniqlo.",
+     "I got these leggings from Lululemon and the hoodie from Yune Clo."
+    ],
+    [
+     "I got these leggings from Lululemon and the hoodie from Uniqlo.",
+     "I got these leggings from Lululemon and the hoodie from Uniqlo."
+    ],
+    [
+     "I got these leggings from Lululemon and the hoodie from Uniqlo.",
+     "I got these leggings from Lululemon and the hoodie from UniClo."
+    ],
+    [
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards.",
+     "Please book the onboarding call through Col and Lee and share the Loom recording afterwards."
+    ],
+    [
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards.",
+     "Please book the onboarding call through KA Lendly and share the Loom recording afterwards."
+    ],
+    [
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards.",
+     "Please book the onboarding call through KA Lendly and share the Loom recording afterwards."
+    ],
+    [
+     "We ordered Deliveroo again because nobody could be bothered to cook.",
+     "We ordered deliveroo again because nobody could be bothered to cook."
+    ],
+    [
+     "We ordered Deliveroo again because nobody could be bothered to cook.",
+     "We ordered deliveroo again because nobody could be bothered to cook."
+    ],
+    [
+     "We ordered Deliveroo again because nobody could be bothered to cook.",
+     "We ordered Deliveroo again because nobody could be bothered to cook."
+    ],
+    [
+     "She bought a Peugeot even though her dad always swore by Hyundai.",
+     "She bought a Purjo even though her dad always swore by Hyundai."
+    ],
+    [
+     "She bought a Peugeot even though her dad always swore by Hyundai.",
+     "She bought a purge even though her dad always swore by Hyundai."
+    ],
+    [
+     "She bought a Peugeot even though her dad always swore by Hyundai.",
+     "She bought a Peugeot even though her dad always swore by Hyundai."
+    ],
+    [
+     "I logged my run on Strava and synced it with the Garmin app.",
+     "I logged my run on Stravia and synced it with the Garmin app."
+    ],
+    [
+     "I logged my run on Strava and synced it with the Garmin app.",
+     "I logged my run on Strava and synced it with the Gummin app."
+    ],
+    [
+     "I logged my run on Strava and synced it with the Garmin app.",
+     "I logged my run on Strava and synced it with the Gummin app."
+    ],
+    [
+     "Can you check if Ocado still delivers to our new postcode?",
+     "Can you check if Ocardo still delivers to our new postcode?"
+    ],
+    [
+     "Can you check if Ocado still delivers to our new postcode?",
+     "Can you check if Ocado still delivers to our new postcode?"
+    ],
+    [
+     "Can you check if Ocado still delivers to our new postcode?",
+     "Can you check if Okado still delivers to our new postcode?"
+    ],
+    [
+     "We moved the cluster to Kubernetes and the pods keep crash looping.",
+     "We moved the cluster to cube ERNetEase and the pods keep crash looping."
+    ],
+    [
+     "We moved the cluster to Kubernetes and the pods keep crash looping.",
+     "We moved the cluster to Kubernetes and the pods keep crash looping."
+    ],
+    [
+     "We moved the cluster to Kubernetes and the pods keep crash looping.",
+     "We moved the cluster to Kubernetes and the pods keep crash looping."
+    ],
+    [
+     "The migration failed because PostgreSQL rejected the new foreign key constraint.",
+     "The migration failed because PostgresQL rejected the new foreign key constraint."
+    ],
+    [
+     "The migration failed because PostgreSQL rejected the new foreign key constraint.",
+     "The migration failed because PostgresQL rejected the new foreign key constraint."
+    ],
+    [
+     "The migration failed because PostgreSQL rejected the new foreign key constraint.",
+     "The migration failed because PostgreSQL rejected the new foreign key constraint."
+    ],
+    [
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines.",
+     "Rewrite the data loader in PyTorch but keep the number Py fallback for older machines."
+    ],
+    [
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines.",
+     "Rewrite the data loader in PyTorch but keep the numpy fallback for older machines."
+    ],
+    [
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines.",
+     "Rewrite the data loader in PyTorch but keep the numpy fallback for older machines."
+    ],
+    [
+     "The Django views are fine, the slowdown is coming from the Redis cache.",
+     "The Django views are fine, the slowdown is coming from the red ISS cache."
+    ],
+    [
+     "The Django views are fine, the slowdown is coming from the Redis cache.",
+     "The Django views are fine, the slowdown is coming from the Reddit cache."
+    ],
+    [
+     "The Django views are fine, the slowdown is coming from the Redis cache.",
+     "The Django views are fine, the slowdown is coming from the Redis cache."
+    ],
+    [
+     "Add a Pydantic model for the request body and let FastAPI validate it.",
+     "Add a pydantic model for the request body and let fast API validate it."
+    ],
+    [
+     "Add a Pydantic model for the request body and let FastAPI validate it.",
+     "Add a PyDantic model for the request body and let fast validate it."
+    ],
+    [
+     "Add a Pydantic model for the request body and let FastAPI validate it.",
+     "Add a pydantic model for the request body and let fast API validate it."
+    ],
+    [
+     "Export the encoder to ONNX and run it with the CUDA execution provider.",
+     "Export the encoder to Onix and run it with the CUDA execution provider."
+    ],
+    [
+     "Export the encoder to ONNX and run it with the CUDA execution provider.",
+     "Export the encoder to Onyx and run it with the CUTER execution provider."
+    ],
+    [
+     "Export the encoder to ONNX and run it with the CUDA execution provider.",
+     "Export the encoder to Onix and run it with the CUDA execution provider."
+    ],
+    [
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
+     "Our terraform plan keeps trying to recreate the Gruffagna dashboards on every deploy."
+    ],
+    [
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
+     "Our terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
+    ],
+    [
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
+     "Our terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
+    ],
+    [
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
+     "Swap the raw queries for SQL Alchemy sessions before we add more endpoints."
+    ],
+    [
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
+     "Swap the raw queries for SQL Alchemy sessions before we add more endpoints."
+    ],
+    [
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
+     "Swap the raw queries for SQL Alchemy sessions before we add more endpoints."
+    ],
+    [
+     "Siobhan said she'd send the slides over before lunch.",
+     "Siobhan said she'd send the slides over before lunch."
+    ],
+    [
+     "Siobhan said she'd send the slides over before lunch.",
+     "Siobhan said she'd send the slides over before lunch."
+    ],
+    [
+     "Siobhan said she'd send the slides over before lunch.",
+     "Siobhan said she'd send the slides over before lunch."
+    ],
+    [
+     "Niamh and Caoimhe are coming to the barbecue on Saturday.",
+     "Niamh and K VA are coming to the barbecue on Saturday."
+    ],
+    [
+     "Niamh and Caoimhe are coming to the barbecue on Saturday.",
+     "Neva and Kiva are coming to the barbecue on Saturday."
+    ],
+    [
+     "Niamh and Caoimhe are coming to the barbecue on Saturday.",
+     "Niv and Kiva are coming to the barbecue on Saturday."
+    ],
+    [
+     "Can you loop in Saoirse from legal before we sign anything?",
+     "Can you loop in Seer Sha from legal before we sign anything?"
+    ],
+    [
+     "Can you loop in Saoirse from legal before we sign anything?",
+     "Can you loop in Seusha from legal before we sign anything?"
+    ],
+    [
+     "Can you loop in Saoirse from legal before we sign anything?",
+     "Can you look loop in Siersha from legal before we sign anything?"
+    ],
+    [
+     "Joaquin is driving down with Xavier, so save them a couple of seats.",
+     "Joaquin is driving down with Xavier, so save them a couple of seats."
+    ],
+    [
+     "Joaquin is driving down with Xavier, so save them a couple of seats.",
+     "Joaquin is driving down with Xavia, so save them a couple of seats."
+    ],
+    [
+     "Joaquin is driving down with Xavier, so save them a couple of seats.",
+     "Joaquin is driving down with Xavia, so save them a couple of seats."
+    ],
+    [
+     "Please forward the invoice to Linh Nguyen in the accounts team.",
+     "Please forward the invoice to Lin Win in the accounts team."
+    ],
+    [
+     "Please forward the invoice to Linh Nguyen in the accounts team.",
+     "Please forward the invoice to Lin Win in the accounts team."
+    ],
+    [
+     "Please forward the invoice to Linh Nguyen in the accounts team.",
+     "Please forward the invoice to Linwin in the accounts team."
+    ],
+    [
+     "Tell Aoife that Eoin already booked the train tickets for us.",
+     "Tell Ephah that Owen already booked the train tickets for us."
+    ],
+    [
+     "Tell Aoife that Eoin already booked the train tickets for us.",
+     "Tell Aoifa that Owen already booked the train tickets for us."
+    ],
+    [
+     "Tell Aoife that Eoin already booked the train tickets for us.",
+     "Tell Afa that Owen already booked the train tickets for us."
+    ],
+    [
+     "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
+     "Ask Kshish Tof whether the Warsaw Office got the new laptops yet."
+    ],
+    [
+     "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
+     "Ask Szishtoff whether the Warsaw Office got the new laptops yet."
+    ],
+    [
+     "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
+     "Ask Szishtoff whether the Warsaw Office got the new laptops yet."
+    ],
+    [
+     "Siddharth is presenting the roadmap, so keep your questions for the end.",
+     "Sid Harth is presenting the roadmap, so keep your questions for the end."
+    ],
+    [
+     "Siddharth is presenting the roadmap, so keep your questions for the end.",
+     "Sid Harth is presenting the roadmap, so keep your questions for the end."
+    ],
+    [
+     "Siddharth is presenting the roadmap, so keep your questions for the end.",
+     "Sidharth is presenting the roadmap, so keep your questions for the end."
+    ],
+    [
+     "We're staying in Worcester for two nights before heading up to Edinburgh.",
+     "We're staying in Wustur for two nights before heading up to Edinburgh."
+    ],
+    [
+     "We're staying in Worcester for two nights before heading up to Edinburgh.",
+     "We are staying in Vist Turf or two nights before heading up to Edinburgh."
+    ],
+    [
+     "We're staying in Worcester for two nights before heading up to Edinburgh.",
+     "We're staying in Vestur for two nights before heading up to Edinburgh."
+    ],
+    [
+     "The client is based in Loughborough, so it's a long drive from here.",
+     "The client is based in Loughbrew, so it's a long drive from here."
+    ],
+    [
+     "The client is based in Loughborough, so it's a long drive from here.",
+     "The client is based in Loughborough, so it's a long drive from here."
+    ],
+    [
+     "The client is based in Loughborough, so it's a long drive from here.",
+     "The client is based in Loughborough, so it's a long drive from here."
+    ],
+    [
+     "I booked a little cabin near Llandudno for the bank holiday weekend.",
+     "I booked a little cabin near Clan Didno for the bank holiday weekend."
+    ],
+    [
+     "I booked a little cabin near Llandudno for the bank holiday weekend.",
+     "I booked a little cabin near Clan Didno for the bank holiday weekend."
+    ],
+    [
+     "I booked a little cabin near Llandudno for the bank holiday weekend.",
+     "I booked a little cabin near Clandidno for the bank holiday weekend."
+    ],
+    [
+     "We're getting off at Marylebone and walking to the hotel in Holborn.",
+     "We're getting off at Marlabun and walking to the hotel in Hobun."
+    ],
+    [
+     "We're getting off at Marylebone and walking to the hotel in Holborn.",
+     "We are getting off at Maralibun and walking to the hotel in Ho Bun."
+    ],
+    [
+     "We're getting off at Marylebone and walking to the hotel in Holborn.",
+     "We're getting off at Maralibung and walking to the hotel in Hobung."
+    ],
+    [
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie.",
+     "My aunt just moved from Al-Burkirki to a tiny town outside Pukeepsi."
+    ],
+    [
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie.",
+     "My aunt just moved from Albuquerque to a tiny town outside Puh Kipsi."
+    ],
+    [
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie.",
+     "My aunt just moved from Albuquerque to a tiny town outside Puh Kipsy."
+    ],
+    [
+     "The supplier ships from Guangzhou, so customs usually adds a few days.",
+     "The supplier ships from Guangzhou, so customs usually adds a few days."
+    ],
+    [
+     "The supplier ships from Guangzhou, so customs usually adds a few days.",
+     "The supplier ships from Guangzhou, so customs usually adds a few days."
+    ],
+    [
+     "The supplier ships from Guangzhou, so customs usually adds a few days.",
+     "The supplier ships from Guangzhou, so customs usually adds a few days."
+    ],
+    [
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal.",
+     "We spent a week in Oaxaca eating tacos and drinking way too much Macau."
+    ],
+    [
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal.",
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal."
+    ],
+    [
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal.",
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal."
+    ],
+    [
+     "The conference is in Thessaloniki this year, so book your flights early.",
+     "The conference is in Thessaloniki this year, so book your flights early."
+    ],
+    [
+     "The conference is in Thessaloniki this year, so book your flights early.",
+     "The conference is in Thessaloniki this year, so book your flights early."
+    ],
+    [
+     "The conference is in Thessaloniki this year, so book your flights early.",
+     "The conference is in Thessaloniki this year, so book your flights early."
+    ],
+    [
+     "His rizz is honestly unmatched, she gave him her number straight away.",
+     "His Riz is honestly unmatched. She gave him her number straight away."
+    ],
+    [
+     "His rizz is honestly unmatched, she gave him her number straight away.",
+     "His raze is honestly unmatched. She gave him her number straight away."
+    ],
+    [
+     "His rizz is honestly unmatched, she gave him her number straight away.",
+     "His race is honestly unmatched. She gave him her number straight away."
+    ],
+    [
+     "She's being so delulu about that situationship, he's never texting back.",
+     "She's being so delulu about that situation ship, he's never texting back."
+    ],
+    [
+     "She's being so delulu about that situationship, he's never texting back.",
+     "She's being so delulu about that situationship, he's never texting back."
+    ],
+    [
+     "She's being so delulu about that situationship, he's never texting back.",
+     "She's being so delulu about that situation ship, he's never texting back."
+    ],
+    [
+     "That new ramen place was bussin, we should go again on Friday.",
+     "That new ramen place was bussin', we should go again on Friday."
+    ],
+    [
+     "That new ramen place was bussin, we should go again on Friday.",
+     "That new ramen place was business, we should go again on Friday."
+    ],
+    [
+     "That new ramen place was bussin, we should go again on Friday.",
+     "That new Ramen place was bussing, we should go again on Friday."
+    ],
+    [
+     "We finna pull up to the function later if y'all are still there.",
+     "We fin a pull up to the function later if y'all are still there."
+    ],
+    [
+     "We finna pull up to the function later if y'all are still there.",
+     "We finna pull up to the function later if you are still there."
+    ],
+    [
+     "We finna pull up to the function later if y'all are still there.",
+     "We finna pull up to the function later if you are still there."
+    ],
+    [
+     "Lowkey that meeting could have been an email, periodt.",
+     "Loki that meeting could have been an email, period tuh."
+    ],
+    [
+     "Lowkey that meeting could have been an email, periodt.",
+     "Loki that meeting could have been an email, period 2."
+    ],
+    [
+     "Lowkey that meeting could have been an email, periodt.",
+     "Loki that meeting could have been an email, period 2."
+    ],
+    [
+     "He yeeted his controller across the room after losing that match.",
+     "He yeted his controller across the room after losing that match."
+    ],
+    [
+     "He yeeted his controller across the room after losing that match.",
+     "Heated his controller across the room after losing that match."
+    ],
+    [
+     "He yeeted his controller across the room after losing that match.",
+     "He uttered his controller across the room after losing that match."
+    ],
+    [
+     "Stop simping over that streamer, she doesn't even know you exist.",
+     "Stop simping over that streamer, she doesn't even know you exist."
+    ],
+    [
+     "Stop simping over that streamer, she doesn't even know you exist.",
+     "Stop simping over that streamer, she doesn't even know you exist."
+    ],
+    [
+     "Stop simping over that streamer, she doesn't even know you exist.",
+     "Stop simping over that streamer, she doesn't even know you exist."
+    ],
+    [
+     "That email from the bank looks kinda sus, don't click the link.",
+     "That email from the bank looks kinda SUS, don't click the link."
+    ],
+    [
+     "That email from the bank looks kinda sus, don't click the link.",
+     "That email from the bank looks kinda suze, don't click the link."
+    ],
+    [
+     "That email from the bank looks kinda sus, don't click the link.",
+     "That email from the bank looks kinda sus, don't click the link."
+    ],
+    [
+     "Their team said they're going over there tomorrow to fix the router.",
+     "Their team said they're going over there tomorrow to fix the router."
+    ],
+    [
+     "Their team said they're going over there tomorrow to fix the router.",
+     "Their team said they're going over there tomorrow to fix the router."
+    ],
+    [
+     "Their team said they're going over there tomorrow to fix the router.",
+     "Their team said they are going over there tomorrow to fix the router."
+    ],
+    [
+     "You're going to need your passport, so don't leave it in the car.",
+     "You're going to need your passport, so don't leave it in the car."
+    ],
+    [
+     "You're going to need your passport, so don't leave it in the car.",
+     "You're going to need your passport, so don't leave it in the car."
+    ],
+    [
+     "You're going to need your passport, so don't leave it in the car.",
+     "You're going to need your passport, so don't leave it in the car."
+    ],
+    [
+     "The principal said the new principle applies to every class from Monday.",
+     "The principal said the new principle applies to every class from Monday."
+    ],
+    [
+     "The principal said the new principle applies to every class from Monday.",
+     "The principal said the new principle applies to every class from Monday."
+    ],
+    [
+     "The principal said the new principle applies to every class from Monday.",
+     "The principal said the new principle applies to every class from Monday."
+    ],
+    [
+     "Two of us want to come too, if there's still space at the table.",
+     "Two of us want to come too, if there's still space at the table."
+    ],
+    [
+     "Two of us want to come too, if there's still space at the table.",
+     "Two of us want to come too, if there's still space at the table."
+    ],
+    [
+     "Two of us want to come too, if there's still space at the table.",
+     "Two of us want to come too, if there's still space at the table."
+    ],
+    [
+     "The weather is great, so let's decide whether to eat outside.",
+     "The weather is great, so let's decide whether to eat outside."
+    ],
+    [
+     "The weather is great, so let's decide whether to eat outside.",
+     "The weather is great, so let's decide whether to eat outside."
+    ],
+    [
+     "The weather is great, so let's decide whether to eat outside.",
+     "The weather is great, so let's decide whether to eat outside."
+    ],
+    [
+     "I can't bear the thought of those bare walls in the new flat.",
+     "I can't bear the thought of those bare walls in the new flat."
+    ],
+    [
+     "I can't bear the thought of those bare walls in the new flat.",
+     "I can't bear the thought of those bare walls in the new flat."
+    ],
+    [
+     "I can't bear the thought of those bare walls in the new flat.",
+     "I can't bear the thought of those bare walls in the new flat."
+    ],
+    [
+     "The app lost its settings, so it's asking me to log in again.",
+     "The app lost its settings, so it's asking me to log in again."
+    ],
+    [
+     "The app lost its settings, so it's asking me to log in again.",
+     "The app lost its settings, so it's asking me to log in again."
+    ],
+    [
+     "The app lost its settings, so it's asking me to log in again.",
+     "The app lost its settings, so it's asking me to log in again."
+    ],
+    [
+     "Take a quick peek at the dashboard before traffic hits its peak.",
+     "Take a quick peek at the dashboard before traffic hits its peak."
+    ],
+    [
+     "Take a quick peek at the dashboard before traffic hits its peak.",
+     "Take a quick peek at the dashboard before traffic hits its peak."
+    ],
+    [
+     "Take a quick peek at the dashboard before traffic hits its peak.",
+     "Take a quick peek at the dashboard before traffic hits its peak."
+    ],
+    [
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil.",
+     "I spent all of last night playing GeoGuesser and somehow kept landing in Brazil."
+    ],
+    [
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil.",
+     "I spent all of last night playing GeoGuesser and somehow kept landing in Brazil."
+    ],
+    [
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil.",
+     "I spent all of last night playing Geoguessa and somehow kept landing in Brazil."
+    ],
+    [
+     "We're switching the backend from Firebase to Supabase next sprint.",
+     "We're switching the backend from Firebase to Suppa base next sprint."
+    ],
+    [
+     "We're switching the backend from Firebase to Supabase next sprint.",
+     "We are switching the back end from Firebase to Super Base next sprint."
+    ],
+    [
+     "We're switching the backend from Firebase to Supabase next sprint.",
+     "We're switching the backend from Firebase to Superbase next sprint."
+    ],
+    [
+     "Send me your LinkedIn and I'll pass it on to the hiring manager.",
+     "Send me your LinkedIn and I'll pass it on to the hiring manager."
+    ],
+    [
+     "Send me your LinkedIn and I'll pass it on to the hiring manager.",
+     "Send me your LinkedIn and I'll pass it on to the hiring manager."
+    ],
+    [
+     "Send me your LinkedIn and I'll pass it on to the hiring manager.",
+     "Send me your LinkedIn and I'll pass it on to the hiring manager."
+    ],
+    [
+     "Put the vendor list in Airtable instead of yet another spreadsheet.",
+     "Put the vendor list in Airdable instead of yet another spreadsheet."
+    ],
+    [
+     "Put the vendor list in Airtable instead of yet another spreadsheet.",
+     "Put the vendor list in inertable instead of yet another spreadsheet."
+    ],
+    [
+     "Put the vendor list in Airtable instead of yet another spreadsheet.",
+     "Put the vendor list in Edible instead of yet another spreadsheet."
+    ],
+    [
+     "Just WhatsApp me when you land and I'll come and pick you up.",
+     "Just WhatsApp me when you land and I'll come and pick you up."
+    ],
+    [
+     "Just WhatsApp me when you land and I'll come and pick you up.",
+     "Just what sap me when you land and I'll come and pick you up."
+    ],
+    [
+     "Just WhatsApp me when you land and I'll come and pick you up.",
+     "Just what whatsap me when you land and I'll come and pick you up."
+    ],
+    [
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive.",
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive."
+    ],
+    [
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive.",
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive."
+    ],
+    [
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive.",
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive."
+    ],
+    [
+     "Push the fix to GitHub and tag the release once the tests pass.",
+     "Push the fix to GitHub and tag the release once the tests pass."
+    ],
+    [
+     "Push the fix to GitHub and tag the release once the tests pass.",
+     "Push the fix to GIT Hub and tag the release once the tests pass."
+    ],
+    [
+     "Push the fix to GitHub and tag the release once the tests pass.",
+     "Push the fix to GIT Hub and tag the release once the tests pass."
+    ],
+    [
+     "Please back up the server tonight, the last backup is a week old.",
+     "Please back up the server tonight, the last backup is a week old."
+    ],
+    [
+     "Please back up the server tonight, the last backup is a week old.",
+     "Please back up the server tonight, the last backup is a week old."
+    ],
+    [
+     "Please back up the server tonight, the last backup is a week old.",
+     "Please back up the server tonight, the last backup is a week old."
+    ],
+    [
+     "The new laptop weighs 1.4 kg and charges over USB-C at 100 W.",
+     "The new laptop weighs 1.4 kilograms and charges over USB-C at 100 watts."
+    ],
+    [
+     "The new laptop weighs 1.4 kg and charges over USB-C at 100 W.",
+     "The new laptop weighs 1.4 kilograms and charges over USB-C at 100 watts."
+    ],
+    [
+     "The new laptop weighs 1.4 kg and charges over USB-C at 100 W.",
+     "The new laptop weighs 1.4 kilograms and charges over USB-C at 100 watts."
+    ],
+    [
+     "Set the oven to 180\u00b0C and bake it for 25 minutes.",
+     "Set the oven to 180 degrees Celsius and bake it for 25 minutes."
+    ],
+    [
+     "Set the oven to 180\u00b0C and bake it for 25 minutes.",
+     "Set the oven to 180 degrees Celsius and bake it for 25 minutes."
+    ],
+    [
+     "Set the oven to 180\u00b0C and bake it for 25 minutes.",
+     "Set the oven to 180 degrees Celsius and bake it for 25 minutes."
+    ],
+    [
+     "The API returns a 404 when the JWT has expired, not a 401.",
+     "The API returns a 404 when the JWT has expired, not a 401."
+    ],
+    [
+     "The API returns a 404 when the JWT has expired, not a 401.",
+     "The API returns a 404 when the JWT has expired, not a 401."
+    ],
+    [
+     "The API returns a 404 when the JWT has expired, not a 401.",
+     "The API returns a 404 when the JWT has expired, not a 401."
+    ],
+    [
+     "Our Q3 revenue was up 12% year on year, roughly $4.2 million.",
+     "Our Q3 revenue was up 12% year-on-year, roughly $4.2 million."
+    ],
+    [
+     "Our Q3 revenue was up 12% year on year, roughly $4.2 million.",
+     "Our Q3 revenue was up 12% year-on-year, roughly $4.2 million."
+    ],
+    [
+     "Our Q3 revenue was up 12% year on year, roughly $4.2 million.",
+     "Our Q3 revenue was up 12% year-on-year, roughly $4.2 million."
+    ],
+    [
+     "My NHS appointment is at 9:45 am on the 3rd of March.",
+     "My NHS appointment is at 9.45 a.m. On 3 March."
+    ],
+    [
+     "My NHS appointment is at 9:45 am on the 3rd of March.",
+     "My NHS appointment is at 9.45 a.m. On 3 March."
+    ],
+    [
+     "My NHS appointment is at 9:45 am on the 3rd of March.",
+     "My NHS appointment is at 9.45 on the 3 March."
+    ],
+    [
+     "My download speed dropped from 500 Mbps to just 20 Mbps.",
+     "My download speed dropped from 500 megabits per second to just 20Mbps."
+    ],
+    [
+     "My download speed dropped from 500 Mbps to just 20 Mbps.",
+     "My download speed dropped from 500 megabits per second to just 20"
+    ],
+    [
+     "My download speed dropped from 500 Mbps to just 20 Mbps.",
+     "My download speed dropped from 500 megabits per second to just 20Mbps."
+    ],
+    [
+     "Make sure the SSD has at least 2 TB free and the GPU has 8 GB of VRAM.",
+     "Make sure the SSD has at least 2TB free and the GPU has 8GB of VRAM."
+    ],
+    [
+     "Make sure the SSD has at least 2 TB free and the GPU has 8 GB of VRAM.",
+     "Make sure the SSD has at least 2TB free and the GPU has 8GB of VRAM."
+    ],
+    [
+     "Make sure the SSD has at least 2 TB free and the GPU has 8 GB of VRAM.",
+     "Make sure the SSD has at least 2TB free and the GPU has 8GB of VRAM."
+    ],
+    [
+     "The HDMI 2.1 cable supports 4K at 120 Hz on the PS5.",
+     "The HDMI 2.1 cable supports 4K at 120Hz on the PS5."
+    ],
+    [
+     "The HDMI 2.1 cable supports 4K at 120 Hz on the PS5.",
+     "The HDMI 2.1 cable supports 4K at 120Hz on the PS5."
+    ],
+    [
+     "The HDMI 2.1 cable supports 4K at 120 Hz on the PS5.",
+     "The HDMI 2.1 cable supports 4K at 120Hz on the PS5."
+    ]
+   ]
+  },
+  "after, out of the box (starter set only)": {
+   "wer": 0.083710407239819,
+   "terms": [
+    235,
+    375
+   ],
+   "by_category": {
+    "apps_brands": 0.05333333333333334,
+    "games": 0.13402061855670103,
+    "homophones": 0.01,
+    "numbers_units_acronyms": 0.18518518518518517,
+    "people": 0.09848484848484848,
+    "places": 0.09090909090909091,
+    "slang": 0.07692307692307693,
+    "split_merged": 0.05333333333333334,
+    "tech": 0.0462046204620462
+   },
+   "samples": [
+    [
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?",
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?"
+    ],
+    [
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?",
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?"
+    ],
+    [
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?",
+     "Anyone up for a few rounds of Geoguessa after dinner tonight?"
+    ],
+    [
+     "I finally beat Malenia in Elden Ring after a whole week of trying.",
+     "I finally beat Mehlay Naya in Elden Ring after a whole week of trying."
+    ],
+    [
+     "I finally beat Malenia in Elden Ring after a whole week of trying.",
+     "I finally beat Malay Ni R in Elden Ring after a whole week of trying."
+    ],
+    [
+     "I finally beat Malenia in Elden Ring after a whole week of trying.",
+     "I finally beat Melanie R in Elden Ring after a whole week of trying."
+    ],
+    [
+     "Do you want to queue Valorant ranked tonight or are you too tired?",
+     "Do you want to queue valor and rank tonight or are you too tired?"
+    ],
+    [
+     "Do you want to queue Valorant ranked tonight or are you too tired?",
+     "Do you want to queue Vela and ranked tonight or are you too tired?"
+    ],
+    [
+     "Do you want to queue Valorant ranked tonight or are you too tired?",
+     "Do you want to Q Vela and Rank tonight or are you too tired?"
+    ],
+    [
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs.",
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs."
+    ],
+    [
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs.",
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs."
+    ],
+    [
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs.",
+     "My Star Valley farm finally has enough ancient fruit for the wine cakes."
+    ],
+    [
+     "Silksong finally came out and the boss fights are absolutely brutal.",
+     "Silk Song finally came out and the boss fights are absolutely brutal."
+    ],
+    [
+     "Silksong finally came out and the boss fights are absolutely brutal.",
+     "Silk Song finally came out and the boss fights are absolutely brutal."
+    ],
+    [
+     "Silksong finally came out and the boss fights are absolutely brutal.",
+     "Silk Song finally came out and the boss fights are absolutely brutal."
+    ],
+    [
+     "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
+     "We lost our Baldur's Gate 3 save, so a Astar Eeon is gone forever."
+    ],
+    [
+     "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
+     "We lost our Balguskate 3 save, so our star Eon is gone forever."
+    ],
+    [
+     "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
+     "We lost our Bulgi Escape 3 save, so Astar Eon is gone forever."
+    ],
+    [
+     "I lost the whole evening to Balatro chasing a flush build.",
+     "I lost the whole evening to BALATRO chasing a flush build."
+    ],
+    [
+     "I lost the whole evening to Balatro chasing a flush build.",
+     "I lost the whole evening to Balatro chasing a flush build."
+    ],
+    [
+     "I lost the whole evening to Balatro chasing a flush build.",
+     "I lost the whole evening to Balatro chasing a flush build."
+    ],
+    [
+     "Factorio is basically a second job at this point, the factory must grow.",
+     "Fact Oreo is basically a second job at this point, the factory must grow."
+    ],
+    [
+     "Factorio is basically a second job at this point, the factory must grow.",
+     "Factorio is basically a second job at this point, the factory must grow."
+    ],
+    [
+     "Factorio is basically a second job at this point, the factory must grow.",
+     "Factorio is basically a second job at this point, the factory must grow."
+    ],
+    [
+     "I sent you the rent money on Revolut, let me know when it arrives.",
+     "I sent you the rent money on Revolut, let me know when it arrives."
+    ],
+    [
+     "I sent you the rent money on Revolut, let me know when it arrives.",
+     "I sent you the rent money on Revolut, let me know when it arrives."
+    ],
+    [
+     "I sent you the rent money on Revolut, let me know when it arrives.",
+     "I sent you the rent money on Revolut, let me know when it arrives."
+    ],
+    [
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications.",
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications."
+    ],
+    [
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications.",
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications."
+    ],
+    [
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications.",
+     "My Duolingo streak is about to die and the aisle keeps sending me sad notifications."
+    ],
+    [
+     "I got these leggings from Lululemon and the hoodie from Uniqlo.",
+     "I got these leggings from Lululemon and the hoodie from Yune Clo."
+    ],
+    [
+     "I got these leggings from Lululemon and the hoodie from Uniqlo.",
+     "I got these leggings from Lululemon and the hoodie from Uniqlo."
+    ],
+    [
+     "I got these leggings from Lululemon and the hoodie from Uniqlo.",
+     "I got these leggings from Lululemon and the hoodie from Uniqlo."
+    ],
+    [
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards.",
+     "Please book the onboarding call through Col and Lee and share the Loom recording afterwards."
+    ],
+    [
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards.",
+     "Please book the onboarding call through KA Lendly and share the Loom recording afterwards."
+    ],
+    [
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards.",
+     "Please book the onboarding call through KA Lendly and share the Loom recording afterwards."
+    ],
+    [
+     "We ordered Deliveroo again because nobody could be bothered to cook.",
+     "We ordered deliveroo again because nobody could be bothered to cook."
+    ],
+    [
+     "We ordered Deliveroo again because nobody could be bothered to cook.",
+     "We ordered deliveroo again because nobody could be bothered to cook."
+    ],
+    [
+     "We ordered Deliveroo again because nobody could be bothered to cook.",
+     "We ordered Deliveroo again because nobody could be bothered to cook."
+    ],
+    [
+     "She bought a Peugeot even though her dad always swore by Hyundai.",
+     "She bought a Purjo even though her dad always swore by Hyundai."
+    ],
+    [
+     "She bought a Peugeot even though her dad always swore by Hyundai.",
+     "She bought a purge even though her dad always swore by Hyundai."
+    ],
+    [
+     "She bought a Peugeot even though her dad always swore by Hyundai.",
+     "She bought a Peugeot even though her dad always swore by Hyundai."
+    ],
+    [
+     "I logged my run on Strava and synced it with the Garmin app.",
+     "I logged my run on Strava and synced it with the Garmin app."
+    ],
+    [
+     "I logged my run on Strava and synced it with the Garmin app.",
+     "I logged my run on Strava and synced it with the Gummin app."
+    ],
+    [
+     "I logged my run on Strava and synced it with the Garmin app.",
+     "I logged my run on Strava and synced it with the Gummin app."
+    ],
+    [
+     "Can you check if Ocado still delivers to our new postcode?",
+     "Can you check if Ocardo still delivers to our new postcode?"
+    ],
+    [
+     "Can you check if Ocado still delivers to our new postcode?",
+     "Can you check if Ocado still delivers to our new postcode?"
+    ],
+    [
+     "Can you check if Ocado still delivers to our new postcode?",
+     "Can you check if Okado still delivers to our new postcode?"
+    ],
+    [
+     "We moved the cluster to Kubernetes and the pods keep crash looping.",
+     "We moved the cluster to Kubernetes and the pods keep crash looping."
+    ],
+    [
+     "We moved the cluster to Kubernetes and the pods keep crash looping.",
+     "We moved the cluster to Kubernetes and the pods keep crash looping."
+    ],
+    [
+     "We moved the cluster to Kubernetes and the pods keep crash looping.",
+     "We moved the cluster to Kubernetes and the pods keep crash looping."
+    ],
+    [
+     "The migration failed because PostgreSQL rejected the new foreign key constraint.",
+     "The migration failed because PostgreSQL rejected the new foreign key constraint."
+    ],
+    [
+     "The migration failed because PostgreSQL rejected the new foreign key constraint.",
+     "The migration failed because PostgreSQL rejected the new foreign key constraint."
+    ],
+    [
+     "The migration failed because PostgreSQL rejected the new foreign key constraint.",
+     "The migration failed because PostgreSQL rejected the new foreign key constraint."
+    ],
+    [
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines.",
+     "Rewrite the data loader in PyTorch but keep the number Py fallback for older machines."
+    ],
+    [
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines.",
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines."
+    ],
+    [
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines.",
+     "Rewrite the data loader in PyTorch but keep the numpy fallback for older machines."
+    ],
+    [
+     "The Django views are fine, the slowdown is coming from the Redis cache.",
+     "The Django views are fine, the slowdown is coming from the red ISS cache."
+    ],
+    [
+     "The Django views are fine, the slowdown is coming from the Redis cache.",
+     "The Django views are fine, the slowdown is coming from the Reddit cache."
+    ],
+    [
+     "The Django views are fine, the slowdown is coming from the Redis cache.",
+     "The Django views are fine, the slowdown is coming from the Redis cache."
+    ],
+    [
+     "Add a Pydantic model for the request body and let FastAPI validate it.",
+     "Add a pydantic model for the request body and let FastAPI validate it."
+    ],
+    [
+     "Add a Pydantic model for the request body and let FastAPI validate it.",
+     "Add a PyDantic model for the request body and let FastAPI validate it."
+    ],
+    [
+     "Add a Pydantic model for the request body and let FastAPI validate it.",
+     "Add a pydantic model for the request body and let FastAPI validate it."
+    ],
+    [
+     "Export the encoder to ONNX and run it with the CUDA execution provider.",
+     "Export the encoder to Onix and run it with the CUDA execution provider."
+    ],
+    [
+     "Export the encoder to ONNX and run it with the CUDA execution provider.",
+     "Export the encoder to Onyx and run it with the CUTER execution provider."
+    ],
+    [
+     "Export the encoder to ONNX and run it with the CUDA execution provider.",
+     "Export the encoder to Onix and run it with the CUDA execution provider."
+    ],
+    [
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
+     "Our terraform plan keeps trying to recreate the Gruffagna dashboards on every deploy."
+    ],
+    [
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
+     "Our terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
+    ],
+    [
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
+     "Our terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
+    ],
+    [
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
+     "Swap the raw queries for SQL Alchemy sessions before we add more endpoints."
+    ],
+    [
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
+     "Swap the raw queries for SQL Alchemy sessions before we add more endpoints."
+    ],
+    [
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints."
+    ],
+    [
+     "Siobhan said she'd send the slides over before lunch.",
+     "Siobhan said she'd send the slides over before lunch."
+    ],
+    [
+     "Siobhan said she'd send the slides over before lunch.",
+     "Siobhan said she'd send the slides over before lunch."
+    ],
+    [
+     "Siobhan said she'd send the slides over before lunch.",
+     "Siobhan said she'd send the slides over before lunch."
+    ],
+    [
+     "Niamh and Caoimhe are coming to the barbecue on Saturday.",
+     "Niamh and kVA are coming to the barbecue on Saturday."
+    ],
+    [
+     "Niamh and Caoimhe are coming to the barbecue on Saturday.",
+     "Neva and Kiva are coming to the barbecue on Saturday."
+    ],
+    [
+     "Niamh and Caoimhe are coming to the barbecue on Saturday.",
+     "Niv and Kiva are coming to the barbecue on Saturday."
+    ],
+    [
+     "Can you loop in Saoirse from legal before we sign anything?",
+     "Can you loop in Seer Sha from legal before we sign anything?"
+    ],
+    [
+     "Can you loop in Saoirse from legal before we sign anything?",
+     "Can you loop in Seusha from legal before we sign anything?"
+    ],
+    [
+     "Can you loop in Saoirse from legal before we sign anything?",
+     "Can you loop in Siersha from legal before we sign anything?"
+    ],
+    [
+     "Joaquin is driving down with Xavier, so save them a couple of seats.",
+     "Joaquin is driving down with Xavier, so save them a couple of seats."
+    ],
+    [
+     "Joaquin is driving down with Xavier, so save them a couple of seats.",
+     "Joaquin is driving down with Xavier, so save them a couple of seats."
+    ],
+    [
+     "Joaquin is driving down with Xavier, so save them a couple of seats.",
+     "Joaquin is driving down with Xavier, so save them a couple of seats."
+    ],
+    [
+     "Please forward the invoice to Linh Nguyen in the accounts team.",
+     "Please forward the invoice to Lin Win in the accounts team."
+    ],
+    [
+     "Please forward the invoice to Linh Nguyen in the accounts team.",
+     "Please forward the invoice to Lin Win in the accounts team."
+    ],
+    [
+     "Please forward the invoice to Linh Nguyen in the accounts team.",
+     "Please forward the invoice to Linwin in the accounts team."
+    ],
+    [
+     "Tell Aoife that Eoin already booked the train tickets for us.",
+     "Tell Ifa that Owen already booked the train tickets for us."
+    ],
+    [
+     "Tell Aoife that Eoin already booked the train tickets for us.",
+     "Tell Aoife that Owen already booked the train tickets for us."
+    ],
+    [
+     "Tell Aoife that Eoin already booked the train tickets for us.",
+     "Tell Afa that Owen already booked the train tickets for us."
+    ],
+    [
+     "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
+     "Ask Kshish Tof whether the Warsaw Office got the new laptops yet."
+    ],
+    [
+     "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
+     "Ask Szishtoff whether the Warsaw Office got the new laptops yet."
+    ],
+    [
+     "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
+     "Ask Szishtoff whether the Warsaw Office got the new laptops yet."
+    ],
+    [
+     "Siddharth is presenting the roadmap, so keep your questions for the end.",
+     "Sid Harth is presenting the roadmap, so keep your questions for the end."
+    ],
+    [
+     "Siddharth is presenting the roadmap, so keep your questions for the end.",
+     "Siddharth is presenting the roadmap, so keep your questions for the end."
+    ],
+    [
+     "Siddharth is presenting the roadmap, so keep your questions for the end.",
+     "Siddharth is presenting the roadmap, so keep your questions for the end."
+    ],
+    [
+     "We're staying in Worcester for two nights before heading up to Edinburgh.",
+     "We're staying in Wustur for two nights before heading up to Edinburgh."
+    ],
+    [
+     "We're staying in Worcester for two nights before heading up to Edinburgh.",
+     "We are staying in Vest Turf or two nights before heading up to Edinburgh."
+    ],
+    [
+     "We're staying in Worcester for two nights before heading up to Edinburgh.",
+     "We're staying in Vestur for two nights before heading up to Edinburgh."
+    ],
+    [
+     "The client is based in Loughborough, so it's a long drive from here.",
+     "The client is based in Loughbrew, so it's a long drive from here."
+    ],
+    [
+     "The client is based in Loughborough, so it's a long drive from here.",
+     "The client is based in Loughborough, so it's a long drive from here."
+    ],
+    [
+     "The client is based in Loughborough, so it's a long drive from here.",
+     "The client is based in Loughborough, so it's a long drive from here."
+    ],
+    [
+     "I booked a little cabin near Llandudno for the bank holiday weekend.",
+     "I booked a little cabin near Clan Didno for the bank holiday weekend."
+    ],
+    [
+     "I booked a little cabin near Llandudno for the bank holiday weekend.",
+     "I booked a little cabin near Clan Didno for the bank holiday weekend."
+    ],
+    [
+     "I booked a little cabin near Llandudno for the bank holiday weekend.",
+     "I booked a little cabin near Clandidno for the bank holiday weekend."
+    ],
+    [
+     "We're getting off at Marylebone and walking to the hotel in Holborn.",
+     "We're getting off at Marlabun and walking to the hotel in Hobun."
+    ],
+    [
+     "We're getting off at Marylebone and walking to the hotel in Holborn.",
+     "We are getting off at Maralibun and walking to the hotel in Ho Bun."
+    ],
+    [
+     "We're getting off at Marylebone and walking to the hotel in Holborn.",
+     "We're getting off at Maralibung and walking to the hotel in Hobung."
+    ],
+    [
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie.",
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie."
+    ],
+    [
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie.",
+     "My aunt just moved from Albuquerque to a tiny town outside Puh Kipsi."
+    ],
+    [
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie.",
+     "My aunt just moved from Albuquerque to a tiny town outside Puh Kipsy."
+    ],
+    [
+     "The supplier ships from Guangzhou, so customs usually adds a few days.",
+     "The supplier ships from Guangzhou, so customs usually adds a few days."
+    ],
+    [
+     "The supplier ships from Guangzhou, so customs usually adds a few days.",
+     "The supplier ships from Guangzhou, so customs usually adds a few days."
+    ],
+    [
+     "The supplier ships from Guangzhou, so customs usually adds a few days.",
+     "The supplier ships from Guangzhou, so customs usually adds a few days."
+    ],
+    [
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal.",
+     "We spent a week in Oaxaca eating tacos and drinking way too much Macau."
+    ],
+    [
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal.",
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal."
+    ],
+    [
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal.",
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal."
+    ],
+    [
+     "The conference is in Thessaloniki this year, so book your flights early.",
+     "The conference is in Thessaloniki this year, so book your flights early."
+    ],
+    [
+     "The conference is in Thessaloniki this year, so book your flights early.",
+     "The conference is in Thessaloniki this year, so book your flights early."
+    ],
+    [
+     "The conference is in Thessaloniki this year, so book your flights early.",
+     "The conference is in Thessaloniki this year, so book your flights early."
+    ],
+    [
+     "His rizz is honestly unmatched, she gave him her number straight away.",
+     "His Riz is honestly unmatched. She gave him her number straight away."
+    ],
+    [
+     "His rizz is honestly unmatched, she gave him her number straight away.",
+     "His raze is honestly unmatched. She gave him her number straight away."
+    ],
+    [
+     "His rizz is honestly unmatched, she gave him her number straight away.",
+     "His race is honestly unmatched. She gave him her number straight away."
+    ],
+    [
+     "She's being so delulu about that situationship, he's never texting back.",
+     "She's being so delulu about that situationship, he's never texting back."
+    ],
+    [
+     "She's being so delulu about that situationship, he's never texting back.",
+     "She's being so delulu about that situationship, he's never texting back."
+    ],
+    [
+     "She's being so delulu about that situationship, he's never texting back.",
+     "She's being so delulu about that situationship, he's never texting back."
+    ],
+    [
+     "That new ramen place was bussin, we should go again on Friday.",
+     "That new ramen place was bussin', we should go again on Friday."
+    ],
+    [
+     "That new ramen place was bussin, we should go again on Friday.",
+     "That new ramen place was business, we should go again on Friday."
+    ],
+    [
+     "That new ramen place was bussin, we should go again on Friday.",
+     "That new Ramen place was bussing, we should go again on Friday."
+    ],
+    [
+     "We finna pull up to the function later if y'all are still there.",
+     "We finna pull up to the function later if y'all are still there."
+    ],
+    [
+     "We finna pull up to the function later if y'all are still there.",
+     "We finna pull up to the function later if you are still there."
+    ],
+    [
+     "We finna pull up to the function later if y'all are still there.",
+     "We finna pull up to the function later if you are still there."
+    ],
+    [
+     "Lowkey that meeting could have been an email, periodt.",
+     "Loki that meeting could have been an email, period tuh."
+    ],
+    [
+     "Lowkey that meeting could have been an email, periodt.",
+     "Loki that meeting could have been an email, period 2."
+    ],
+    [
+     "Lowkey that meeting could have been an email, periodt.",
+     "Loki that meeting could have been an email, period 2."
+    ],
+    [
+     "He yeeted his controller across the room after losing that match.",
+     "He yeted his controller across the room after losing that match."
+    ],
+    [
+     "He yeeted his controller across the room after losing that match.",
+     "Heated his controller across the room after losing that match."
+    ],
+    [
+     "He yeeted his controller across the room after losing that match.",
+     "He uttered his controller across the room after losing that match."
+    ],
+    [
+     "Stop simping over that streamer, she doesn't even know you exist.",
+     "Stop simping over that streamer, she doesn't even know you exist."
+    ],
+    [
+     "Stop simping over that streamer, she doesn't even know you exist.",
+     "Stop simping over that streamer, she doesn't even know you exist."
+    ],
+    [
+     "Stop simping over that streamer, she doesn't even know you exist.",
+     "Stop simping over that streamer, she doesn't even know you exist."
+    ],
+    [
+     "That email from the bank looks kinda sus, don't click the link.",
+     "That email from the bank looks kinda SUS, don't click the link."
+    ],
+    [
+     "That email from the bank looks kinda sus, don't click the link.",
+     "That email from the bank looks kinda sus, don't click the link."
+    ],
+    [
+     "That email from the bank looks kinda sus, don't click the link.",
+     "That email from the bank looks kinda sus, don't click the link."
+    ],
+    [
+     "Their team said they're going over there tomorrow to fix the router.",
+     "Their team said they're going over there tomorrow to fix the router."
+    ],
+    [
+     "Their team said they're going over there tomorrow to fix the router.",
+     "Their team said they're going over there tomorrow to fix the router."
+    ],
+    [
+     "Their team said they're going over there tomorrow to fix the router.",
+     "Their team said they are going over there tomorrow to fix the router."
+    ],
+    [
+     "You're going to need your passport, so don't leave it in the car.",
+     "You're going to need your passport, so don't leave it in the car."
+    ],
+    [
+     "You're going to need your passport, so don't leave it in the car.",
+     "You're going to need your passport, so don't leave it in the car."
+    ],
+    [
+     "You're going to need your passport, so don't leave it in the car.",
+     "You're going to need your passport, so don't leave it in the car."
+    ],
+    [
+     "The principal said the new principle applies to every class from Monday.",
+     "The principal said the new principle applies to every class from Monday."
+    ],
+    [
+     "The principal said the new principle applies to every class from Monday.",
+     "The principle said the new principle applies to every class from Monday."
+    ],
+    [
+     "The principal said the new principle applies to every class from Monday.",
+     "The principal said the new principle applies to every class from Monday."
+    ],
+    [
+     "Two of us want to come too, if there's still space at the table.",
+     "Two of us want to come too, if there's still space at the table."
+    ],
+    [
+     "Two of us want to come too, if there's still space at the table.",
+     "Two of us want to come too, if there's still space at the table."
+    ],
+    [
+     "Two of us want to come too, if there's still space at the table.",
+     "Two of us want to come too, if there's still space at the table."
+    ],
+    [
+     "The weather is great, so let's decide whether to eat outside.",
+     "The weather is great, so let's decide whether to eat outside."
+    ],
+    [
+     "The weather is great, so let's decide whether to eat outside.",
+     "The weather is great, so let's decide whether to eat outside."
+    ],
+    [
+     "The weather is great, so let's decide whether to eat outside.",
+     "The weather is great, so let's decide whether to eat outside."
+    ],
+    [
+     "I can't bear the thought of those bare walls in the new flat.",
+     "I can't bear the thought of those bare walls in the new flat."
+    ],
+    [
+     "I can't bear the thought of those bare walls in the new flat.",
+     "I can't bear the thought of those bare walls in the new flat."
+    ],
+    [
+     "I can't bear the thought of those bare walls in the new flat.",
+     "I can't bear the thought of those bare walls in the new flat."
+    ],
+    [
+     "The app lost its settings, so it's asking me to log in again.",
+     "The app lost its settings, so it's asking me to log in again."
+    ],
+    [
+     "The app lost its settings, so it's asking me to log in again.",
+     "The app lost its settings, so it's asking me to log in again."
+    ],
+    [
+     "The app lost its settings, so it's asking me to log in again.",
+     "The app lost its settings, so it's asking me to log in again."
+    ],
+    [
+     "Take a quick peek at the dashboard before traffic hits its peak.",
+     "Take a quick peek at the dashboard before traffic hits its peak."
+    ],
+    [
+     "Take a quick peek at the dashboard before traffic hits its peak.",
+     "Take a quick peek at the dashboard before traffic hits its peak."
+    ],
+    [
+     "Take a quick peek at the dashboard before traffic hits its peak.",
+     "Take a quick peek at the dashboard before traffic hits its peak."
+    ],
+    [
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil.",
+     "I spent all of last night playing GeoGuesser and somehow kept landing in Brazil."
+    ],
+    [
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil.",
+     "I spent all of last night playing GeoGuesser and somehow kept landing in Brazil."
+    ],
+    [
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil.",
+     "I spent all of last night playing Geoguessa and somehow kept landing in Brazil."
+    ],
+    [
+     "We're switching the backend from Firebase to Supabase next sprint.",
+     "We're switching the backend from Firebase to Suppa base next sprint."
+    ],
+    [
+     "We're switching the backend from Firebase to Supabase next sprint.",
+     "We are switching the backend from Firebase to Super Base next sprint."
+    ],
+    [
+     "We're switching the backend from Firebase to Supabase next sprint.",
+     "We're switching the backhand from Firebase to Superbase next sprint."
+    ],
+    [
+     "Send me your LinkedIn and I'll pass it on to the hiring manager.",
+     "Send me your LinkedIn and I'll pass it on to the hiring manager."
+    ],
+    [
+     "Send me your LinkedIn and I'll pass it on to the hiring manager.",
+     "Send me your LinkedIn and I'll pass it on to the hiring manager."
+    ],
+    [
+     "Send me your LinkedIn and I'll pass it on to the hiring manager.",
+     "Send me your LinkedIn and I'll pass it on to the hiring manager."
+    ],
+    [
+     "Put the vendor list in Airtable instead of yet another spreadsheet.",
+     "Put the vendor list in Airtable instead of yet another spreadsheet."
+    ],
+    [
+     "Put the vendor list in Airtable instead of yet another spreadsheet.",
+     "Put the vendor list in Airtable instead of yet another spreadsheet."
+    ],
+    [
+     "Put the vendor list in Airtable instead of yet another spreadsheet.",
+     "Put the vendor list in Edible instead of yet another spreadsheet."
+    ],
+    [
+     "Just WhatsApp me when you land and I'll come and pick you up.",
+     "Just WhatsApp me when you land and I'll come and pick you up."
+    ],
+    [
+     "Just WhatsApp me when you land and I'll come and pick you up.",
+     "Just what sap me when you land and I'll come and pick you up."
+    ],
+    [
+     "Just WhatsApp me when you land and I'll come and pick you up.",
+     "Just WhatsApp me when you land and I'll come and pick you up."
+    ],
+    [
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive.",
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive."
+    ],
+    [
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive.",
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive."
+    ],
+    [
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive.",
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive."
+    ],
+    [
+     "Push the fix to GitHub and tag the release once the tests pass.",
+     "Push the fix to GitHub and tag the release once the tests pass."
+    ],
+    [
+     "Push the fix to GitHub and tag the release once the tests pass.",
+     "Push the fix to GIT Hub and tag the release once the tests pass."
+    ],
+    [
+     "Push the fix to GitHub and tag the release once the tests pass.",
+     "Push the fix to GitHub and tag the release once the tests pass."
+    ],
+    [
+     "Please back up the server tonight, the last backup is a week old.",
+     "Please back up the server tonight, the last backup is a week old."
+    ],
+    [
+     "Please back up the server tonight, the last backup is a week old.",
+     "Please back up the server tonight, the last backup is a week old."
+    ],
+    [
+     "Please back up the server tonight, the last backup is a week old.",
+     "Please back up the server tonight, the last backup is a week old."
+    ],
+    [
+     "The new laptop weighs 1.4 kg and charges over USB-C at 100 W.",
+     "The new laptop weighs 1.4 kilograms and charges over USB-C at 100 watts."
+    ],
+    [
+     "The new laptop weighs 1.4 kg and charges over USB-C at 100 W.",
+     "The new laptop weighs 1.4 kilograms and charges over USB-C at 100 watts."
+    ],
+    [
+     "The new laptop weighs 1.4 kg and charges over USB-C at 100 W.",
+     "The new laptop weighs 1.4 kilograms and charges over USB-C at 100 watts."
+    ],
+    [
+     "Set the oven to 180\u00b0C and bake it for 25 minutes.",
+     "Set the oven to 180 degrees Celsius and bake it for 25 minutes."
+    ],
+    [
+     "Set the oven to 180\u00b0C and bake it for 25 minutes.",
+     "Set the oven to 180 degrees Celsius and bake it for 25 minutes."
+    ],
+    [
+     "Set the oven to 180\u00b0C and bake it for 25 minutes.",
+     "Set the oven to 180 degrees Celsius and bake it for 25 minutes."
+    ],
+    [
+     "The API returns a 404 when the JWT has expired, not a 401.",
+     "The API returns a 404 when the JWT has expired, not a 401."
+    ],
+    [
+     "The API returns a 404 when the JWT has expired, not a 401.",
+     "The API returns a 404 when the JWT has expired, not a 401."
+    ],
+    [
+     "The API returns a 404 when the JWT has expired, not a 401.",
+     "The API returns a 404 when the JWT has expired, not a 401."
+    ],
+    [
+     "Our Q3 revenue was up 12% year on year, roughly $4.2 million.",
+     "Our Q3 revenue was up 12% year-on-year, roughly $4.2 million."
+    ],
+    [
+     "Our Q3 revenue was up 12% year on year, roughly $4.2 million.",
+     "Our Q3 revenue was up 12% year-on-year, roughly $4.2 million."
+    ],
+    [
+     "Our Q3 revenue was up 12% year on year, roughly $4.2 million.",
+     "Our Q3 revenue was up 12% year-on-year, roughly $4.2 million."
+    ],
+    [
+     "My NHS appointment is at 9:45 am on the 3rd of March.",
+     "My NHS appointment is at 9.45 a.m. On 3 March."
+    ],
+    [
+     "My NHS appointment is at 9:45 am on the 3rd of March.",
+     "My NHS appointment is at 9.45 a.m. On 3 March."
+    ],
+    [
+     "My NHS appointment is at 9:45 am on the 3rd of March.",
+     "My NHS appointment is at 9.45am on 3 March."
+    ],
+    [
+     "My download speed dropped from 500 Mbps to just 20 Mbps.",
+     "My download speed dropped from 500 megabits per second to just 20Mbps."
+    ],
+    [
+     "My download speed dropped from 500 Mbps to just 20 Mbps.",
+     "My download speed dropped from 500 megabits per second to just 20Mbps."
+    ],
+    [
+     "My download speed dropped from 500 Mbps to just 20 Mbps.",
+     "My download speed dropped from 500 megabits per second to just 20Mbps."
+    ],
+    [
+     "Make sure the SSD has at least 2 TB free and the GPU has 8 GB of VRAM.",
+     "Make sure the SSD has at least 2TB free and the GPU has 8GB of VRAM."
+    ],
+    [
+     "Make sure the SSD has at least 2 TB free and the GPU has 8 GB of VRAM.",
+     "Make sure the SSD has at least 2TB free and the GPU has 8GB of VRAM."
+    ],
+    [
+     "Make sure the SSD has at least 2 TB free and the GPU has 8 GB of VRAM.",
+     "Make sure the SSD has at least 2TB free and the GPU has 8GB of VRAM."
+    ],
+    [
+     "The HDMI 2.1 cable supports 4K at 120 Hz on the PS5.",
+     "The HDMI 2.1 cable supports 4K at 120Hz on the PS5."
+    ],
+    [
+     "The HDMI 2.1 cable supports 4K at 120 Hz on the PS5.",
+     "The HDMI 2.1 cable supports 4K at 120Hz on the PS5."
+    ],
+    [
+     "The HDMI 2.1 cable supports 4K at 120 Hz on the PS5.",
+     "The HDMI 2.1 cable supports 4K at 120Hz on the PS5."
+    ]
+   ]
+  },
+  "after, with your words (dictionary of the test terms)": {
+   "wer": 0.058069381598793365,
+   "terms": [
+    295,
+    375
+   ],
+   "by_category": {
+    "apps_brands": 0.016666666666666666,
+    "games": 0.06872852233676977,
+    "homophones": 0.01,
+    "numbers_units_acronyms": 0.18518518518518517,
+    "people": 0.06060606060606061,
+    "places": 0.037037037037037035,
+    "slang": 0.07692307692307693,
+    "split_merged": 0.05333333333333334,
+    "tech": 0.006600660066006601
+   },
+   "samples": [
+    [
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?",
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?"
+    ],
+    [
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?",
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?"
+    ],
+    [
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?",
+     "Anyone up for a few rounds of GeoGuessr after dinner tonight?"
+    ],
+    [
+     "I finally beat Malenia in Elden Ring after a whole week of trying.",
+     "I finally beat Malenia in Elden Ring after a whole week of trying."
+    ],
+    [
+     "I finally beat Malenia in Elden Ring after a whole week of trying.",
+     "I finally beat Malenia R in Elden Ring after a whole week of trying."
+    ],
+    [
+     "I finally beat Malenia in Elden Ring after a whole week of trying.",
+     "I finally beat Malenia R in Elden Ring after a whole week of trying."
+    ],
+    [
+     "Do you want to queue Valorant ranked tonight or are you too tired?",
+     "Do you want to queue valor and rank tonight or are you too tired?"
+    ],
+    [
+     "Do you want to queue Valorant ranked tonight or are you too tired?",
+     "Do you want to queue Valorant rank tonight or are you too tired?"
+    ],
+    [
+     "Do you want to queue Valorant ranked tonight or are you too tired?",
+     "Do you want to Q Valor and Rank tonight or are you too tired?"
+    ],
+    [
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs.",
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs."
+    ],
+    [
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs.",
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs."
+    ],
+    [
+     "My Stardew Valley farm finally has enough ancient fruit for the wine kegs.",
+     "My Stardew Valley farm finally has enough ancient fruit for the wine cakes."
+    ],
+    [
+     "Silksong finally came out and the boss fights are absolutely brutal.",
+     "Silksong finally came out and the boss fights are absolutely brutal."
+    ],
+    [
+     "Silksong finally came out and the boss fights are absolutely brutal.",
+     "Silksong finally came out and the boss fights are absolutely brutal."
+    ],
+    [
+     "Silksong finally came out and the boss fights are absolutely brutal.",
+     "Silksong finally came out and the boss fights are absolutely brutal."
+    ],
+    [
+     "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
+     "We lost our Balatro's Gate 3 save, so a Astarion is gone forever."
+    ],
+    [
+     "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
+     "We lost our Balguskate 3 save, so our star Eoin is gone forever."
+    ],
+    [
+     "We lost our Baldur's Gate 3 save, so Astarion is gone forever.",
+     "We lost our Balgi Escape 3 save, so Astarion is gone forever."
+    ],
+    [
+     "I lost the whole evening to Balatro chasing a flush build.",
+     "I lost the whole evening to Balatro chasing a flush build."
+    ],
+    [
+     "I lost the whole evening to Balatro chasing a flush build.",
+     "I lost the whole evening to Balatro chasing a flush build."
+    ],
+    [
+     "I lost the whole evening to Balatro chasing a flush build.",
+     "I lost the whole evening to Balatro chasing a flush build."
+    ],
+    [
+     "Factorio is basically a second job at this point, the factory must grow.",
+     "Factorio is basically a second job at this point, the factory must grow."
+    ],
+    [
+     "Factorio is basically a second job at this point, the factory must grow.",
+     "Factorio is basically a second job at this point, the factory must grow."
+    ],
+    [
+     "Factorio is basically a second job at this point, the factory must grow.",
+     "Factorio is basically a second job at this point, the factory must grow."
+    ],
+    [
+     "I sent you the rent money on Revolut, let me know when it arrives.",
+     "I sent you the rent money on Revolut, let me know when it arrives."
+    ],
+    [
+     "I sent you the rent money on Revolut, let me know when it arrives.",
+     "I sent you the rent money on Revolut, let me know when it arrives."
+    ],
+    [
+     "I sent you the rent money on Revolut, let me know when it arrives.",
+     "I sent you the rent money on Revolut, let me know when it arrives."
+    ],
+    [
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications.",
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications."
+    ],
+    [
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications.",
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications."
+    ],
+    [
+     "My Duolingo streak is about to die and the owl keeps sending me sad notifications.",
+     "My Duolingo streak is about to die and the aisle keeps sending me sad notifications."
+    ],
+    [
+     "I got these leggings from Lululemon and the hoodie from Uniqlo.",
+     "I got these leggings from Lululemon and the hoodie from Uniqlo."
+    ],
+    [
+     "I got these leggings from Lululemon and the hoodie from Uniqlo.",
+     "I got these leggings from Lululemon and the hoodie from Uniqlo."
+    ],
+    [
+     "I got these leggings from Lululemon and the hoodie from Uniqlo.",
+     "I got these leggings from Lululemon and the hoodie from Uniqlo."
+    ],
+    [
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards.",
+     "Please book the onboarding call through Col and Li and share the Loom recording afterwards."
+    ],
+    [
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards.",
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards."
+    ],
+    [
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards.",
+     "Please book the onboarding call through Calendly and share the Loom recording afterwards."
+    ],
+    [
+     "We ordered Deliveroo again because nobody could be bothered to cook.",
+     "We ordered Deliveroo again because nobody could be bothered to cook."
+    ],
+    [
+     "We ordered Deliveroo again because nobody could be bothered to cook.",
+     "We ordered Deliveroo again because nobody could be bothered to cook."
+    ],
+    [
+     "We ordered Deliveroo again because nobody could be bothered to cook.",
+     "We ordered Deliveroo again because nobody could be bothered to cook."
+    ],
+    [
+     "She bought a Peugeot even though her dad always swore by Hyundai.",
+     "She bought a Peugeot even though her dad always swore by Hyundai."
+    ],
+    [
+     "She bought a Peugeot even though her dad always swore by Hyundai.",
+     "She bought a purge even though her dad always swore by Hyundai."
+    ],
+    [
+     "She bought a Peugeot even though her dad always swore by Hyundai.",
+     "She bought a Peugeot even though her dad always swore by Hyundai."
+    ],
+    [
+     "I logged my run on Strava and synced it with the Garmin app.",
+     "I logged my run on Strava and synced it with the Garmin app."
+    ],
+    [
+     "I logged my run on Strava and synced it with the Garmin app.",
+     "I logged my run on Strava and synced it with the Garmin app."
+    ],
+    [
+     "I logged my run on Strava and synced it with the Garmin app.",
+     "I logged my run on Strava and synced it with the Garmin app."
+    ],
+    [
+     "Can you check if Ocado still delivers to our new postcode?",
+     "Can you check if Ocado still delivers to our new postcode?"
+    ],
+    [
+     "Can you check if Ocado still delivers to our new postcode?",
+     "Can you check if Ocado still delivers to our new postcode?"
+    ],
+    [
+     "Can you check if Ocado still delivers to our new postcode?",
+     "Can you check if Ocado still delivers to our new postcode?"
+    ],
+    [
+     "We moved the cluster to Kubernetes and the pods keep crash looping.",
+     "We moved the cluster to Kubernetes and the pods keep crash looping."
+    ],
+    [
+     "We moved the cluster to Kubernetes and the pods keep crash looping.",
+     "We moved the cluster to Kubernetes and the pods keep crash looping."
+    ],
+    [
+     "We moved the cluster to Kubernetes and the pods keep crash looping.",
+     "We moved the cluster to Kubernetes and the pods keep crash looping."
+    ],
+    [
+     "The migration failed because PostgreSQL rejected the new foreign key constraint.",
+     "The migration failed because PostgreSQL rejected the new foreign key constraint."
+    ],
+    [
+     "The migration failed because PostgreSQL rejected the new foreign key constraint.",
+     "The migration failed because PostgreSQL rejected the new foreign key constraint."
+    ],
+    [
+     "The migration failed because PostgreSQL rejected the new foreign key constraint.",
+     "The migration failed because PostgreSQL rejected the new foreign key constraint."
+    ],
+    [
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines.",
+     "Rewrite the data loader in PyTorch but keep the number Py fallback for older machines."
+    ],
+    [
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines.",
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines."
+    ],
+    [
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines.",
+     "Rewrite the data loader in PyTorch but keep the NumPy fallback for older machines."
+    ],
+    [
+     "The Django views are fine, the slowdown is coming from the Redis cache.",
+     "The Django views are fine, the slowdown is coming from the Redis cache."
+    ],
+    [
+     "The Django views are fine, the slowdown is coming from the Redis cache.",
+     "The Django views are fine, the slowdown is coming from the Redis cache."
+    ],
+    [
+     "The Django views are fine, the slowdown is coming from the Redis cache.",
+     "The Django views are fine, the slowdown is coming from the Redis cache."
+    ],
+    [
+     "Add a Pydantic model for the request body and let FastAPI validate it.",
+     "Add a Pydantic model for the request body and let FastAPI validate it."
+    ],
+    [
+     "Add a Pydantic model for the request body and let FastAPI validate it.",
+     "Add a Pydantic model for the request body and let FastAPI validate it."
+    ],
+    [
+     "Add a Pydantic model for the request body and let FastAPI validate it.",
+     "Add a Pydantic model for the request body and let FastAPI validate it."
+    ],
+    [
+     "Export the encoder to ONNX and run it with the CUDA execution provider.",
+     "Export the encoder to ONNX and run it with the CUDA execution provider."
+    ],
+    [
+     "Export the encoder to ONNX and run it with the CUDA execution provider.",
+     "Export the encoder to ONNX and run it with the CUDA execution provider."
+    ],
+    [
+     "Export the encoder to ONNX and run it with the CUDA execution provider.",
+     "Export the encoder to ONNX and run it with the CUDA execution provider."
+    ],
+    [
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
+    ],
+    [
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
+    ],
+    [
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy.",
+     "Our Terraform plan keeps trying to recreate the Grafana dashboards on every deploy."
+    ],
+    [
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints."
+    ],
+    [
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints."
+    ],
+    [
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints.",
+     "Swap the raw queries for SQLAlchemy sessions before we add more endpoints."
+    ],
+    [
+     "Siobhan said she'd send the slides over before lunch.",
+     "Siobhan said she'd send the slides over before lunch."
+    ],
+    [
+     "Siobhan said she'd send the slides over before lunch.",
+     "Siobhan said she'd send the slides over before lunch."
+    ],
+    [
+     "Siobhan said she'd send the slides over before lunch.",
+     "Siobhan said she'd send the slides over before lunch."
+    ],
+    [
+     "Niamh and Caoimhe are coming to the barbecue on Saturday.",
+     "Niamh and kVA are coming to the barbecue on Saturday."
+    ],
+    [
+     "Niamh and Caoimhe are coming to the barbecue on Saturday.",
+     "Niva and Kiva are coming to the barbecue on Saturday."
+    ],
+    [
+     "Niamh and Caoimhe are coming to the barbecue on Saturday.",
+     "Niamh and Kiva are coming to the barbecue on Saturday."
+    ],
+    [
+     "Can you loop in Saoirse from legal before we sign anything?",
+     "Can you loop in Sierra Shafram legal before we sign anything?"
+    ],
+    [
+     "Can you loop in Saoirse from legal before we sign anything?",
+     "Can you loop in Saoirse from legal before we sign anything?"
+    ],
+    [
+     "Can you loop in Saoirse from legal before we sign anything?",
+     "Can you loop in Saoirse from legal before we sign anything?"
+    ],
+    [
+     "Joaquin is driving down with Xavier, so save them a couple of seats.",
+     "Joaquin is driving down with Xavier, so save them a couple of seats."
+    ],
+    [
+     "Joaquin is driving down with Xavier, so save them a couple of seats.",
+     "Joaquin is driving down with Xavier, so save them a couple of seats."
+    ],
+    [
+     "Joaquin is driving down with Xavier, so save them a couple of seats.",
+     "Joaquin is driving down with Xavier, so save them a couple of seats."
+    ],
+    [
+     "Please forward the invoice to Linh Nguyen in the accounts team.",
+     "Please forward the invoice to Lin Win in the accounts team."
+    ],
+    [
+     "Please forward the invoice to Linh Nguyen in the accounts team.",
+     "Please forward the invoice to Lin Win in the accounts team."
+    ],
+    [
+     "Please forward the invoice to Linh Nguyen in the accounts team.",
+     "Please forward the invoice to LinkedIn in the accounts team."
+    ],
+    [
+     "Tell Aoife that Eoin already booked the train tickets for us.",
+     "Tell Ifa that Owen already booked the train tickets for us."
+    ],
+    [
+     "Tell Aoife that Eoin already booked the train tickets for us.",
+     "Tell Aoife that Owen already booked the train tickets for us."
+    ],
+    [
+     "Tell Aoife that Eoin already booked the train tickets for us.",
+     "Tell Aoife that Owen already booked the train tickets for us."
+    ],
+    [
+     "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
+     "Ask Krzysztof whether the Warsaw Office got the new laptops yet."
+    ],
+    [
+     "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
+     "Ask Krzysztof whether the Warsaw Office got the new laptops yet."
+    ],
+    [
+     "Ask Krzysztof whether the Warsaw office got the new laptops yet.",
+     "Ask Krzysztof whether the Warsaw Office got the new laptops yet."
+    ],
+    [
+     "Siddharth is presenting the roadmap, so keep your questions for the end.",
+     "Siddharth is presenting the roadmap, so keep your questions for the end."
+    ],
+    [
+     "Siddharth is presenting the roadmap, so keep your questions for the end.",
+     "Siddharth is presenting the roadmap, so keep your questions for the end."
+    ],
+    [
+     "Siddharth is presenting the roadmap, so keep your questions for the end.",
+     "Siddharth is presenting the roadmap, so keep your questions for the end."
+    ],
+    [
+     "We're staying in Worcester for two nights before heading up to Edinburgh.",
+     "We're staying in Worcester for two nights before heading up to Edinburgh."
+    ],
+    [
+     "We're staying in Worcester for two nights before heading up to Edinburgh.",
+     "We are staying in Vest Ter for two nights before heading up to Edinburgh."
+    ],
+    [
+     "We're staying in Worcester for two nights before heading up to Edinburgh.",
+     "We're staying in Worcester for two nights before heading up to Edinburgh."
+    ],
+    [
+     "The client is based in Loughborough, so it's a long drive from here.",
+     "The client is based in Loughborough, so it's a long drive from here."
+    ],
+    [
+     "The client is based in Loughborough, so it's a long drive from here.",
+     "The client is based in Loughborough, so it's a long drive from here."
+    ],
+    [
+     "The client is based in Loughborough, so it's a long drive from here.",
+     "The client is based in Loughborough, so it's a long drive from here."
+    ],
+    [
+     "I booked a little cabin near Llandudno for the bank holiday weekend.",
+     "I booked a little cabin near Llandudno for the bank holiday weekend."
+    ],
+    [
+     "I booked a little cabin near Llandudno for the bank holiday weekend.",
+     "I booked a little cabin near Llandudno for the bank holiday weekend."
+    ],
+    [
+     "I booked a little cabin near Llandudno for the bank holiday weekend.",
+     "I booked a little cabin near Llandudno for the bank holiday weekend."
+    ],
+    [
+     "We're getting off at Marylebone and walking to the hotel in Holborn.",
+     "We're getting off at Marylebone and walking to the hotel in Hobun."
+    ],
+    [
+     "We're getting off at Marylebone and walking to the hotel in Holborn.",
+     "We are getting off at Marylebone and walking to the hotel in Ho Bun."
+    ],
+    [
+     "We're getting off at Marylebone and walking to the hotel in Holborn.",
+     "We're getting off at Marylebone and walking to the hotel in Hobung."
+    ],
+    [
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie.",
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie."
+    ],
+    [
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie.",
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie."
+    ],
+    [
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie.",
+     "My aunt just moved from Albuquerque to a tiny town outside Poughkeepsie."
+    ],
+    [
+     "The supplier ships from Guangzhou, so customs usually adds a few days.",
+     "The supplier ships from Guangzhou, so customs usually adds a few days."
+    ],
+    [
+     "The supplier ships from Guangzhou, so customs usually adds a few days.",
+     "The supplier ships from Guangzhou, so customs usually adds a few days."
+    ],
+    [
+     "The supplier ships from Guangzhou, so customs usually adds a few days.",
+     "The supplier ships from Guangzhou, so customs usually adds a few days."
+    ],
+    [
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal.",
+     "We spent a week in Oaxaca eating tacos and drinking way too much Macau."
+    ],
+    [
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal.",
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal."
+    ],
+    [
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal.",
+     "We spent a week in Oaxaca eating tacos and drinking way too much mezcal."
+    ],
+    [
+     "The conference is in Thessaloniki this year, so book your flights early.",
+     "The conference is in Thessaloniki this year, so book your flights early."
+    ],
+    [
+     "The conference is in Thessaloniki this year, so book your flights early.",
+     "The conference is in Thessaloniki this year, so book your flights early."
+    ],
+    [
+     "The conference is in Thessaloniki this year, so book your flights early.",
+     "The conference is in Thessaloniki this year, so book your flights early."
+    ],
+    [
+     "His rizz is honestly unmatched, she gave him her number straight away.",
+     "His Redis is honestly unmatched. She gave him her number straight away."
+    ],
+    [
+     "His rizz is honestly unmatched, she gave him her number straight away.",
+     "His raze is honestly unmatched. She gave him her number straight away."
+    ],
+    [
+     "His rizz is honestly unmatched, she gave him her number straight away.",
+     "His race is honestly unmatched. She gave him her number straight away."
+    ],
+    [
+     "She's being so delulu about that situationship, he's never texting back.",
+     "She's being so delulu about that situationship, he's never texting back."
+    ],
+    [
+     "She's being so delulu about that situationship, he's never texting back.",
+     "She's being so delulu about that situationship, he's never texting back."
+    ],
+    [
+     "She's being so delulu about that situationship, he's never texting back.",
+     "She's being so delulu about that situationship, he's never texting back."
+    ],
+    [
+     "That new ramen place was bussin, we should go again on Friday.",
+     "That new ramen place was bussin', we should go again on Friday."
+    ],
+    [
+     "That new ramen place was bussin, we should go again on Friday.",
+     "That new ramen place was business, we should go again on Friday."
+    ],
+    [
+     "That new ramen place was bussin, we should go again on Friday.",
+     "That new Ramen place was bussing, we should go again on Friday."
+    ],
+    [
+     "We finna pull up to the function later if y'all are still there.",
+     "We finna pull up to the function later if y'all are still there."
+    ],
+    [
+     "We finna pull up to the function later if y'all are still there.",
+     "We finna pull up to the function later if you are still there."
+    ],
+    [
+     "We finna pull up to the function later if y'all are still there.",
+     "We finna pull up to the function later if you are still there."
+    ],
+    [
+     "Lowkey that meeting could have been an email, periodt.",
+     "Loki that meeting could have been an email, period tuh."
+    ],
+    [
+     "Lowkey that meeting could have been an email, periodt.",
+     "Loki that meeting could have been an email, period 2."
+    ],
+    [
+     "Lowkey that meeting could have been an email, periodt.",
+     "Loki that meeting could have been an email, period 2."
+    ],
+    [
+     "He yeeted his controller across the room after losing that match.",
+     "He yeted his controller across the room after losing that match."
+    ],
+    [
+     "He yeeted his controller across the room after losing that match.",
+     "Heated his controller across the room after losing that match."
+    ],
+    [
+     "He yeeted his controller across the room after losing that match.",
+     "He uttered his controller across the room after losing that match."
+    ],
+    [
+     "Stop simping over that streamer, she doesn't even know you exist.",
+     "Stop simping over that streamer, she doesn't even know you exist."
+    ],
+    [
+     "Stop simping over that streamer, she doesn't even know you exist.",
+     "Stop simping over that streamer, she doesn't even know you exist."
+    ],
+    [
+     "Stop simping over that streamer, she doesn't even know you exist.",
+     "Stop simping over that streamer, she doesn't even know you exist."
+    ],
+    [
+     "That email from the bank looks kinda sus, don't click the link.",
+     "That email from the bank looks kinda SUS, don't click the link."
+    ],
+    [
+     "That email from the bank looks kinda sus, don't click the link.",
+     "That email from the bank looks kinda sus, don't click the link."
+    ],
+    [
+     "That email from the bank looks kinda sus, don't click the link.",
+     "That email from the bank looks kinda sus, don't click the link."
+    ],
+    [
+     "Their team said they're going over there tomorrow to fix the router.",
+     "Their team said they're going over there tomorrow to fix the router."
+    ],
+    [
+     "Their team said they're going over there tomorrow to fix the router.",
+     "Their team said they're going over there tomorrow to fix the router."
+    ],
+    [
+     "Their team said they're going over there tomorrow to fix the router.",
+     "Their team said they are going over there tomorrow to fix the router."
+    ],
+    [
+     "You're going to need your passport, so don't leave it in the car.",
+     "You're going to need your passport, so don't leave it in the car."
+    ],
+    [
+     "You're going to need your passport, so don't leave it in the car.",
+     "You're going to need your passport, so don't leave it in the car."
+    ],
+    [
+     "You're going to need your passport, so don't leave it in the car.",
+     "You're going to need your passport, so don't leave it in the car."
+    ],
+    [
+     "The principal said the new principle applies to every class from Monday.",
+     "The principal said the new principle applies to every class from Monday."
+    ],
+    [
+     "The principal said the new principle applies to every class from Monday.",
+     "The principle said the new principle applies to every class from Monday."
+    ],
+    [
+     "The principal said the new principle applies to every class from Monday.",
+     "The principal said the new principle applies to every class from Monday."
+    ],
+    [
+     "Two of us want to come too, if there's still space at the table.",
+     "Two of us want to come too, if there's still space at the table."
+    ],
+    [
+     "Two of us want to come too, if there's still space at the table.",
+     "Two of us want to come too, if there's still space at the table."
+    ],
+    [
+     "Two of us want to come too, if there's still space at the table.",
+     "Two of us want to come too, if there's still space at the table."
+    ],
+    [
+     "The weather is great, so let's decide whether to eat outside.",
+     "The weather is great, so let's decide whether to eat outside."
+    ],
+    [
+     "The weather is great, so let's decide whether to eat outside.",
+     "The weather is great, so let's decide whether to eat outside."
+    ],
+    [
+     "The weather is great, so let's decide whether to eat outside.",
+     "The weather is great, so let's decide whether to eat outside."
+    ],
+    [
+     "I can't bear the thought of those bare walls in the new flat.",
+     "I can't bear the thought of those bare walls in the new flat."
+    ],
+    [
+     "I can't bear the thought of those bare walls in the new flat.",
+     "I can't bear the thought of those bare walls in the new flat."
+    ],
+    [
+     "I can't bear the thought of those bare walls in the new flat.",
+     "I can't bear the thought of those bare walls in the new flat."
+    ],
+    [
+     "The app lost its settings, so it's asking me to log in again.",
+     "The app lost its settings, so it's asking me to log in again."
+    ],
+    [
+     "The app lost its settings, so it's asking me to log in again.",
+     "The app lost its settings, so it's asking me to log in again."
+    ],
+    [
+     "The app lost its settings, so it's asking me to log in again.",
+     "The app lost its settings, so it's asking me to log in again."
+    ],
+    [
+     "Take a quick peek at the dashboard before traffic hits its peak.",
+     "Take a quick peek at the dashboard before traffic hits its peak."
+    ],
+    [
+     "Take a quick peek at the dashboard before traffic hits its peak.",
+     "Take a quick peek at the dashboard before traffic hits its peak."
+    ],
+    [
+     "Take a quick peek at the dashboard before traffic hits its peak.",
+     "Take a quick peek at the dashboard before traffic hits its peak."
+    ],
+    [
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil.",
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil."
+    ],
+    [
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil.",
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil."
+    ],
+    [
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil.",
+     "I spent all of last night playing GeoGuessr and somehow kept landing in Brazil."
+    ],
+    [
+     "We're switching the backend from Firebase to Supabase next sprint.",
+     "We're switching the backend from Firebase to Supabase next sprint."
+    ],
+    [
+     "We're switching the backend from Firebase to Supabase next sprint.",
+     "We are switching the back end from Firebase to Super Base next sprint."
+    ],
+    [
+     "We're switching the backend from Firebase to Supabase next sprint.",
+     "We're switching the backhand from Firebase to Supabase next sprint."
+    ],
+    [
+     "Send me your LinkedIn and I'll pass it on to the hiring manager.",
+     "Send me your LinkedIn and I'll pass it on to the hiring manager."
+    ],
+    [
+     "Send me your LinkedIn and I'll pass it on to the hiring manager.",
+     "Send me your LinkedIn and I'll pass it on to the hiring manager."
+    ],
+    [
+     "Send me your LinkedIn and I'll pass it on to the hiring manager.",
+     "Send me your LinkedIn and I'll pass it on to the hiring manager."
+    ],
+    [
+     "Put the vendor list in Airtable instead of yet another spreadsheet.",
+     "Put the vendor list in Airtable instead of yet another spreadsheet."
+    ],
+    [
+     "Put the vendor list in Airtable instead of yet another spreadsheet.",
+     "Put the vendor list in Airtable instead of yet another spreadsheet."
+    ],
+    [
+     "Put the vendor list in Airtable instead of yet another spreadsheet.",
+     "Put the vendor list in Edible instead of yet another spreadsheet."
+    ],
+    [
+     "Just WhatsApp me when you land and I'll come and pick you up.",
+     "Just WhatsApp me when you land and I'll come and pick you up."
+    ],
+    [
+     "Just WhatsApp me when you land and I'll come and pick you up.",
+     "Just WhatsApp me when you land and I'll come and pick you up."
+    ],
+    [
+     "Just WhatsApp me when you land and I'll come and pick you up.",
+     "Just WhatsApp me when you land and I'll come and pick you up."
+    ],
+    [
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive.",
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive."
+    ],
+    [
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive.",
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive."
+    ],
+    [
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive.",
+     "The PowerPoint deck is on SharePoint, but the latest version is in OneDrive."
+    ],
+    [
+     "Push the fix to GitHub and tag the release once the tests pass.",
+     "Push the fix to GitHub and tag the release once the tests pass."
+    ],
+    [
+     "Push the fix to GitHub and tag the release once the tests pass.",
+     "Push the fix to GIT Hub and tag the release once the tests pass."
+    ],
+    [
+     "Push the fix to GitHub and tag the release once the tests pass.",
+     "Push the fix to GitHub and tag the release once the tests pass."
+    ],
+    [
+     "Please back up the server tonight, the last backup is a week old.",
+     "Please back up the server tonight, the last back up is a week old."
+    ],
+    [
+     "Please back up the server tonight, the last backup is a week old.",
+     "Please back up the server tonight, the last back up is a week old."
+    ],
+    [
+     "Please back up the server tonight, the last backup is a week old.",
+     "Please back up the server tonight, the last back up is a week old."
+    ],
+    [
+     "The new laptop weighs 1.4 kg and charges over USB-C at 100 W.",
+     "The new laptop weighs 1.4 kilograms and charges over USB-C at 100 watts."
+    ],
+    [
+     "The new laptop weighs 1.4 kg and charges over USB-C at 100 W.",
+     "The new laptop weighs 1.4 kilograms and charges over USB-C at 100 watts."
+    ],
+    [
+     "The new laptop weighs 1.4 kg and charges over USB-C at 100 W.",
+     "The new laptop weighs 1.4 kilograms and charges over USB-C at 100 watts."
+    ],
+    [
+     "Set the oven to 180\u00b0C and bake it for 25 minutes.",
+     "Set the oven to 180 degrees Celsius and bake it for 25 minutes."
+    ],
+    [
+     "Set the oven to 180\u00b0C and bake it for 25 minutes.",
+     "Set the oven to 180 degrees Celsius and bake it for 25 minutes."
+    ],
+    [
+     "Set the oven to 180\u00b0C and bake it for 25 minutes.",
+     "Set the oven to 180 degrees Celsius and bake it for 25 minutes."
+    ],
+    [
+     "The API returns a 404 when the JWT has expired, not a 401.",
+     "The API returns a 404 when the JWT has expired, not a 401."
+    ],
+    [
+     "The API returns a 404 when the JWT has expired, not a 401.",
+     "The API returns a 404 when the JWT has expired, not a 401."
+    ],
+    [
+     "The API returns a 404 when the JWT has expired, not a 401.",
+     "The API returns a 404 when the JWT has expired, not a 401."
+    ],
+    [
+     "Our Q3 revenue was up 12% year on year, roughly $4.2 million.",
+     "Our Q3 revenue was up 12% year-on-year, roughly $4.2 million."
+    ],
+    [
+     "Our Q3 revenue was up 12% year on year, roughly $4.2 million.",
+     "Our Q3 revenue was up 12% year-on-year, roughly $4.2 million."
+    ],
+    [
+     "Our Q3 revenue was up 12% year on year, roughly $4.2 million.",
+     "Our Q3 revenue was up 12% year-on-year, roughly $4.2 million."
+    ],
+    [
+     "My NHS appointment is at 9:45 am on the 3rd of March.",
+     "My NHS appointment is at 9.45 a.m. On 3 March."
+    ],
+    [
+     "My NHS appointment is at 9:45 am on the 3rd of March.",
+     "My NHS appointment is at 9.45 a.m. On 3 March."
+    ],
+    [
+     "My NHS appointment is at 9:45 am on the 3rd of March.",
+     "My NHS appointment is at 9.45am on 3 March."
+    ],
+    [
+     "My download speed dropped from 500 Mbps to just 20 Mbps.",
+     "My download speed dropped from 500 megabits per second to just 20Mbps."
+    ],
+    [
+     "My download speed dropped from 500 Mbps to just 20 Mbps.",
+     "My download speed dropped from 500 megabits per second to just 20Mbps."
+    ],
+    [
+     "My download speed dropped from 500 Mbps to just 20 Mbps.",
+     "My download speed dropped from 500 megabits per second to just 20Mbps."
+    ],
+    [
+     "Make sure the SSD has at least 2 TB free and the GPU has 8 GB of VRAM.",
+     "Make sure the SSD has at least 2TB free and the GPU has 8GB of VRAM."
+    ],
+    [
+     "Make sure the SSD has at least 2 TB free and the GPU has 8 GB of VRAM.",
+     "Make sure the SSD has at least 2TB free and the GPU has 8GB of VRAM."
+    ],
+    [
+     "Make sure the SSD has at least 2 TB free and the GPU has 8 GB of VRAM.",
+     "Make sure the SSD has at least 2TB free and the GPU has 8GB of VRAM."
+    ],
+    [
+     "The HDMI 2.1 cable supports 4K at 120 Hz on the PS5.",
+     "The HDMI 2.1 cable supports 4K at 120Hz on the PS5."
+    ],
+    [
+     "The HDMI 2.1 cable supports 4K at 120 Hz on the PS5.",
+     "The HDMI 2.1 cable supports 4K at 120Hz on the PS5."
+    ],
+    [
+     "The HDMI 2.1 cable supports 4K at 120 Hz on the PS5.",
+     "The HDMI 2.1 cable supports 4K at 120Hz on the PS5."
+    ]
+   ]
+  }
+ },
+ "phrases_user_terms": [
+  "API",
+  "Airtable",
+  "Albuquerque",
+  "Aoife",
+  "Astarion",
+  "Balatro",
+  "CUDA",
+  "Calendly",
+  "Caoimhe",
+  "Deliveroo",
+  "Django",
+  "Duolingo",
+  "Edinburgh",
+  "Elden Ring",
+  "Eoin",
+  "Factorio",
+  "FastAPI",
+  "Firebase",
+  "GPU",
+  "Garmin",
+  "GeoGuessr",
+  "GitHub",
+  "Grafana",
+  "Guangzhou",
+  "Holborn",
+  "Hyundai",
+  "JWT",
+  "Joaquin",
+  "Krzysztof",
+  "Kubernetes",
+  "Linh Nguyen",
+  "LinkedIn",
+  "Llandudno",
+  "Loom",
+  "Loughborough",
+  "Lululemon",
+  "Malenia",
+  "Marylebone",
+  "NHS",
+  "Niamh",
+  "NumPy",
+  "ONNX",
+  "Oaxaca",
+  "Ocado",
+  "OneDrive",
+  "Peugeot",
+  "PostgreSQL",
+  "Poughkeepsie",
+  "PowerPoint",
+  "PyTorch",
+  "Pydantic",
+  "Redis",
+  "Revolut",
+  "SQLAlchemy",
+  "SSD",
+  "Saoirse",
+  "SharePoint",
+  "Siddharth",
+  "Silksong",
+  "Siobhan",
+  "Stardew Valley",
+  "Strava",
+  "Supabase",
+  "Terraform",
+  "Thessaloniki",
+  "USB-C",
+  "Uniqlo",
+  "VRAM",
+  "Valorant",
+  "WhatsApp",
+  "Worcester",
+  "back up",
+  "backup",
+  "mezcal"
+ ],
+ "history": [
+  {
+   "id": "hc-01",
+   "voice": "zira",
+   "pair": "Rust / rust",
+   "raw": "I've been fighting with rust all weekend and I'm completely fed up.",
+   "with_a": "I've been fighting with Rust all weekend and I'm completely fed up.",
+   "with_b": "I've been fighting with rust all weekend and I'm completely fed up.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-01",
+   "voice": "hazel",
+   "pair": "Rust / rust",
+   "raw": "I've been fighting with rust all weekend and I'm completely fed up.",
+   "with_a": "I've been fighting with Rust all weekend and I'm completely fed up.",
+   "with_b": "I've been fighting with rust all weekend and I'm completely fed up.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-01",
+   "voice": "george",
+   "pair": "Rust / rust",
+   "raw": "I've been fighting with rust all weekend and I'm completely fed up.",
+   "with_a": "I've been fighting with Rust all weekend and I'm completely fed up.",
+   "with_b": "I've been fighting with rust all weekend and I'm completely fed up.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-02",
+   "voice": "zira",
+   "pair": "Shaun / Sean",
+   "raw": "Sean said he'd bring the speakers round on Saturday.",
+   "with_a": "Shaun said he'd bring the speakers round on Saturday.",
+   "with_b": "Sean said he'd bring the speakers round on Saturday.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-02",
+   "voice": "hazel",
+   "pair": "Shaun / Sean",
+   "raw": "Sean said he'd bring the speakers round on Saturday.",
+   "with_a": "Shaun said he'd bring the speakers round on Saturday.",
+   "with_b": "Sean said he'd bring the speakers round on Saturday.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-02",
+   "voice": "george",
+   "pair": "Shaun / Sean",
+   "raw": "Sean said he'd bring the speakers round on Saturday.",
+   "with_a": "Shaun said he'd bring the speakers round on Saturday.",
+   "with_b": "Sean said he'd bring the speakers round on Saturday.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-03",
+   "voice": "zira",
+   "pair": "Teams / teams",
+   "raw": "We spent most of the morning in teams going over the plan.",
+   "with_a": "We spent most of the morning in Teams going over the plan.",
+   "with_b": "We spent most of the morning in teams going over the plan.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-03",
+   "voice": "hazel",
+   "pair": "Teams / teams",
+   "raw": "We spent most of the morning in teams going over the plan.",
+   "with_a": "We spent most of the morning in Teams going over the plan.",
+   "with_b": "We spent most of the morning in teams going over the plan.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-03",
+   "voice": "george",
+   "pair": "Teams / teams",
+   "raw": "We spent most of the morning in teams going over the plan.",
+   "with_a": "We spent most of the morning in Teams going over the plan.",
+   "with_b": "We spent most of the morning in teams going over the plan.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-04",
+   "voice": "zira",
+   "pair": "Unity / unity",
+   "raw": "Honestly, unity has been the hardest part of this whole project.",
+   "with_a": "Honestly, Unity has been the hardest part of this whole project.",
+   "with_b": "Honestly, unity has been the hardest part of this whole project.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-04",
+   "voice": "hazel",
+   "pair": "Unity / unity",
+   "raw": "Honestly, unity has been the hardest part of this whole project.",
+   "with_a": "Honestly, Unity has been the hardest part of this whole project.",
+   "with_b": "Honestly, unity has been the hardest part of this whole project.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-04",
+   "voice": "george",
+   "pair": "Unity / unity",
+   "raw": "Honestly, unity has been the hardest part of this whole project.",
+   "with_a": "Honestly, Unity has been the hardest part of this whole project.",
+   "with_b": "Honestly, unity has been the hardest part of this whole project.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-05",
+   "voice": "zira",
+   "pair": "Echo / echo",
+   "raw": "The echo in the kitchen is driving me absolutely mad.",
+   "with_a": "The Echo in the kitchen is driving me absolutely mad.",
+   "with_b": "The echo in the kitchen is driving me absolutely mad.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-05",
+   "voice": "hazel",
+   "pair": "Echo / echo",
+   "raw": "The echo in the kitchen is driving me absolutely mad.",
+   "with_a": "The Echo in the kitchen is driving me absolutely mad.",
+   "with_b": "The echo in the kitchen is driving me absolutely mad.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-05",
+   "voice": "george",
+   "pair": "Echo / echo",
+   "raw": "The echo in the kitchen is driving me absolutely mad.",
+   "with_a": "The Echo in the kitchen is driving me absolutely mad.",
+   "with_b": "The echo in the kitchen is driving me absolutely mad.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-06",
+   "voice": "zira",
+   "pair": "Claude / cloud",
+   "raw": "We're paying way too much for cloud at the moment.",
+   "with_a": "We're paying way too much for Claude at the moment.",
+   "with_b": "We're paying way too much for cloud at the moment.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-06",
+   "voice": "hazel",
+   "pair": "Claude / cloud",
+   "raw": "We're paying way too much for cloud at the moment.",
+   "with_a": "We're paying way too much for Claude at the moment.",
+   "with_b": "We're paying way too much for cloud at the moment.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-06",
+   "voice": "george",
+   "pair": "Claude / cloud",
+   "raw": "We're paying way too much for cloud at the moment.",
+   "with_a": "We're paying way too much for Claude at the moment.",
+   "with_b": "We're paying way too much for cloud at the moment.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-07",
+   "voice": "zira",
+   "pair": "Swift / SWIFT",
+   "raw": "Can you send me the Swift code when you get a minute?",
+   "with_a": "Can you send me the Swift code when you get a minute?",
+   "with_b": "Can you send me the SWIFT code when you get a minute?",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": true,
+   "raw_b": false
+  },
+  {
+   "id": "hc-07",
+   "voice": "hazel",
+   "pair": "Swift / SWIFT",
+   "raw": "Can you send me the Swift code when you get a minute?",
+   "with_a": "Can you send me the Swift code when you get a minute?",
+   "with_b": "Can you send me the SWIFT code when you get a minute?",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": true,
+   "raw_b": false
+  },
+  {
+   "id": "hc-07",
+   "voice": "george",
+   "pair": "Swift / SWIFT",
+   "raw": "Can you send me the Swift code when you get a minute?",
+   "with_a": "Can you send me the Swift code when you get a minute?",
+   "with_b": "Can you send me the SWIFT code when you get a minute?",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": true,
+   "raw_b": false
+  },
+  {
+   "id": "hc-08",
+   "voice": "zira",
+   "pair": "Lyft / lift",
+   "raw": "I'll just grab a lift home after the party.",
+   "with_a": "I'll just grab a Lyft home after the party.",
+   "with_b": "I'll just grab a lift home after the party.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-08",
+   "voice": "hazel",
+   "pair": "Lyft / lift",
+   "raw": "I'll just grab a lift home after the party.",
+   "with_a": "I'll just grab a Lyft home after the party.",
+   "with_b": "I'll just grab a lift home after the party.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-08",
+   "voice": "george",
+   "pair": "Lyft / lift",
+   "raw": "I'll just grab a lift home after the party.",
+   "with_a": "I'll just grab a Lyft home after the party.",
+   "with_b": "I'll just grab a lift home after the party.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-09",
+   "voice": "zira",
+   "pair": "Severance / severance",
+   "raw": "Everyone at work is talking about severance this week.",
+   "with_a": "Everyone at work is talking about Severance this week.",
+   "with_b": "Everyone at work is talking about severance this week.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-09",
+   "voice": "hazel",
+   "pair": "Severance / severance",
+   "raw": "Everyone at work is talking about severance this week.",
+   "with_a": "Everyone at work is talking about Severance this week.",
+   "with_b": "Everyone at work is talking about severance this week.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-09",
+   "voice": "george",
+   "pair": "Severance / severance",
+   "raw": "Everyone at work is talking about severance this week.",
+   "with_a": "Everyone at work is talking about Severance this week.",
+   "with_b": "Everyone at work is talking about severance this week.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-10",
+   "voice": "zira",
+   "pair": "Turkey / turkey",
+   "raw": "We're doing turkey this year for the holidays.",
+   "with_a": "We're doing Turkey this year for the holidays.",
+   "with_b": "We're doing turkey this year for the holidays.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-10",
+   "voice": "hazel",
+   "pair": "Turkey / turkey",
+   "raw": "We are doing turkey this year for the holidays.",
+   "with_a": "We are doing Turkey this year for the holidays.",
+   "with_b": "We are doing turkey this year for the holidays.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-10",
+   "voice": "george",
+   "pair": "Turkey / turkey",
+   "raw": "We're doing turkey this year for the holidays.",
+   "with_a": "We're doing Turkey this year for the holidays.",
+   "with_b": "We're doing turkey this year for the holidays.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-11",
+   "voice": "zira",
+   "pair": "Sydney / Sidney",
+   "raw": "I honestly can't wait to see Sydney again.",
+   "with_a": "I honestly can't wait to see Sydney again.",
+   "with_b": "I honestly can't wait to see Sidney again.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": true,
+   "raw_b": false
+  },
+  {
+   "id": "hc-11",
+   "voice": "hazel",
+   "pair": "Sydney / Sidney",
+   "raw": "I honestly can't wait to see Sydney again.",
+   "with_a": "I honestly can't wait to see Sydney again.",
+   "with_b": "I honestly can't wait to see Sidney again.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": true,
+   "raw_b": false
+  },
+  {
+   "id": "hc-11",
+   "voice": "george",
+   "pair": "Sydney / Sidney",
+   "raw": "I honestly can't wait to see Sydney again.",
+   "with_a": "I honestly can't wait to see Sydney again.",
+   "with_b": "I honestly can't wait to see Sidney again.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": true,
+   "raw_b": false
+  },
+  {
+   "id": "hc-12",
+   "voice": "zira",
+   "pair": "Grace / grace",
+   "raw": "She handled the whole situation with grace, to be fair.",
+   "with_a": "She handled the whole situation with Grace, to be fair.",
+   "with_b": "She handled the whole situation with grace, to be fair.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-12",
+   "voice": "hazel",
+   "pair": "Grace / grace",
+   "raw": "She handled the whole situation with grace, to be fair.",
+   "with_a": "She handled the whole situation with Grace, to be fair.",
+   "with_b": "She handled the whole situation with grace, to be fair.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-12",
+   "voice": "george",
+   "pair": "Grace / grace",
+   "raw": "She handled the whole situation with grace, to be fair.",
+   "with_a": "She handled the whole situation with Grace, to be fair.",
+   "with_b": "She handled the whole situation with grace, to be fair.",
+   "ok_a": true,
+   "ok_b": true,
+   "raw_a": false,
+   "raw_b": true
+  },
+  {
+   "id": "hc-13",
+   "voice": "zira",
+   "pair": "Mac / mac",
+   "raw": "I think I left my Mac on the train this morning.",
+   "with_a": "I think I left my Mac on the train this morning.",
+   "with_b": "I think I left my Mac on the train this morning.",
+   "ok_a": true,
+   "ok_b": false,
+   "raw_a": true,
+   "raw_b": false
+  },
+  {
+   "id": "hc-13",
+   "voice": "hazel",
+   "pair": "Mac / mac",
+   "raw": "I think I left my Mac on the train this morning.",
+   "with_a": "I think I left my Mac on the train this morning.",
+   "with_b": "I think I left my Mac on the train this morning.",
+   "ok_a": true,
+   "ok_b": false,
+   "raw_a": true,
+   "raw_b": false
+  },
+  {
+   "id": "hc-13",
+   "voice": "george",
+   "pair": "Mac / mac",
+   "raw": "I think I left my Mac on the train this morning.",
+   "with_a": "I think I left my Mac on the train this morning.",
+   "with_b": "I think I left my Mac on the train this morning.",
+   "ok_a": true,
+   "ok_b": false,
+   "raw_a": true,
+   "raw_b": false
+  }
+ ],
+ "noharm": {
+  "sentences": 810,
+  "edits": 9,
+  "harmful": 2,
+  "helpful": 4,
+  "harmed_sentences": 2,
+  "rows": [
+   {
+    "id": "nh-179",
+    "voice": "hazel",
+    "expect": "Whomst among us has not eaten cereal at midnight?",
+    "raw": "Whomst among us has not eaten cereal at midnight?",
+    "out": "Whomst Among Us has not eaten cereal at midnight?"
+   },
+   {
+    "id": "nh-198",
+    "voice": "zira",
+    "expect": "Leave the keys in the drop box by the front desk.",
+    "raw": "Leave the keys in the drop box by the front desk.",
+    "out": "Leave the keys in the Dropbox by the front desk."
+   }
+  ],
+  "by_category": {
+   "everyday": [
+    0,
+    258
+   ],
+   "names_common": [
+    1,
+    138
+   ],
+   "numbers": [
+    0,
+    120
+   ],
+   "odd": [
+    1,
+    144
+   ],
+   "slang": [
+    0,
+    150
+   ]
+  }
+ },
+ "speed": {
+  "on_commit_ms": {
+   "median": 0.02429999949526973,
+   "p95": 1.5759999987494666,
+   "max": 188.09650000002875,
+   "n": 1381
+  },
+  "on_final_ms": {
+   "median": 0.05295000028127106,
+   "p95": 1.8466999990778277,
+   "max": 157.9691000006278,
+   "n": 216
+  },
+  "on_cold_commit_ms": {
+   "median": 0.024499999199179,
+   "p95": 9.25439999991795,
+   "max": 67.2749000004842,
+   "n": 1381
+  },
+  "on_cold_final_ms": {
+   "median": 0.053700000535172876,
+   "p95": 12.52339999882679,
+   "max": 29.492300000129035,
+   "n": 216
+  }
+ },
+ "speed_device": "NVIDIA GeForce RTX 3070 (CUDA)"
+}

@@ -1,0 +1,44 @@
+# Python / tooling
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# build outputs
+build/
+dist/
+release/
+installer/TiroSetup/bin/
+installer/TiroSetup/obj/
+installer/out/
+*.spec.bak
+
+# models are downloaded, never committed
+models/
+
+# regenerable test audio (dev/synth.ps1 recreates it)
+tests/accuracy/audio/
+tests/accuracy/REPORT-*.md
+tests/accuracy/REPORT-*.json
+
+# local / private development files: never publish
+dev/real/
+dev/overlay_live_*.png
+dev/*_profile/
+dev/int8_only/
+dev/_*
+dev/*.log
+dev/selftest_out.json
+dev/sim_output.txt
+dev/ui_*.png
+dev/flow_*.png
+dev/icon_preview.png
+dev/overlay_preview.png
+
+# OS clutter
+.DS_Store
+Thumbs.db
+dev/installer_shots/
+.claude/

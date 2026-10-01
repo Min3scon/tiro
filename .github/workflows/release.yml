@@ -1,0 +1,100 @@
+name: Release
+
+# Push a tag like v2.0.0 to build the Windows installer + app zips and the macOS .dmg, test them, and publish
+# them as a GitHub release.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to (re)build, e.g. v2.0.0"
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  TAG: ${{ github.event.inputs.tag || github.ref_name }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  QT_QPA_PLATFORM: offscreen
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create a draft release (if it doesn't exist yet)
+        run: |
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --draft --title "Tiro ${TAG#v}" \
+            --notes-file .github/release-notes.md
+
+  windows:
+    needs: draft
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Python environment
+        run: |
+          python -m pip install uv
+          uv venv .venv --python 3.13
+          uv pip install --python .venv\Scripts\python.exe -r requirements-windows.txt
+      - name: Unit tests
+        run: .venv\Scripts\python.exe -m pytest -q
+      - name: Build Tiro.exe, release zips and TiroSetup.exe
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\build.ps1
+      - name: Smoke test (download the CPU speech model, transcribe the test clip)
+        run: |
+          .venv\Scripts\python.exe -c "from tiro.models import MODELS, download_model; download_model(MODELS['parakeet-tdt-0.6b-v2'], variant='int8')"
+          $p = Start-Process -FilePath build\dist\Tiro\Tiro.exe -ArgumentList '--selftest','selftest.json','--device','cpu' -Wait -PassThru
+          Get-Content selftest.json
+          if ($p.ExitCode -ne 0) { throw "self-test failed" }
+      - name: Upload to the release
+        run: |
+          gh release upload $env:TAG (Get-ChildItem release\TiroSetup.exe, release\Tiro-*-win64.zip, release\manifest.json).FullName --clobber
+
+  macos:
+    needs: draft
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Python environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-mac.txt
+      - name: Unit tests
+        run: python -m pytest -q
+      - name: Build Tiro.app and the .dmg
+        run: bash tools/build_mac.sh
+      - name: Smoke test the app (CPU and Core ML)
+        run: |
+          python -c "from tiro.models import MODELS, download_model as d; m = MODELS['parakeet-tdt-0.6b-v2']; d(m, variant='int8'); d(m, variant='fp32')"
+          build/dist/Tiro.app/Contents/MacOS/Tiro --selftest selftest-cpu.json --device cpu; cat selftest-cpu.json
+          build/dist/Tiro.app/Contents/MacOS/Tiro --selftest selftest-coreml.json --device auto || true
+          cat selftest-coreml.json || true
+      - name: Try the AI check on the Apple GPU (MLX)
+        continue-on-error: true
+        run: python dev/mlx_probe.py
+      - name: Upload to the release
+        run: gh release upload "$TAG" release/Tiro-mac-arm64.dmg --clobber
+
+  publish:
+    needs: [windows, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish the release
+        run: gh release edit "$TAG" --draft=false --latest

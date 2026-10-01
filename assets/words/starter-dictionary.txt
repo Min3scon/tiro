@@ -1,0 +1,2864 @@
+# Games
+GeoGuessr
+Minecraft
+Valorant
+League of Legends
+Teamfight Tactics
+Legends of Runeterra
+Counter-Strike 2
+Counter-Strike
+CS2
+CS:GO
+Fortnite
+Roblox
+Genshin Impact
+Honkai: Star Rail
+Zenless Zone Zero
+Wuthering Waves
+Baldur's Gate 3
+Elden Ring
+Elden Ring Nightreign
+Overwatch 2
+Rocket League
+Hearthstone
+Stardew Valley
+Wordle
+Dota 2
+PUBG
+Apex Legends
+Terraria
+Hollow Knight
+Hollow Knight: Silksong
+Hades
+Hades II
+Celeste
+Cuphead
+Undertale
+Deltarune
+Among Us
+Fall Guys
+Animal Crossing
+Animal Crossing: New Horizons
+The Legend of Zelda
+Breath of the Wild
+Tears of the Kingdom
+Super Mario Bros.
+Super Mario Odyssey
+Mario Kart 8 Deluxe
+Mario Kart World
+Super Smash Bros. Ultimate
+Donkey Kong
+Donkey Kong Bananza
+Metroid Prime
+Splatoon 3
+Pikmin 4
+Kirby
+Fire Emblem
+WarioWare
+Pokémon
+Pokémon GO
+Pokémon Legends: Z-A
+Pokémon TCG
+Palworld
+Grand Theft Auto V
+GTA V
+GTA 6
+Red Dead Redemption 2
+Cyberpunk 2077
+The Witcher 3
+Skyrim
+The Elder Scrolls
+Fallout 4
+Fallout: New Vegas
+Starfield
+Mass Effect
+Dragon Age: The Veilguard
+Call of Duty
+Call of Duty: Warzone
+Black Ops 6
+Black Ops 7
+Halo Infinite
+Destiny 2
+Battlefield 6
+Battlefield 2042
+Rainbow Six Siege
+Escape from Tarkov
+Arc Raiders
+Marvel Rivals
+Team Fortress 2
+Half-Life 2
+Half-Life: Alyx
+Portal 2
+Left 4 Dead 2
+Garry's Mod
+DayZ
+ARK: Survival Evolved
+Valheim
+Subnautica
+No Man's Sky
+Satisfactory
+Factorio
+RimWorld
+Oxygen Not Included
+Dwarf Fortress
+Kerbal Space Program
+Cities: Skylines
+SimCity
+The Sims 4
+Civilization VI
+Civilization VII
+Age of Empires II
+Age of Empires IV
+StarCraft II
+Warcraft III
+World of Warcraft
+Diablo IV
+Path of Exile 2
+Lost Ark
+Final Fantasy XIV
+Final Fantasy XVI
+Kingdom Hearts
+Dark Souls
+Bloodborne
+Sekiro: Shadows Die Twice
+Armored Core VI
+Monster Hunter Wilds
+Lies of P
+Black Myth: Wukong
+Stellar Blade
+Resident Evil 4
+Silent Hill 2
+Street Fighter 6
+Tekken 8
+Mortal Kombat 1
+Guilty Gear Strive
+Persona 5 Royal
+Yakuza: Like a Dragon
+Metaphor: ReFantazio
+NieR: Automata
+Death Stranding
+Metal Gear Solid
+God of War Ragnarök
+The Last of Us
+Uncharted
+Horizon Forbidden West
+Ghost of Tsushima
+Ghost of Yōtei
+Marvel's Spider-Man 2
+Ratchet & Clank
+Astro Bot
+Gran Turismo 7
+Forza Horizon 5
+Need for Speed
+F1 25
+EA Sports FC
+FIFA
+NBA 2K
+Brawl Stars
+Clash of Clans
+Clash Royale
+Candy Crush Saga
+Subway Surfers
+Temple Run
+Angry Birds
+Fruit Ninja
+Flappy Bird
+Geometry Dash
+Plants vs. Zombies
+Hay Day
+Monopoly GO!
+Mobile Legends: Bang Bang
+Free Fire
+Honor of Kings
+Marvel Snap
+Raid: Shadow Legends
+AFK Arena
+Words with Friends
+Slither.io
+Agar.io
+Skribbl.io
+Gartic Phone
+Tetris
+Pac-Man
+Space Invaders
+Sonic the Hedgehog
+Crash Bandicoot
+Tony Hawk's Pro Skater
+Guitar Hero
+Just Dance
+Beat Saber
+osu!
+Phasmophobia
+Lethal Company
+Balatro
+Vampire Survivors
+Slay the Spire
+Slay the Spire 2
+The Binding of Isaac
+Dead Cells
+Risk of Rain 2
+Don't Starve Together
+Inscryption
+Disco Elysium
+Outer Wilds
+Papers, Please
+Cult of the Lamb
+Ori and the Will of the Wisps
+Clair Obscur: Expedition 33
+Split Fiction
+Sea of Thieves
+Helldivers 2
+Deep Rock Galactic
+Warframe
+RuneScape
+Old School RuneScape
+MapleStory
+Guild Wars 2
+EVE Online
+Star Citizen
+Star Wars Jedi: Survivor
+Hogwarts Legacy
+Assassin's Creed Shadows
+Far Cry 6
+Watch Dogs
+The Division 2
+Prince of Persia
+Borderlands 4
+BioShock
+Doom Eternal
+Doom: The Dark Ages
+Wolfenstein
+Alan Wake 2
+Max Payne
+Tomb Raider
+Dying Light 2
+Dead Space
+Five Nights at Freddy's
+Poppy Playtime
+Firewatch
+Detroit: Become Human
+The Stanley Parable
+SUPERHOT
+Gorilla Tag
+VRChat
+Kingdom Come: Deliverance II
+Mount & Blade II: Bannerlord
+Total War: Warhammer III
+Warhammer 40,000: Space Marine 2
+Crusader Kings III
+Europa Universalis IV
+Hearts of Iron IV
+Stellaris
+XCOM 2
+Frostpunk 2
+Euro Truck Simulator 2
+Microsoft Flight Simulator
+PowerWash Simulator
+Project Zomboid
+7 Days to Die
+Sons of the Forest
+Enshrouded
+Dave the Diver
+Dredge
+A Short Hike
+Untitled Goose Game
+Overcooked! 2
+Human: Fall Flat
+Gang Beasts
+Jackbox Party Pack
+Octopath Traveler II
+Dragon Quest XI
+Dragon Ball: Sparking! Zero
+Blue Archive
+Arknights
+Fate/Grand Order
+Uma Musume: Pretty Derby
+Infinity Nikki
+Neopets
+Club Penguin
+Poptropica
+Habbo
+Wizard101
+Adopt Me!
+Blox Fruits
+Brookhaven
+Murder Mystery 2
+Tower of Hell
+Pet Simulator 99
+Bee Swarm Simulator
+Steal a Brainrot
+99 Nights in the Forest
+The International
+Overwatch League
+Valorant Champions Tour
+VCT
+LCK
+LEC
+LCS
+IEM Katowice
+DreamHack
+FaZe Clan
+Team Liquid
+Fnatic
+Cloud9
+G2 Esports
+T1
+Natus Vincere
+NAVI
+100 Thieves
+OpTic Gaming
+Gen.G
+Catan
+Ticket to Ride
+Carcassonne
+Wingspan
+Azul
+Gloomhaven
+Terraforming Mars
+Dixit
+Exploding Kittens
+Cards Against Humanity
+Dungeons & Dragons
+D&D
+Pathfinder
+Warhammer 40K
+Magic: The Gathering
+Yu-Gi-Oh!
+Uno
+Jenga
+Scrabble
+Cluedo
+Connect 4
+Mahjong
+Shogi
+Pictionary
+Yahtzee
+Trivial Pursuit
+Sudoku
+KenKen
+Secret Hitler
+Blood on the Clocktower
+Arkham Horror
+Spirit Island
+Twilight Imperium
+Everdell
+Cascadia
+Kingdomino
+7 Wonders
+Sushi Go!
+Hanabi
+Bananagrams
+Rummikub
+Qwirkle
+Othello
+Mancala
+Ludo
+Snakes and Ladders
+Stratego
+Axis & Allies
+
+# Apps and brands
+WhatsApp
+TikTok
+YouTube
+YouTube Music
+YouTube Shorts
+Spotify
+Figma
+Notion
+ChatGPT
+Claude
+Claude Code
+Anthropic
+OpenAI
+Nvidia
+Qualcomm
+PlayStation
+PlayStation 5
+PS5
+Xbox
+Xbox Series X
+Xbox Game Pass
+Nintendo
+Nintendo Switch
+Nintendo Switch 2
+Steam
+Steam Deck
+Epic Games
+Epic Games Store
+Valve
+Riot Games
+Blizzard
+Activision
+Ubisoft
+Bethesda
+Rockstar Games
+CD Projekt Red
+FromSoftware
+Capcom
+Square Enix
+Bandai Namco
+Larian Studios
+Mojang
+miHoYo
+HoYoverse
+Tencent
+NetEase
+Airbnb
+DoorDash
+Shopify
+LinkedIn
+Reddit
+Twitch
+Discord
+Duolingo
+Canva
+Excalidraw
+Obsidian
+Supabase
+Vercel
+Netlify
+Cloudflare
+Instagram
+Facebook
+Bluesky
+Mastodon
+Twitter
+Snapchat
+Pinterest
+Tumblr
+WeChat
+Microsoft Teams
+Slack
+Google Meet
+Google Docs
+Google Sheets
+Google Slides
+Google Drive
+Google Maps
+Google Chrome
+Gmail
+Google Pixel
+Chromebook
+Chromecast
+Fitbit
+CarPlay
+iPhone
+iPad
+MacBook
+MacBook Pro
+iMac
+Mac mini
+AirPods
+AirPods Pro
+AirTag
+AirDrop
+AirPlay
+Apple TV+
+iCloud
+iMessage
+FaceTime
+Siri
+App Store
+GarageBand
+iMovie
+Final Cut Pro
+Microsoft 365
+Excel
+PowerPoint
+OneNote
+OneDrive
+SharePoint
+Copilot
+GitHub Copilot
+Gemini
+NotebookLM
+DeepMind
+Waymo
+Meta
+Alexa
+Kindle
+Amazon Prime
+Netflix
+Disney+
+Hulu
+HBO Max
+Paramount+
+Crunchyroll
+Letterboxd
+IMDb
+Goodreads
+Substack
+Patreon
+Ko-fi
+Kickstarter
+GoFundMe
+PayPal
+Venmo
+Cash App
+Stripe
+Klarna
+Revolut
+Monzo
+Coinbase
+Binance
+Robinhood
+Etsy
+eBay
+Depop
+Vinted
+StockX
+Shein
+Temu
+AliExpress
+Alibaba
+Uniqlo
+Zara
+H&M
+ASOS
+Nike
+Adidas
+Lululemon
+Gymshark
+Under Armour
+Arc'teryx
+Gucci
+Louis Vuitton
+Balenciaga
+Hermès
+Chanel
+Dior
+Givenchy
+Yves Saint Laurent
+Off-White
+Garmin
+Strava
+MyFitnessPal
+BeReal
+Tinder
+Uber
+Uber Eats
+Deliveroo
+Grubhub
+Instacart
+Booking.com
+Tripadvisor
+Skyscanner
+Ryanair
+easyJet
+Wizz Air
+Aer Lingus
+JetBlue
+Tesla
+Cybertruck
+SpaceX
+Starlink
+xAI
+Grok
+BYD
+Volkswagen
+Škoda
+Hyundai
+Porsche
+Lamborghini
+Ferrari
+McLaren
+Mercedes-Benz
+Peugeot
+Citroën
+Chevrolet
+Mitsubishi
+Harley-Davidson
+Samsung
+Galaxy Buds
+Sony
+Huawei
+Xiaomi
+OnePlus
+Asus
+Lenovo
+ThinkPad
+Razer
+Logitech
+SteelSeries
+HyperX
+Elgato
+Sennheiser
+Sonos
+Bang & Olufsen
+RØDE
+Ableton
+Intel
+AMD
+Ryzen
+Radeon
+GeForce
+RTX 5090
+TSMC
+Salesforce
+Adobe
+Photoshop
+Lightroom
+Premiere Pro
+After Effects
+InDesign
+DaVinci Resolve
+CapCut
+OBS Studio
+Procreate
+Webflow
+Squarespace
+WordPress
+Mailchimp
+HubSpot
+Zendesk
+Asana
+Trello
+Jira
+Confluence
+ClickUp
+Monday.com
+Airtable
+Miro
+Calendly
+Zapier
+Dropbox
+WeTransfer
+Todoist
+TickTick
+Quizlet
+Kahoot!
+Grammarly
+DeepL
+Otter.ai
+ElevenLabs
+Midjourney
+Stable Diffusion
+DALL·E
+Sora
+Perplexity
+Hugging Face
+Mistral AI
+Character.AI
+Replit
+Suno
+T-Mobile
+AT&T
+giffgaff
+Sainsbury's
+Lidl
+Marks & Spencer
+M&S
+Pret A Manger
+Nando's
+Wagamama
+Starbucks
+Dunkin'
+McDonald's
+Wendy's
+Chick-fil-A
+Chipotle
+In-N-Out
+Domino's
+Papa John's
+Krispy Kreme
+Ben & Jerry's
+Häagen-Dazs
+Coca-Cola
+Irn-Bru
+Dr Pepper
+IKEA
+Trader Joe's
+Currys
+LEGO
+Funko Pop!
+Studio Ghibli
+DreamWorks
+Warner Bros.
+BBC iPlayer
+DAZN
+VLC
+SoundCloud
+Coursera
+Udemy
+edX
+Codecademy
+freeCodeCamp
+LeetCode
+HackerRank
+Kaggle
+Stack Overflow
+Rightmove
+Upwork
+Fiverr
+Eventbrite
+StubHub
+AllTrails
+OpenStreetMap
+what3words
+1Password
+Bitwarden
+NordVPN
+ExpressVPN
+Proton Mail
+DuckDuckGo
+McAfee
+CrowdStrike
+Twilio
+QuickBooks
+DocuSign
+Typeform
+SurveyMonkey
+PagerDuty
+OpenTable
+WooCommerce
+MasterClass
+OnlyFans
+Imgur
+Giphy
+4chan
+Hacker News
+Product Hunt
+Y Combinator
+
+# Tech and programming
+Kubernetes
+K8s
+kubectl
+PostgreSQL
+Postgres
+MySQL
+MariaDB
+SQLite
+SQL Server
+MongoDB
+Redis
+Cassandra
+DynamoDB
+Neo4j
+Elasticsearch
+Kibana
+Grafana
+Prometheus
+Kafka
+RabbitMQ
+ZeroMQ
+dbt
+Apache Spark
+PySpark
+Databricks
+BigQuery
+ClickHouse
+DuckDB
+Firebase
+Prisma
+SQLAlchemy
+TypeScript
+JavaScript
+ECMAScript
+Python
+Rust
+Golang
+Kotlin
+Java
+C++
+C#
+F#
+Objective-C
+Ruby on Rails
+PHP
+Lua
+Haskell
+Scala
+Clojure
+MATLAB
+WebAssembly
+Wasm
+Zsh
+PowerShell
+Vim
+Neovim
+Emacs
+VS Code
+Visual Studio
+JetBrains
+IntelliJ IDEA
+PyCharm
+Android Studio
+Xcode
+Sublime Text
+Jupyter
+Google Colab
+conda
+pip
+virtualenv
+venv
+PyPI
+npm
+npx
+pnpm
+Deno
+Node.js
+Express.js
+NestJS
+Next.js
+Nuxt
+SvelteKit
+Svelte
+Vue.js
+AngularJS
+React
+React Native
+Redux
+Zustand
+TanStack Query
+jQuery
+Lodash
+Axios
+D3.js
+Three.js
+Chart.js
+Tailwind CSS
+Tailwind
+Sass
+shadcn/ui
+Material UI
+Storybook
+Vite
+webpack
+esbuild
+Turbopack
+Turborepo
+ESLint
+Prettier
+Jest
+Vitest
+Cypress
+Playwright
+Puppeteer
+Selenium
+pytest
+JUnit
+Django
+FastAPI
+Pydantic
+Uvicorn
+Gunicorn
+Streamlit
+Gradio
+NumPy
+pandas
+SciPy
+Matplotlib
+seaborn
+Plotly
+scikit-learn
+PyTorch
+TensorFlow
+Keras
+JAX
+ONNX
+ONNX Runtime
+LangChain
+LlamaIndex
+OpenCV
+spaCy
+XGBoost
+Ollama
+llama.cpp
+whisper.cpp
+faster-whisper
+vLLM
+CUDA
+cuDNN
+Vulkan
+OpenGL
+DirectX
+WebGPU
+WebGL
+Unity
+Unreal Engine
+Godot
+Spring Boot
+Laravel
+ASP.NET
+.NET
+Tokio
+rustup
+goroutine
+Gradle
+Maven
+CMake
+Makefile
+LLVM
+Clang
+GCC
+Homebrew
+Chocolatey
+winget
+apt-get
+Docker
+Docker Compose
+Dockerfile
+Podman
+Terraform
+Ansible
+HashiCorp
+Jenkins
+GitHub Actions
+GitLab CI
+CircleCI
+Dependabot
+Git
+GitHub
+GitLab
+Bitbucket
+sudo
+chmod
+chown
+grep
+ripgrep
+awk
+sed
+curl
+wget
+ssh
+scp
+rsync
+cron
+crontab
+systemd
+systemctl
+tmux
+htop
+FFmpeg
+ImageMagick
+jq
+OpenSSL
+Wireshark
+ifconfig
+ipconfig
+localhost
+127.0.0.1
+stdin
+stdout
+stderr
+/dev/null
+.env
+.gitignore
+README
+package.json
+tsconfig.json
+Cargo.toml
+pyproject.toml
+requirements.txt
+docker-compose.yml
+YAML
+JSON
+TOML
+CSV
+XML
+Markdown
+LaTeX
+Protobuf
+gRPC
+GraphQL
+REST API
+RESTful
+WebSocket
+WebRTC
+OAuth
+OAuth 2.0
+OpenID Connect
+SAML
+JWT
+SSO
+LDAP
+TLS
+SSL
+TCP/IP
+UDP
+DNS
+DHCP
+IPv4
+IPv6
+CORS
+CSRF
+XSS
+OWASP
+CVE
+nginx
+Linux
+Ubuntu
+Debian
+Fedora
+Arch Linux
+Linux Mint
+Pop!_OS
+Red Hat
+RHEL
+Kali Linux
+Raspberry Pi
+Arduino
+ESP32
+macOS
+iOS
+iPadOS
+watchOS
+visionOS
+Android
+Windows 11
+Windows 10
+WSL
+WSL2
+ChromeOS
+GNOME
+AWS
+Amazon S3
+Amazon EC2
+AWS Lambda
+Azure
+Google Cloud
+GCP
+Cloud Run
+Heroku
+DigitalOcean
+Cloudflare Workers
+Auth0
+Sentry
+Datadog
+OpenTelemetry
+Postman
+Swagger
+OpenAPI
+regex
+async
+await
+async/await
+enum
+struct
+boolean
+nullptr
+NaN
+monorepo
+microservices
+serverless
+middleware
+frontend
+backend
+full-stack
+DevOps
+SRE
+CI/CD
+API
+SDK
+CLI
+GUI
+IDE
+LLM
+GPU
+CPU
+NPU
+RAG
+MCP
+AGI
+GPT-4o
+GPT-5
+Llama 4
+Gemma
+Qwen
+DeepSeek
+LoRA
+GGUF
+tokenizer
+BERT
+NLP
+OCR
+TTS
+ASR
+ARM64
+x86
+x86-64
+RISC-V
+SoC
+BIOS
+UEFI
+NVMe
+PCIe
+DDR5
+VRAM
+Thunderbolt 4
+Bluetooth
+Ethernet
+SFTP
+FTP
+SMTP
+IMAP
+VoIP
+camelCase
+PascalCase
+snake_case
+kebab-case
+CRUD
+ORM
+MVC
+SPA
+SSR
+PWA
+JSX
+TSX
+DOM
+CDN
+PaaS
+VPS
+VirtualBox
+VMware
+Hyper-V
+Electron
+Tauri
+Qt
+UIKit
+SwiftUI
+Jetpack Compose
+TestFlight
+Expo
+WebKit
+Chromium
+i18n
+a11y
+UTF-8
+ASCII
+Unicode
+base64
+SHA-256
+MD5
+bcrypt
+AES-256
+RSA
+HMAC
+UUID
+GUID
+symlink
+NTFS
+exFAT
+RAID
+NAS
+BitTorrent
+Tor
+Ethereum
+Bitcoin
+Solana
+NFT
+Web3
+DeFi
+MetaMask
+linter
+Polars
+Jinja
+htmx
+tRPC
+Socket.IO
+Zod
+JSDoc
+draw.io
+UML
+Kanban
+
+# People names
+Siobhan
+Niamh
+Saoirse
+Aoife
+Caoimhe
+Sinéad
+Clodagh
+Gráinne
+Róisín
+Orlaith
+Ciara
+Ciarán
+Oisín
+Pádraig
+Séamus
+Tadhg
+Cillian
+Darragh
+Eoin
+Eoghan
+Fionn
+Cathal
+Diarmuid
+Colm
+Cormac
+Aisling
+Sadhbh
+Nuala
+Úna
+Deirdre
+Eimear
+Niall
+Ailsa
+Eilidh
+Mhairi
+Morag
+Iain
+Hamish
+Lachlan
+Alasdair
+Callum
+Euan
+Catriona
+Rhys
+Gwyneth
+Siân
+Dafydd
+Gethin
+Ioan
+Llewelyn
+Bethan
+Carys
+Cerys
+Ffion
+Rhiannon
+Angharad
+Gruffydd
+Huw
+Owain
+Lowri
+Bartholomew
+Leighton
+Ptolemy
+Hermione
+Persephone
+Leopold
+Barnaby
+Crispin
+Ignatius
+Thaddeus
+Ezekiel
+Zachariah
+Imogen
+Philippa
+Rosalind
+Henrietta
+Genevieve
+Guinevere
+Gwendolyn
+Marguerite
+Ophelia
+Cordelia
+Beatrix
+Clementine
+Evangeline
+Seraphina
+Theodora
+Anastasia
+Zoë
+Chloë
+Renée
+Aimée
+Tamsin
+Jemima
+Elodie
+Margot
+Leonie
+Joaquin
+Xavier
+Ximena
+Guadalupe
+Rocío
+Iñaki
+Iñigo
+Sebastián
+Guillermo
+Rodrigo
+Gonzalo
+Ignacio
+Agustín
+Inés
+Ainhoa
+Aitana
+Maite
+Esperanza
+Leticia
+Marisol
+Xiomara
+João
+Gonçalo
+Thiago
+Benoît
+François
+Françoise
+Hélène
+Thibault
+Amélie
+Anaïs
+Gaël
+Gaëlle
+Noémie
+Océane
+Mathilde
+Margaux
+Loïc
+Aurélien
+Étienne
+Jérôme
+Sébastien
+Grégoire
+Jacques
+Søren
+Bjørn
+Freyja
+Jürgen
+Jörg
+Günther
+Siegfried
+Wolfgang
+Friedrich
+Joachim
+Gretchen
+Annika
+Anneliese
+Liesel
+Sigrid
+Astrid
+Solveig
+Henrik
+Niklas
+Leif
+Thijs
+Joost
+Maarten
+Pieter
+Marieke
+Anouk
+Saskia
+Mette
+Wojciech
+Grzegorz
+Krzysztof
+Małgorzata
+Agnieszka
+Katarzyna
+Jarosław
+Łukasz
+Michał
+Paweł
+Piotr
+Tomasz
+Szymon
+Bartosz
+Jiří
+Václav
+Dmitri
+Svetlana
+Yekaterina
+Natalya
+Oksana
+Volodymyr
+Oleksandr
+Yulia
+Olena
+Bohdan
+Nikolai
+Yaroslav
+Ludmila
+Milica
+Konstantinos
+Dimitrios
+Panagiotis
+Evangelos
+Stavros
+Despina
+Ioanna
+Xanthe
+Giuseppe
+Giacomo
+Gianluca
+Gianluigi
+Ludovica
+Benedetta
+Chiara
+Niccolò
+Raffaele
+Salvatore
+Zsófia
+Zsuzsanna
+György
+László
+Tuomas
+Yusuf
+Mehmet
+Ömer
+Gökhan
+Ayşe
+Özlem
+Hüseyin
+Muhammad
+Mohammed
+Abdullah
+Faisal
+Fatima
+Khadija
+Zainab
+Zeynep
+Maryam
+Hamza
+Hussein
+Tariq
+Ehsan
+Mehdi
+Hossein
+Yitzhak
+Avraham
+Shoshana
+Yael
+Moshe
+Shlomo
+Yehuda
+Chaim
+Rivka
+Siddharth
+Priyanka
+Aishwarya
+Lakshmi
+Srinivasan
+Venkatesh
+Subramanian
+Chaitanya
+Anirudh
+Abhishek
+Aditya
+Akshay
+Ananya
+Deepika
+Gaurav
+Harpreet
+Gurpreet
+Jaspreet
+Manpreet
+Ishaan
+Kavya
+Nandini
+Pranav
+Shreya
+Shruti
+Chowdhury
+Bhattacharya
+Chatterjee
+Mukherjee
+Banerjee
+Iyer
+Pillai
+Agarwal
+Srivastava
+Chaudhary
+Malhotra
+Dhillon
+Sandhu
+Zhang
+Xiaoming
+Zhou
+Qian
+Xie
+Zhao
+Huang
+Zheng
+Jiang
+Xiao
+Qiu
+Xinyi
+Yifan
+Nguyen
+Pham
+Huynh
+Duong
+Phuong
+Seo-yeon
+Ji-hoon
+Min-jun
+Haruki
+Hiroshi
+Takeshi
+Haruto
+Hinata
+Takahashi
+Watanabe
+Kobayashi
+Nakamura
+Yoshida
+Matsumoto
+Inoue
+Hayashi
+Shimizu
+Yamaguchi
+Hashimoto
+Murakami
+Ohtani
+Oluwaseun
+Chidi
+Chidinma
+Chiamaka
+Chukwuemeka
+Chimamanda
+Ngozi
+Nkechi
+Adebayo
+Adeyemi
+Ayodele
+Babatunde
+Olumide
+Temitope
+Yetunde
+Damilola
+Olamide
+Kehinde
+Ifeoma
+Uchenna
+Obinna
+Nnamdi
+Kwame
+Mensah
+Owusu
+Thandiwe
+Sipho
+Thabo
+Lindiwe
+Zanele
+Bongani
+Lerato
+Mpho
+Wanjiru
+Wanjiku
+Njeri
+Tesfaye
+Mamadou
+Ousmane
+Aminata
+Ngaio
+Aroha
+Leilani
+Cholmondeley
+Menzies
+Dalziel
+Farquharson
+Urquhart
+Colquhoun
+Marjoribanks
+Chalamet
+Schwarzenegger
+Galifianakis
+Zuckerberg
+Bezos
+Amodei
+Nadella
+Pichai
+Tchaikovsky
+Dostoevsky
+Nietzsche
+Kierkegaard
+Wittgenstein
+Goethe
+Dvořák
+Rachmaninoff
+Shostakovich
+Stravinsky
+Prokofiev
+Debussy
+Saint-Saëns
+Michelangelo
+Caravaggio
+Botticelli
+Vermeer
+Van Gogh
+Ramanujan
+Schrödinger
+Heisenberg
+Fibonacci
+Pythagoras
+Archimedes
+Copernicus
+Descartes
+Dijkstra
+Torvalds
+
+# Places
+Reykjavík
+Kyiv
+Qatar
+Guangzhou
+Kraków
+Worcester
+Leicester
+Loughborough
+Edinburgh
+Glasgow
+Aberystwyth
+Llandudno
+Tucson
+Albuquerque
+Poughkeepsie
+Yosemite
+Machu Picchu
+Kyoto
+Seoul
+Phuket
+Marrakech
+Düsseldorf
+Côte d'Ivoire
+Gloucester
+Bicester
+Cirencester
+Alnwick
+Greenwich
+Norwich
+Southwark
+Marylebone
+Slough
+Shrewsbury
+Woolwich
+Dulwich
+Chiswick
+Mousehole
+Milngavie
+Kirkcudbright
+Kirkcaldy
+Loch Lomond
+Cairngorms
+Machynlleth
+Llanelli
+Pwllheli
+Caerphilly
+Caernarfon
+Betws-y-Coed
+Llanfairpwllgwyngyll
+Eryri
+Dún Laoghaire
+Cobh
+Youghal
+Drogheda
+Connemara
+Worcestershire
+Leicestershire
+Gloucestershire
+Warwickshire
+Hertfordshire
+Buckinghamshire
+Middlesbrough
+Stoke-on-Trent
+Milton Keynes
+Guildford
+Schenectady
+Ypsilanti
+Kalamazoo
+Sault Ste. Marie
+Des Moines
+Boise
+Puyallup
+Willamette
+Arkansas
+Illinois
+Connecticut
+Massachusetts
+Mississippi
+Tennessee
+Cincinnati
+Pittsburgh
+Louisville
+Milwaukee
+Minneapolis
+Chattanooga
+Natchitoches
+Tallahassee
+Kissimmee
+Coeur d'Alene
+La Jolla
+Cupertino
+Palo Alto
+Honolulu
+Waikiki
+Kauai
+Oahu
+Tuscaloosa
+Martha's Vineyard
+Shenandoah
+Adirondacks
+Montreal
+Québec
+Saskatchewan
+Saskatoon
+Nunavut
+Iqaluit
+Mississauga
+Gatineau
+Trois-Rivières
+Wrocław
+Łódź
+Gdańsk
+Poznań
+Szczecin
+Bydgoszcz
+Katowice
+Bratislava
+Ljubljana
+Dubrovnik
+Podgorica
+Skopje
+Thessaloniki
+Chișinău
+Cluj-Napoca
+Zürich
+Liechtenstein
+Leuven
+Liège
+Maastricht
+Eindhoven
+Utrecht
+Scheveningen
+Groningen
+Nijmegen
+'s-Hertogenbosch
+Aarhus
+Malmö
+Tallinn
+Vilnius
+Trondheim
+Tromsø
+Eyjafjallajökull
+Nuuk
+Würzburg
+Leipzig
+Göttingen
+Baden-Württemberg
+Neuschwanstein
+Strasbourg
+Montpellier
+Marseille
+Bordeaux
+Aix-en-Provence
+Versailles
+Champs-Élysées
+Mont-Saint-Michel
+Île-de-France
+Córdoba
+Málaga
+Cádiz
+San Sebastián
+A Coruña
+Mallorca
+Lanzarote
+Algarve
+Cinque Terre
+Puglia
+Valletta
+İzmir
+Cappadocia
+Tbilisi
+Yerevan
+Odesa
+Kharkiv
+Lviv
+Dnipro
+Zaporizhzhia
+Doha
+Riyadh
+Sharm el-Sheikh
+Addis Ababa
+Djibouti
+Kigali
+Dar es Salaam
+Kilimanjaro
+Gqeberha
+KwaZulu-Natal
+Eswatini
+Antananarivo
+Seychelles
+Réunion
+Accra
+Abidjan
+Ouagadougou
+N'Djamena
+Lomé
+Yaoundé
+Chefchaouen
+Essaouira
+Shenzhen
+Chongqing
+Chengdu
+Hangzhou
+Suzhou
+Xi'an
+Tianjin
+Qingdao
+Xiamen
+Ürümqi
+Xinjiang
+Guangdong
+Sichuan
+Zhejiang
+Kaohsiung
+Hsinchu
+Ulaanbaatar
+Pyongyang
+Busan
+Incheon
+Daegu
+Jeju
+Gangnam
+Shibuya
+Shinjuku
+Akihabara
+Harajuku
+Chiang Mai
+Ko Samui
+Ayutthaya
+Ho Chi Minh City
+Da Nang
+Hoi An
+Nha Trang
+Ha Long Bay
+Phnom Penh
+Siem Reap
+Angkor Wat
+Vientiane
+Kuala Lumpur
+Johor Bahru
+Ubud
+Yogyakarta
+Quezon City
+Kathmandu
+Bengaluru
+Chennai
+Kolkata
+Hyderabad
+Ahmedabad
+Varanasi
+Lucknow
+Chandigarh
+Thiruvananthapuram
+Tamil Nadu
+Karnataka
+Maharashtra
+Bhubaneswar
+Visakhapatnam
+Coimbatore
+Puducherry
+Almaty
+Tashkent
+Kyrgyzstan
+Kazakhstan
+Uzbekistan
+Tajikistan
+Turkmenistan
+Azerbaijan
+Canberra
+Cairns
+Wollongong
+Toowoomba
+Woolloomooloo
+Parramatta
+Uluru
+Rotorua
+Tauranga
+Whangārei
+Taupō
+Aotearoa
+Kiribati
+Guadalajara
+Monterrey
+Oaxaca
+Yucatán
+Cancún
+Querétaro
+Guanajuato
+Chichén Itzá
+Teotihuacán
+Tegucigalpa
+Bogotá
+Medellín
+Guayaquil
+Galápagos Islands
+Cusco
+Lake Titicaca
+Asunción
+Ushuaia
+Patagonia
+Valparaíso
+São Paulo
+Brasília
+Belo Horizonte
+Florianópolis
+Curitiba
+Iguazú Falls
+Port-au-Prince
+Curaçao
+Guadeloupe
+Türkiye
+Czechia
+North Macedonia
+Bosnia and Herzegovina
+Burkina Faso
+Guinea-Bissau
+São Tomé and Príncipe
+Cabo Verde
+Philippines
+Timor-Leste
+Sagrada Família
+Burj Khalifa
+Giant's Causeway
+Cliffs of Moher
+Hadrian's Wall
+Bannau Brycheiniog
+Pembrokeshire
+Lindisfarne
+
+# Slang and internet speak
+rizz
+sus
+sussy
+yeet
+bussin
+no cap
+finna
+deadass
+salty
+simp
+stan
+delulu
+NPC
+GOAT
+GOATed
+IYKYK
+TL;DR
+AFK
+GG
+GGEZ
+POV
+FOMO
+YOLO
+lol
+LMAO
+LMFAO
+ROFL
+OMG
+WTF
+IDK
+IDC
+IKR
+IMO
+IMHO
+TBH
+NGL
+fr
+ong
+rn
+ICYMI
+SMH
+BRB
+BTW
+TTYL
+NVM
+FYI
+JK
+ILY
+HMU
+DM
+OP
+TFW
+IRL
+FTW
+AFAIK
+IIRC
+FWIW
+OMW
+WYD
+GTG
+LMK
+BFF
+BFFR
+IJBOL
+TMI
+TIL
+AMA
+ELI5
+PSA
+NSFW
+SFW
+FYP
+GRWM
+OOTD
+ratioed
+lowkey
+highkey
+slay
+periodt
+bestie
+fam
+bruh
+yass
+oof
+welp
+meh
+smol
+doggo
+glow-up
+situationship
+ghosting
+breadcrumbing
+love-bombing
+gaslighting
+gatekeeping
+girlboss
+main character energy
+rent-free
+touch grass
+it's giving
+understood the assignment
+caught in 4K
+sheesh
+vibe check
+cheugy
+bougie
+snatched
+spill the tea
+and I oop
+e-girl
+pick-me
+OK boomer
+zoomer
+Gen Z
+Gen Alpha
+skibidi
+gyatt
+fanum tax
+mewing
+looksmaxxing
+mogging
+brainrot
+copium
+hopium
+doomscrolling
+amogus
+poggers
+PogChamp
+Kappa
+KEKW
+monkaS
+copypasta
+noob
+n00b
+pwned
+rekt
+tryhard
+smurf
+griefing
+speedrun
+any%
+one-tap
+no-scope
+respawn
+desync
+rage quit
+gigachad
+normie
+weeb
+otaku
+waifu
+senpai
+kawaii
+uwu
+XD
+stonks
+HODL
+WAGMI
+NGMI
+FUD
+finsta
+ayo
+aight
+tho
+pls
+thx
+cuz
+lemme
+y'all
+dunno
+innit
+bruv
+peng
+mandem
+wagwan
+ting
+roadman
+tekkers
+bants
+chuffed
+knackered
+skint
+faff
+naff
+hella
+smth
+ppl
+bday
+convo
+obvi
+totes
+adorbs
+srsly
+ofc
+
+# Units and measurements
+km
+km/h
+mph
+kWh
+mAh
+GHz
+MHz
+kHz
+Hz
+GB
+TB
+MB
+KB
+PB
+KiB
+MiB
+GiB
+TiB
+MB/s
+GB/s
+KB/s
+Mbps
+Gbps
+Kbps
+°C
+°F
+mg
+µg
+mcg
+kg
+lb
+lbs
+oz
+fl oz
+µm
+nm
+mm
+cm
+Å
+ft
+yd
+nmi
+ft²
+ft³
+m²
+m³
+km²
+cm²
+cm³
+mm²
+mi²
+sq ft
+dL
+µL
+pt
+tsp
+tbsp
+cc
+dB
+dBA
+dBm
+m/s
+m/s²
+km/s
+rpm
+bpm
+fps
+ms
+µs
+ns
+kW
+MW
+GW
+Wh
+MWh
+GWh
+TWh
+Wh/kg
+kV
+mV
+mA
+Ω
+kΩ
+MΩ
+µF
+nF
+pF
+kcal
+kJ
+MJ
+BTU
+bhp
+psi
+kPa
+MPa
+hPa
+mbar
+mmHg
+inHg
+lb-ft
+kN
+mg/dL
+mmol/L
+g/dL
+mg/kg
+mg/mL
+µg/m³
+IU
+mEq
+ppm
+ppb
+pH
+mol/L
+mSv
+µSv
+Bq
+lm
+cd/m²
+dpi
+ppi
+px
+rem
+vh
+vw
+mpg
+L/100 km
+km/L
+g/km
+kg/m³
+MT/s
+TFLOPS
+IOPS
+kVA
+
+# Acronyms and initialisms
+NASA
+FBI
+CIA
+NSA
+ASAP
+FAQ
+ETA
+URL
+HTML
+CSS
+HTTP
+HTTPS
+USB-C
+USB
+HDMI
+VGA
+4K
+8K
+1080p
+1440p
+720p
+HDR
+OLED
+QLED
+LCD
+LED
+5G
+4G
+LTE
+Wi-Fi
+Wi-Fi 7
+NFC
+VPN
+SaaS
+B2B
+B2C
+KPI
+OKR
+ROI
+CEO
+CTO
+CFO
+COO
+VP
+HR
+PTO
+EOD
+OOO
+WFH
+RTO
+QA
+UX
+UI
+R&D
+P&L
+M&A
+IPO
+VC
+LLC
+Ltd
+PLC
+GmbH
+Inc.
+LLP
+NDA
+SLA
+T&Cs
+GDPR
+HIPAA
+SOC 2
+KYC
+ESG
+DEI
+SEO
+SEM
+CRM
+ERP
+CMS
+MVP
+PoC
+PRD
+RFC
+TBD
+TBA
+N/A
+AKA
+RSVP
+P.S.
+e.g.
+i.e.
+etc.
+vs.
+a.m.
+p.m.
+PhD
+MBA
+BSc
+MSc
+GP
+NHS
+A&E
+ICU
+CPR
+DNA
+HIV
+COVID-19
+ADHD
+OCD
+PTSD
+IBS
+UTI
+BMI
+MRI
+ECG
+IVF
+PPE
+OB-GYN
+UN
+EU
+UK
+USA
+NATO
+BBC
+CNN
+NPR
+ESPN
+NFL
+NBA
+MLB
+NHL
+UEFA
+F1
+NASCAR
+MMA
+UFC
+WWE
+NCAA
+CDC
+FDA
+IRS
+HMRC
+DVLA
+DMV
+TSA
+MI5
+MI6
+IMF
+WTO
+NGO
+UNESCO
+UNICEF
+BRICS
+G7
+G20
+MP
+POTUS
+SCOTUS
+GOP
+SWAT
+ISS
+CERN
+MIT
+UCLA
+NYU
+GCSE
+A-level
+GPA
+IELTS
+TOEFL
+UCAS
+Ofsted
+ATM
+IBAN
+APR
+ETF
+S&P 500
+Nasdaq
+NYSE
+FTSE 100
+GDP
+CPI
+VAT
+GST
+ISA
+401(k)
+Roth IRA
+EBITDA
+YoY
+ARR
+USD
+EUR
+GBP
+JPY
+INR
+AUD
+CAD
+BTC
+SSD
+HDD
+RAM
+microSD
+SIM
+eSIM
+GPS
+LiDAR
+QR code
+OTP
+2FA
+MFA
+PDF
+PNG
+JPEG
+GIF
+WebP
+SVG
+MP3
+MP4
+FLAC
+WAV
+AAC
+DOCX
+XLSX
+PPTX
+APK
+ISO
+AI
+ML
+AR
+VR
+XR
+IoT
+P2P
+LAN
+WAN
+ISP
+IP address
+DSLR
+PSU
+RGB
+DLSS
+MMO
+MMORPG
+RPG
+JRPG
+MOBA
+DLC
+PvP
+PvE
+XP
+HQ
+ID
+PC
+UFO
+DIY
+BBQ
+RIP
+SOS
+VIP
+CV
+LGBTQ+
+ASL
+BSL
+DUI
+SUV
+EV
+MOT
+HVAC
+UV
+CCTV
+TfL
+PAYE
+ITV
+Ofcom
+
+# Science, medicine and niche terms
+ibuprofen
+acetaminophen
+paracetamol
+Ozempic
+Wegovy
+Mounjaro
+Zepbound
+semaglutide
+tirzepatide
+metformin
+atorvastatin
+lisinopril
+amlodipine
+omeprazole
+sertraline
+fluoxetine
+citalopram
+escitalopram
+bupropion
+gabapentin
+tramadol
+codeine
+oxycodone
+fentanyl
+naloxone
+Narcan
+amoxicillin
+azithromycin
+doxycycline
+prednisone
+prednisolone
+hydrocortisone
+cetirizine
+loratadine
+Benadryl
+Zyrtec
+Claritin
+Sudafed
+Tylenol
+Advil
+Nurofen
+Calpol
+Lemsip
+Gaviscon
+Imodium
+levothyroxine
+warfarin
+Eliquis
+salbutamol
+albuterol
+Ventolin
+EpiPen
+epinephrine
+Adderall
+Ritalin
+Vyvanse
+melatonin
+Xanax
+diazepam
+Valium
+Viagra
+finasteride
+minoxidil
+Accutane
+tretinoin
+retinol
+niacinamide
+hyaluronic acid
+salicylic acid
+Botox
+Paxlovid
+Tamiflu
+Pfizer
+Moderna
+AstraZeneca
+Novo Nordisk
+mitochondria
+CRISPR
+mRNA
+RNA
+photosynthesis
+endometriosis
+fibromyalgia
+psoriasis
+eczema
+rosacea
+tinnitus
+appendicitis
+tonsillitis
+conjunctivitis
+gastroenteritis
+bronchitis
+sinusitis
+meningitis
+sepsis
+anaphylaxis
+arrhythmia
+tachycardia
+atrial fibrillation
+hypothyroidism
+Crohn's disease
+coeliac disease
+Alzheimer's
+Parkinson's
+multiple sclerosis
+osteoporosis
+rheumatoid arthritis
+dyslexia
+dyspraxia
+Asperger's
+Tourette's
+sleep apnoea
+diarrhoea
+haemorrhage
+haemoglobin
+anaemia
+oesophagus
+oestrogen
+cortisol
+dopamine
+serotonin
+oxytocin
+paediatrician
+gynaecologist
+orthopaedic
+anaesthetist
+anaesthesia
+chiropractor
+podiatrist
+dermatologist
+ophthalmologist
+optometrist
+endocrinologist
+colonoscopy
+endoscopy
+mammogram
+biopsy
+dialysis
+stethoscope
+sphygmomanometer
+defibrillator
+nebuliser
+tonsillectomy
+vasectomy
+LASIK
+glaucoma
+astigmatism
+SpO2
+HbA1c
+LDL
+HDL
+triglycerides
+VO2 max
+HRV
+REM sleep
+circadian rhythm
+microbiome
+probiotics
+collagen
+creatine
+ketosis
+keto
+ribosome
+chloroplast
+eukaryote
+prokaryote
+telomere
+epigenetics
+phenotype
+genotype
+allele
+meiosis
+mitosis
+apoptosis
+homeostasis
+chlorophyll
+Krebs cycle
+PCR
+Petri dish
+pipette
+Higgs boson
+quark
+neutrino
+Large Hadron Collider
+graphene
+perovskite
+caesium
+aluminium
+sulphur
+tungsten
+neodymium
+Teflon
+Kevlar
+Velcro
+Fahrenheit
+Celsius
+Coriolis effect
+Doppler effect
+exoplanet
+quasar
+Betelgeuse
+Andromeda
+Alpha Centauri
+James Webb Space Telescope
+Hubble
+aurora borealis
+El Niño
+La Niña
+Pangaea
+Cretaceous
+Tyrannosaurus rex
+Velociraptor
+pterodactyl
+Homo sapiens
+Neanderthal
+PM2.5
+quinoa
+açaí
+gnocchi
+bruschetta
+sriracha
+gochujang
+kimchi
+bibimbap
+tteokbokki
+edamame
+katsu
+sashimi
+onigiri
+okonomiyaki
+matcha
+mochi
+yuzu
+pho
+bánh mì
+laksa
+pad thai
+xiaolongbao
+dim sum
+hoisin
+Szechuan
+tzatziki
+halloumi
+baklava
+hummus
+falafel
+tahini
+shawarma
+za'atar
+shakshuka
+tabbouleh
+baba ganoush
+jollof rice
+peri-peri
+biryani
+tikka masala
+paneer
+naan
+chapati
+ghee
+quesadilla
+jalapeño
+habanero
+ceviche
+chorizo
+paella
+gazpacho
+crème brûlée
+bœuf bourguignon
+macaron
+crêpe
+soufflé
+charcuterie
+Gruyère
+Parmigiano-Reggiano
+burrata
+mascarpone
+prosciutto
+guanciale
+carbonara
+cacio e pepe
+focaccia
+ciabatta
+tiramisu
+tagliatelle
+fettuccine
+linguine
+macchiato
+kombucha
+kefir
+tempeh
+pierogi
+goulash
+poutine
+Worcestershire sauce
+ashwagandha
+bok choy
+arugula
+shiitake
+lychee
+durian
+Aperol
+prosecco
+sauvignon blanc
+pinot noir
+Pinot Grigio
+Malbec
+Gewürztraminer
+mezcal
+soju
+Jägermeister
+negroni
+caipirinha
+piña colada
+feng shui
+hygge
+wabi-sabi
+ikigai
+kintsugi
+schadenfreude
+zeitgeist
+déjà vu
+piñata
+faux pas
+café
+naïve
+résumé
+fiancé
+fiancée
+doppelgänger
+coup d'état
+raison d'être
+je ne sais quoi
+bon appétit
+voilà
+cliché
+entrée
+protégé
+hors d'œuvre
+et al.
+bona fide
+quid pro quo
+ASMR

@@ -1,0 +1,57 @@
+<Window x:Class="TiroSetup.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tiro Setup" Width="940" Height="660"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
+        FontFamily="{StaticResource Inter}" UseLayoutRounding="True" SnapsToDevicePixels="True"
+        Icon="tiro.ico">
+    <Grid Margin="20">
+        <Border x:Name="Frame" CornerRadius="18" Background="{StaticResource WindowBackground}"
+                BorderBrush="{StaticResource LineStrongBrush}" BorderThickness="1">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="8" Direction="270" Opacity="0.55" Color="Black" />
+            </Border.Effect>
+        </Border>
+        <Grid x:Name="Clipped">
+            <!-- soft brand glow in the corner -->
+            <Ellipse Width="620" Height="620" HorizontalAlignment="Right" VerticalAlignment="Top"
+                     Margin="0,-300,-260,0" Fill="{StaticResource GlowBrush}" IsHitTestVisible="False" Opacity="0.55" />
+            <Ellipse Width="460" Height="460" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                     Margin="-240,0,0,-260" IsHitTestVisible="False" Opacity="0.35">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#558B5CF6" Offset="0" />
+                        <GradientStop Color="#008B5CF6" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="TitleBar" Background="Transparent" MouseLeftButtonDown="OnDrag">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="22,0,0,0">
+                        <Image Source="Images/tiro-256.png" Width="22" Height="22" RenderOptions.BitmapScalingMode="HighQuality" />
+                        <TextBlock Text="Tiro Setup" Style="{StaticResource H3}" FontSize="13.5" Margin="10,0,0,0" VerticalAlignment="Center" />
+                        <TextBlock x:Name="VersionText" Style="{StaticResource Caption}" Margin="8,1,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,12,0">
+                        <Button Style="{StaticResource ChromeButton}" Click="OnMinimize" ToolTip="Minimize">
+                            <Rectangle Width="11" Height="1.2" Fill="{StaticResource Text2Brush}" />
+                        </Button>
+                        <Button Style="{StaticResource ChromeButton}" Click="OnClose" ToolTip="Close">
+                            <Path Data="M0,0 L10,10 M10,0 L0,10" Stroke="{StaticResource Text2Brush}" StrokeThickness="1.3" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <ContentControl x:Name="Host" Grid.Row="1" Margin="46,6,46,34" Focusable="False">
+                    <ContentControl.RenderTransform>
+                        <TranslateTransform x:Name="HostShift" />
+                    </ContentControl.RenderTransform>
+                </ContentControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

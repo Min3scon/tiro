@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tiro: private dictation for Windows and Mac</title>
+  <meta name="description" content="Hold a key, speak, let go. Tiro types your words wherever your cursor is. Accurate, fast, and it runs entirely on your own computer.">
+  <meta property="og:title" content="Tiro: private dictation for Windows and Mac">
+  <meta property="og:description" content="Hold a key, speak, let go. Accurate, fast, and entirely on your own computer.">
+  <meta property="og:image" content="images/hero.png">
+  <link rel="icon" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#"><img src="images/logo.png" alt="" width="30" height="30"><span>Tiro</span></a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#accuracy">Accuracy</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://github.com/Min3scon/tiro" class="gh">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="glow g1"></div><div class="glow g2"></div>
+      <p class="eyebrow">Free &amp; open source · Windows and Mac</p>
+      <h1>Hold a key. Speak.<br><span class="grad">Tiro types.</span></h1>
+      <p class="lead">Your words appear wherever your cursor is, in any app, with punctuation and capitals. It learns the
+        names and words you use, and it runs entirely on your own computer.</p>
+      <div class="cta" id="cta">
+        <a class="btn primary" id="primary-dl" href="https://github.com/Min3scon/tiro/releases/latest">Download Tiro</a>
+        <a class="btn ghost" id="secondary-dl" href="https://github.com/Min3scon/tiro/releases/latest">Other platforms</a>
+      </div>
+      <p class="fine" id="dl-note">Windows 10/11 · Mac with Apple Silicon (M1 or newer). Intel Macs aren't supported.</p>
+      <div class="intel-warning" id="intel-warning" hidden>
+        This looks like an <b>Intel Mac</b>. Tiro for Mac needs Apple Silicon (M1 or newer), so it won't run here, sorry.
+      </div>
+      <figure class="demo">
+        <img src="images/hero.png" alt="Tiro typing a dictation into an editor, with its overlay showing the words as they arrive">
+      </figure>
+    </section>
+
+    <section id="features" class="features">
+      <h2>Dictation that keeps up with you</h2>
+      <div class="grid">
+        <article><h3>Accurate</h3><p>NVIDIA's Parakeet speech model, one of the most accurate open models, with punctuation, capitals and voice-activity detection.</p></article>
+        <article><h3>Gets your names right</h3><p>Learns the names, brands and terms you use, so “GeoGuessr”, “Siobhan” or “Kubernetes” come out the way you write them.</p></article>
+        <article><h3>Never rewrites you</h3><p>Corrections can only swap a misheard word for one that sounds like it. It never rephrases, reorders or tidies your words.</p></article>
+        <article><h3>Fast</h3><p>On an NVIDIA GPU, six seconds of speech is understood in about 0.05 s. Text streams in while you talk.</p></article>
+        <article><h3>Types anywhere</h3><p>Email, chat, code editors, forms, documents: whatever has the cursor. Paste mode restores your clipboard.</p></article>
+        <article><h3>Fix it once</h3><p>Press Ctrl+Alt+F to correct the last dictation. Tiro remembers the fix and gets it right from then on.</p></article>
+      </div>
+      <figure class="overlay-demo"><img src="images/overlay.gif" alt="The Tiro overlay during a dictation" loading="lazy"></figure>
+    </section>
+
+    <section id="accuracy" class="accuracy">
+      <h2>How Tiro gets your words right</h2>
+      <p class="sub">Recognisers are great at everyday English and weaker on the words that matter to you. Tiro fixes the last few per cent in tiers, cheapest first.</p>
+      <div class="tiers">
+        <div class="tier"><span class="n">0</span><h3>Quick check</h3><p>Confident, ordinary words pass straight through. Most sentences stop here, in microseconds.</p></div>
+        <div class="tier"><span class="n">1</span><h3>Your vocabulary</h3><p>Doubtful words are matched against your dictionary, the fixes you've taught and your history. Each candidate is checked against the audio itself.</p></div>
+        <div class="tier"><span class="n">2</span><h3>AI check</h3><p>For close calls, a small AI model running on your computer picks the option that fits your sentence, or keeps what you said.</p></div>
+      </div>
+      <div class="stats">
+        <div><b>5.8%</b><span>word error rate on 72 tricky sentences with your words, down from 9.9%</span></div>
+        <div><b>0 / 810</b><span>ordinary sentences where a correct word was changed</span></div>
+        <div><b>&lt; 2 ms</b><span>typical extra time before your words appear (95th percentile)</span></div>
+      </div>
+      <p class="fine"><a href="https://github.com/Min3scon/tiro/blob/main/tests/accuracy/REPORT.md">Read the full accuracy report →</a></p>
+    </section>
+
+    <section id="privacy" class="privacy">
+      <div class="card">
+        <h2>Everything stays on your device</h2>
+        <p>No audio, text or history is sent anywhere. Speech recognition, corrections and learning all run locally: no account, no telemetry, no cloud.</p>
+        <ul>
+          <li>Learning from your dictation can be switched off, and your history cleared with one click.</li>
+          <li>Tiro never learns from, saves or corrects anything you dictate into password fields.</li>
+          <li>Logs never contain what you say. The only downloads are Tiro and its models.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="setup">
+      <h2>Set up in a few minutes. No guesswork.</h2>
+      <p class="sub">The installer checks your processor, graphics card, graphics memory and RAM, picks the fastest way to run Tiro, and explains why in plain English. Then a real speed test, your microphone and shortcut, and a test dictation.</p>
+      <div class="shots">
+        <img src="images/installer-choose.png" alt="The installer recommends the graphics card" loading="lazy">
+        <img src="images/setup-speed-check.png" alt="The speed check" loading="lazy">
+      </div>
+    </section>
+
+    <section class="hardware">
+      <h2>Runs on</h2>
+      <table>
+        <thead><tr><th>Computer</th><th>Speech recognition</th><th>Words appear</th></tr></thead>
+        <tbody>
+          <tr><td>Windows + NVIDIA RTX 20-series or newer</td><td>Graphics card (CUDA)</td><td>≈ 0.05–0.1 s after you stop</td></tr>
+          <tr><td>Windows, any other graphics</td><td>Processor</td><td>≈ 0.3–1 s after you stop</td></tr>
+          <tr><td>Mac with Apple Silicon (M1+), macOS 13+</td><td>Core ML (GPU / Neural Engine)</td><td>fast</td></tr>
+          <tr><td>Intel Mac</td><td colspan="2">Not supported</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="faq" class="faq">
+      <h2>Questions</h2>
+      <details><summary>Is it really free?</summary><p>Yes. Tiro is open source under the MIT licence. There's no account and no subscription.</p></details>
+      <details><summary>Does it need the internet?</summary><p>Only to download Tiro and its models during setup. After that it works offline.</p></details>
+      <details><summary>My Mac says Tiro can't be opened.</summary><p>Tiro isn't signed with a paid Apple Developer ID, so macOS asks once. Open System Settings → Privacy &amp; Security and click <b>Open Anyway</b> next to the message about Tiro. <a href="https://github.com/Min3scon/tiro#mac-apple-silicon">Step-by-step instructions</a>.</p></details>
+      <details><summary>Which languages?</summary><p>English by default (the most accurate model). During setup you can pick a model for 25 European languages instead.</p></details>
+      <details><summary>What's the default key?</summary><p>Right Ctrl on Windows and Right Option (⌥) on a Mac. Hold it while you talk. You can change it to almost any key.</p></details>
+    </section>
+
+    <section class="final">
+      <h2>Try it now</h2>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/Min3scon/tiro/releases/latest/download/TiroSetup.exe">Download for Windows</a>
+        <a class="btn primary alt" href="https://github.com/Min3scon/tiro/releases/latest/download/Tiro-mac-arm64.dmg">Download for Mac (Apple Silicon)</a>
+      </div>
+      <p class="fine" id="version-line">Free and open source · MIT licence</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Tiro is named after Cicero's secretary, who invented shorthand to take down speeches word for word.</span>
+    <a href="https://github.com/Min3scon/tiro">GitHub</a>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>

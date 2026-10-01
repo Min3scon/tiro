@@ -1,0 +1,14 @@
+[
+  {"say": "I love playing Geo Guesser with my friends on the weekend.", "expect": "GeoGuessr"},
+  {"say": "Have you tried Geo Guesser? You get dropped somewhere on Google Maps and have to guess where you are.", "expect": "GeoGuessr"},
+  {"say": "We deployed the new service on Kubernetes last night.", "expect": "Kubernetes"},
+  {"say": "Shivawn sent me the Figma file this morning.", "expect": "Siobhan"},
+  {"say": "Can you ask Claude to refactor the Pie Torch code?", "expect": "PyTorch"},
+  {"say": "Open Obsidian and check the Zettel kasten notes.", "expect": "Zettelkasten"},
+  {"say": "The Tyro app uses Parakeet and Silero for dictation.", "expect": "Tiro"},
+  {"say": "We use Tailwind and Super base for the front end.", "expect": "Supabase"},
+  {"say": "Grab the Jira ticket from the Confluence page.", "expect": "Jira"},
+  {"say": "My cousin Niamh is flying in from Dublin tomorrow.", "expect": "Niamh"},
+  {"say": "Run the build with Nuitka instead of Pie Installer.", "expect": "Nuitka"},
+  {"say": "I booked a table at Nandos in Shoreditch for Friday.", "expect": "Nando's"}
+]
