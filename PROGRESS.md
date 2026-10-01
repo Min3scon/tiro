@@ -1,16 +1,24 @@
-# Tiro Lite + Standard upgrade: progress log
+# Tiro: progress log
 
-This file is updated as the work goes. The **Live status** block at the top is rewritten automatically by the
-status writer (`training/status.py`) every 5 minutes; everything below it is a dated log written as the work goes.
+## Current state
+
+- **Round:** "beat Wispr Flow" plan (pasted 2026-10-01 17:30). Branch `lite`; `main` stays releasable.
+- **Phase:** A1, finding where the delay goes between speech ending and text appearing (Standard app).
+- **Next:** time every stage, test in a terminal, Notepad and a browser box, fix the biggest delay first.
+- **Background jobs:** `training/scheduler.py` (pid file `work/logs/scheduler.pid`). It runs the queue in
+  `work/schedule.json` today 18:00-21:00, then continuously from Fri 2 Oct 00:00. Logs are in `work/logs/<job>.out`.
+  The queue: prepare_all, label_parakeet, tts, bench_devmini, lite_suite.
+- **How to resume after a restart:** start the scheduler again with
+  `powershell -File training\tools\launch.ps1 -Name scheduler -Module training.scheduler -Low`.
+  Every job resumes from its own output files.
+
+The block below is rewritten every 5 minutes by `training/status.py`.
 
 <!-- LIVE-STATUS:BEGIN -->
-_Updated 2026-10-01 16:37. GPU 7% busy, 0.8/8.0 GB, 51 °C. Disk: 64 GB free on the work drive._
+_Updated 2026-10-01 17:42. GPU 10% busy, 3.7/8.0 GB, 51 °C. Disk: 188 GB free on the work drive._
 
-- ▶ **scheduler** (running, started 01 Oct 16:16): Paused until Thu 18:00 (heavy work runs Thu 01 Oct 18:00-21:00, Fri 02 Oct 00:00 onwards); queued: prepare_all, label_parakeet, tts, bench_devmini
-  - `2026-10-01 16:16:00  scheduler up (pid 18104)`
-- ▶ **fetch_noise** (running, started 01 Oct 15:15)
-  - `musan.tar.gz: 9998/11086 MB (2.3 MB/s)`
-  - `musan.tar.gz: 10025/11086 MB (2.3 MB/s)`
+- ▶ **scheduler** (running, started 01 Oct 17:42): Paused until Thu 18:00 (heavy work runs Thu 01 Oct 18:00-21:00, Fri 02 Oct 00:00 onwards); queued: prepare_all, label_parakeet, tts, bench_devmini, lite_suite
+  - `2026-10-01 17:42:07  scheduler up (pid 17140)`
 - ✓ **tts** (finished, started 01 Oct 15:49)
   - `2026-10-01 15:49:10  120000 sentences, 60 shards to synthesise with 3 workers`
 - ✓ **fetch_tts2** (finished, started 01 Oct 15:41)
@@ -22,15 +30,34 @@ _Updated 2026-10-01 16:37. GPU 7% busy, 0.8/8.0 GB, 51 °C. Disk: 64 GB free on 
 - ✓ **label_parakeet** (finished, started 01 Oct 15:35): 75 h labelled this run at 137 h/hour; now ami-sdm 7/27
   - `2026-10-01 16:07:58  ami-sdm [6/27] sdm__train-00005-of-00027.parquet: 3318 utts 3.2 h in 53s (RTFx 217)`
   - `2026-10-01 16:08:44  ami-sdm [7/27] sdm__train-00006-of-00027.parquet: 3230 utts 3.0 h in 45s (RTFx 238)`
+- ✓ **fetch_noise** (finished, started 01 Oct 15:15)
+  - `musan.tar.gz: 11072/11086 MB (2.4 MB/s)`
+  - `done musan.tar.gz in 4800s`
 - ✓ **prepare_all** (finished, started 01 Oct 14:27)
   - `2026-10-01 16:10:10  peoples-speech: [5/62] clean/train-00052-of-00804.parquet: 1868 utts, 7.2 h in 26s (this run 35 h)`
   - `2026-10-01 16:10:33  peoples-speech: [6/62] clean/train-00065-of-00804.parquet: 1868 utts, 6.5 h in 23s (this run 42 h)`
-- ✓ **bench_devmini** (finished, started 01 Oct 14:19)
-  - `2026-10-01 16:09:19  end parakeet-0.6b-v2-int8 exit=1`
-  - `2026-10-01 16:09:19  start parakeet-unified-0.6b-int8`
 <!-- LIVE-STATUS:END -->
 
+## Decisions
+
+| When | Decision | Why |
+|---|---|---|
+| 10-01 | Lite engine = C++ core (`core/`) on the vendored Moonshine Streaming runtime (MIT) | best accuracy per MB in the survey; streaming; trainable; one engine for all platforms |
+| 10-01 | Teacher = IBM Granite Speech 4.1 2B (8-bit LM, 3.4 GB VRAM); the Standard model labels everything first, Granite re-labels doubtful clips | best open model (5.33% mean WER), Apache 2.0, fits next to Tiro on the 8 GB GPU; slow here (about 5x real time) |
+| 10-01 | Cohere Transcribe not used | its weights are gated behind terms only the user can accept |
+| 10-01 | Decoder runs single-threaded; encoder gets the thread budget | ONNX Runtime 1.30's 4-bit int8-compute kernel crashed with 4 threads; one thread is also faster per token |
+| 10-01 | Moonshine exports: decoder 4-bit blocks (output layer untied), encoder and cross-attention int8 | 45 -> 10 ms per token, 280 -> 230 MB peak, same transcripts |
+| 10-01 | Vocabulary bias only helps FINISH a term (no bonus for starting one) | the upstream start bonus changed ordinary words ("ranked" -> "rank") |
+| 10-01 | One app, one installer; Lite and Standard switchable in Settings | user decision |
+| 10-01 | Heavy jobs today only 18:00-21:00, then normal | user decision |
+
+## Left out and why
+
+_(nothing yet)_
+
 ---
+
+## Log
 
 ## 2026-10-01: starting point
 
@@ -135,3 +162,22 @@ Queue, in order:
 4. Finish the candidate benchmark.
 
 Training rounds join the queue as soon as labels exist.
+
+### Decision (2026-10-01 17:00): one app, one installer
+
+Lite and Standard are **the same Tiro app**, installed by **one installer**:
+- The installer checks the hardware (it already measures GPU, VRAM, RAM and CPU) and picks Standard or Lite with a
+  plain-English reason, so nobody with a strong PC ends up on Lite by accident. You can override its choice.
+- Settings can switch between Lite and Standard at any time without reinstalling. Tiro downloads the other engine's
+  files if they're missing.
+
+The C++ engine in `core/` therefore plays two roles:
+- **inside Tiro on Windows and Mac**, it is the Lite engine (loaded as a library next to Standard's Parakeet engine);
+- **on phones and the web**, it is the whole engine, because those apps have to be separate by platform.
+
+The separate native Windows Lite app I'd started is dropped.
+
+Note on the RAM column of the first candidate benchmarks: those runs measured the whole Python process, test-set
+loading included, so the "peak" there is not the model's. RAM is measured with the native engine instead
+(`tiro-transcribe`). For example, Moonshine Streaming small at 4-bit/8-bit peaks at 230 MB, and that includes ONNX
+Runtime and buffers.

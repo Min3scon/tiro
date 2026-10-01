@@ -114,6 +114,25 @@ def replay_keys(keys: list[tuple[int, int, int, bool]]) -> None:
     send([_vk_event(vk, up=not down, scan=scan, flags=flags) for vk, scan, flags, down in keys])
 
 
+def _test_guard_ok() -> bool:
+    """Automated tests only: never type into anything but the test's own window (by class and/or title)."""
+    cls = os.environ.get("TIRO_TEST_TARGET_CLASS")
+    title = os.environ.get("TIRO_TEST_TARGET_TITLE")
+    hwnd_file = os.environ.get("TIRO_TEST_TARGET_HWND_FILE")  # one window handle per line, written by the test
+    if not cls and not title and not hwnd_file:
+        return True
+    fg = winutil.foreground_window()
+    if hwnd_file:
+        try:
+            allowed = {int(x) for x in open(hwnd_file, encoding="utf-8").read().split() if x.strip()}
+        except (OSError, ValueError):
+            allowed = set()
+        return fg in allowed
+    if cls and winutil.window_class(fg) != cls:
+        return False
+    return not title or title in winutil.window_title(fg)
+
+
 class Injector:
     def __init__(self, method: str = "type"):
         self.method = method
@@ -125,9 +144,8 @@ class Injector:
     def insert(self, text: str) -> bool:
         if not text:
             return True
-        guard = os.environ.get("TIRO_TEST_TARGET_CLASS")  # automated tests only: never type into other windows
-        if guard and winutil.window_class(winutil.foreground_window()) != guard:
-            log.warning("test guard: focus is not on a %s window; dropped %d chars", guard, len(text))
+        if not _test_guard_ok():
+            log.warning("test guard: focus is not on the test window; dropped %d chars", len(text))
             return False
         try:
             if self.method == "paste":
@@ -139,9 +157,8 @@ class Injector:
 
     def replace_tail(self, delete: int, text: str) -> bool:
         """Backspace over the last `delete` characters (text Tiro typed), then insert `text` in their place."""
-        guard = os.environ.get("TIRO_TEST_TARGET_CLASS")
-        if guard and winutil.window_class(winutil.foreground_window()) != guard:
-            log.warning("test guard: focus is not on a %s window; replacement dropped", guard)
+        if not _test_guard_ok():
+            log.warning("test guard: focus is not on the test window; replacement dropped")
             return False
         events = _release_modifiers()
         for _ in range(max(0, delete)):

@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import json
 import logging
+import os
 import threading
 import time
 from collections.abc import Callable
@@ -103,6 +105,12 @@ class DictationSession:
         self.inject_hwnd = 0  # window the text went into
         self.last_inject_events = -1  # InputContext.events right after our last insertion
         self.raw_text = ""  # what the recogniser heard, before correction (for "Fix last transcription")
+        # Stage timestamps (perf_counter seconds) for the latency log: where the time goes after you stop.
+        self.marks: dict[str, float] = {"created": time.perf_counter()}
+        self.typed_chars_live = 0  # characters typed while you were still talking
+        self.typed_chars_end = 0  # ... and after the key was released
+        self.decode_ms_end = 0.0
+        self.type_ms_end = 0.0
 
     # ------------------------------------------------------------------ control (any thread)
     def start(self) -> None:
@@ -142,6 +150,7 @@ class DictationSession:
             threading.Thread(target=self._probe_target, name="tiro-target", daemon=True).start()
             try:
                 self.capture.open()
+                self.marks["mic_open"] = time.perf_counter()
             except MicError as exc:
                 self.error = str(exc)
                 self.cb.on_notice("error", str(exc))
@@ -212,6 +221,10 @@ class DictationSession:
                 for i in range(0, n, FRAME):
                     frame = pending[i : i + FRAME]
                     speech = gate.update(self.vad(frame))
+                    if speech:
+                        now = time.perf_counter()
+                        self.marks.setdefault("first_speech", now)
+                        self.marks["last_speech"] = now
                     self.speech_heard = self.speech_heard or speech
                     stream.push(frame, speech)
                 pending = pending[n:]
@@ -221,6 +234,7 @@ class DictationSession:
             if self._stop.is_set():
                 if stop_at is None:
                     stop_at = time.monotonic() + RELEASE_TAIL_SEC
+                    self.marks["key_up"] = time.perf_counter()
                     self.cb.on_state("finishing")
                 if time.monotonic() >= stop_at:
                     break
@@ -250,14 +264,56 @@ class DictationSession:
             self.cb.on_state("error")
             return
         audio_end = time.perf_counter()
+        self.marks["tail_done"] = audio_end
         before = self.correction_ms
-        self._apply(stream.finalize())
+        upd = stream.finalize()
+        self.marks["decode_done"] = time.perf_counter()
+        self.decode_ms_end = (self.marks["decode_done"] - audio_end) * 1000
+        self._apply(upd, final=True)
+        self.marks["typed"] = time.perf_counter()
         self.end_latency_ms = (time.perf_counter() - audio_end) * 1000
         self.end_correction_ms = self.correction_ms - before
+        self._log_timing()
         if time.monotonic() - self.started > 1.5 and self.capture.peak < SILENT_PEAK and not self.assembler.text:
             name = self.capture.opened_name or "the microphone"
             self.cb.on_notice("warning", f"No sound from {name}. Pick another microphone in the tray menu.")
         self.cb.on_state("done")
+
+    def _log_timing(self) -> None:
+        """One line per dictation: how long each stage took after the key came up."""
+        m = self.marks
+        up = m.get("key_up")
+        if up is None:
+            return
+
+        def ms(a: str, b: str) -> float | None:
+            return round((m[b] - m[a]) * 1000, 1) if a in m and b in m else None
+
+        rec = {
+            "release_to_typed_ms": ms("key_up", "typed"),
+            "tail_ms": ms("key_up", "tail_done"),
+            "decode_ms": round(self.decode_ms_end, 1),
+            "correction_ms": round(self.end_correction_ms, 1),
+            "type_ms": round(self.type_ms_end, 1),
+            "speech_end_to_typed_ms": ms("last_speech", "typed"),
+            "keydown_to_mic_ms": ms("created", "mic_open"),
+            "chars_live": self.typed_chars_live,
+            "chars_end": self.typed_chars_end,
+            "insertion": getattr(self.injector, "method", "?"),
+            "app": self.app_name,
+            "device": getattr(self.engine, "device", "?"),
+        }
+        log.info("latency: release->typed %s ms (tail %s, decode %s, correction %s, typing %s); "
+                 "speech end->typed %s ms; chars typed live %d, at the end %d",
+                 rec["release_to_typed_ms"], rec["tail_ms"], rec["decode_ms"], rec["correction_ms"],
+                 rec["type_ms"], rec["speech_end_to_typed_ms"], rec["chars_live"], rec["chars_end"])
+        path = os.environ.get("TIRO_TIMING_LOG")  # tests: one JSON line per dictation
+        if path:
+            try:
+                with open(path, "a", encoding="utf-8") as f:
+                    f.write(json.dumps(rec) + "\n")
+            except OSError:
+                pass
 
     def _hold_back(self, committable, rest) -> int:
         """Words to keep back from this commit: the start of a voice command, or a doubtful word whose
@@ -328,7 +384,7 @@ class DictationSession:
         self.params.step_sec = min(1.2, max(0.4, 1.6 * self._decode_avg))
         return words
 
-    def _apply(self, upd: StreamUpdate) -> None:
+    def _apply(self, upd: StreamUpdate, final: bool = False) -> None:
         if self._cancel.is_set():
             return
         if upd.committed:
@@ -353,7 +409,13 @@ class DictationSession:
                         self.cb.on_notice(
                             "warning", "That window runs as administrator. Restart Tiro as admin to type into it."
                         )
+                    t_type = time.perf_counter()
                     self.injector.insert(text)
+                    if final:
+                        self.type_ms_end += (time.perf_counter() - t_type) * 1000
+                        self.typed_chars_end += len(text)
+                    else:
+                        self.typed_chars_live += len(text)
                     self.context.note_inject(text, hwnd)
                     self.inject_hwnd = hwnd
                     self.last_inject_events = self.context.events

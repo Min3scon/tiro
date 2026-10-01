@@ -220,6 +220,8 @@ class Scheduler:
                     kind = job.get("uses", "cpu")
                     if used.get(kind, 0) >= limits.get(kind, 1):
                         continue
+                    if job.get("hold"):  # paused by hand in schedule.json (e.g. while a test needs the GPU)
+                        continue
                     if self.state["attempts"].get(job["name"], 0) > 50:
                         continue
                     self.start(job)

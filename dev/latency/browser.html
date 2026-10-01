@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TIRO-TEST-BROWSER 0</title>
+<style>
+  body { font: 16px system-ui, sans-serif; margin: 24px; background: #f4f4f4; }
+  textarea { width: 90vw; height: 60vh; font: 16px system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<p>Tiro latency test: this box receives dictated text. Do not type here.</p>
+<textarea id="t" autofocus></textarea>
+<script>
+  const t = document.getElementById("t");
+  // the harness reads the window title to time when the last character arrived
+  t.addEventListener("input", () => { document.title = "TIRO-TEST-BROWSER " + t.value.length; });
+  window.addEventListener("focus", () => t.focus());
+</script>
+</body>
+</html>

@@ -136,14 +136,23 @@ def convert_file(src: Source, remote: str, pool: ProcessPoolExecutor) -> tuple[i
         hours += sum(r[3] for r in res) / 3600
     writer.close()
     os.replace(tmp, out)
-    # free the disk: delete the downloaded blob (the snapshot entry is a link to it)
+    # free the disk: delete the downloaded blob and the snapshot link to it (resolve BEFORE unlinking; the
+    # links are relative, which os.path.realpath didn't follow here and left 126 GB of orphaned blobs)
+    from pathlib import Path
+
+    link = Path(local)
     try:
-        real = os.path.realpath(local)
-        os.remove(local)
-        if os.path.exists(real):
-            os.remove(real)
+        blob = link.resolve(strict=True)
     except OSError:
-        pass
+        blob = link
+    for p in (link, blob):
+        try:
+            if p.exists() or p.is_symlink():
+                p.unlink()
+        except OSError as exc:
+            log("prepare", f"could not delete {p}: {exc}")
+    if blob.exists():
+        log("prepare", f"WARNING: download still on disk after conversion: {blob}")
     return n, hours
 
 
@@ -171,6 +180,11 @@ def main() -> None:
                 log("prepare", f"{name}: [{i}/{len(files)}] {remote}: {n} utts, {h:.1f} h "
                     f"in {time.time() - t0:.0f}s (this run {total_h:.0f} h)")
             log("prepare", f"{name}: done")
+            import subprocess
+            import sys
+
+            # safety net: anything left in the download cache that no dataset links to any more
+            subprocess.run([sys.executable, "-m", "training.data.clean_orphans"], check=False)
 
 
 if __name__ == "__main__":
