@@ -5,7 +5,10 @@ from pathlib import Path
 
 from PyInstaller.utils.hooks import collect_all, collect_data_files, copy_metadata
 
+import sys
+
 ROOT = Path(SPECPATH)
+sys.path.insert(0, str(ROOT))
 from tiro import __version__  # noqa: E402
 
 datas = [(str(ROOT / "assets"), "assets")]

@@ -1,12 +1,17 @@
 from tiro.asr import tokens_to_words
 from tiro.context import END, MID, WORD, classify_key
-from tiro.keys import HotkeySpec, hotkey_problem
+from tiro.keys import IS_MAC, HotkeySpec, hotkey_problem
 
 
 def test_hotkey_specs_parse_and_label():
-    assert HotkeySpec.parse("rctrl").label == "Right Ctrl"
-    assert HotkeySpec.parse("ctrl+shift+space").label == "Ctrl + Shift + Space"
-    assert HotkeySpec.parse(["ctrl", "win"]).label == "Ctrl + Win"
+    if IS_MAC:
+        assert HotkeySpec.parse("rctrl").label == "Right Control"
+        assert HotkeySpec.parse("ralt").label == "Right Option"
+        assert HotkeySpec.parse(["ctrl", "win"]).label == "\u2303 Control + \u2318 Command"
+    else:
+        assert HotkeySpec.parse("rctrl").label == "Right Ctrl"
+        assert HotkeySpec.parse("ctrl+shift+space").label == "Ctrl + Shift + Space"
+        assert HotkeySpec.parse(["ctrl", "win"]).label == "Ctrl + Win"
     assert HotkeySpec.from_captured([0xA3]).keys == ("rctrl",)
     assert HotkeySpec.from_captured([0xA2, 0x5B]).keys == ("ctrl", "win")
 

@@ -23,6 +23,7 @@ FRAME_SEC = 0.08  # FastConformer emits one encoder frame per 80 ms (10 ms hop x
 # cuDNN re-plans every Conv when the input length changes (~90 ms on an RTX 3070 versus ~20 ms steady state),
 # so on the GPU the features are zero-padded to a few fixed lengths (in 10 ms feature frames).
 GPU_BUCKETS = (1000, 2000, 3000)
+COREML_MAX_SEC = 1.0  # if Core ML needs longer than this for 6 s of audio after warm-up, use the CPU instead
 # Dictionary boosting bonuses (in logit units): continuing a dictionary word's spelling vs. starting one.
 BOOST_START = 0.0
 BOOST_CONT = 2.5
@@ -253,6 +254,11 @@ class ParakeetEngine:
                 self.device = "coreml"
                 self.device_label = "Apple GPU / Neural Engine (Core ML)"
                 self._warmup()
+                t = time.perf_counter()
+                self.transcribe(np.zeros(SAMPLE_RATE * 6, dtype=np.float32))
+                took = time.perf_counter() - t
+                if took > COREML_MAX_SEC:  # e.g. Core ML recompiling for every input: the CPU is better
+                    raise RuntimeError(f"Core ML took {took:.1f}s for 6 s of audio, slower than the CPU")
                 self.fallback_reason = None
             except Exception as exc:
                 log.exception("Core ML initialisation failed, falling back to CPU")
@@ -307,7 +313,7 @@ class ParakeetEngine:
                     {
                         "ModelFormat": "MLProgram",
                         "MLComputeUnits": "ALL",
-                        "RequireStaticInputShapes": "1",  # with the fixed-size buckets below
+                        "RequireStaticInputShapes": "0",  # audio length varies (in a few fixed buckets)
                         "ModelCacheDirectory": str(cache),
                     },
                 ),

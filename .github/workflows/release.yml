@@ -80,6 +80,7 @@ jobs:
       - name: Build Tiro.app and the .dmg
         run: bash tools/build_mac.sh
       - name: Smoke test the app (CPU and Core ML)
+        timeout-minutes: 30
         run: |
           python -c "from tiro.models import MODELS, download_model as d; m = MODELS['parakeet-tdt-0.6b-v2']; d(m, variant='int8'); d(m, variant='fp32')"
           build/dist/Tiro.app/Contents/MacOS/Tiro --selftest selftest-cpu.json --device cpu; cat selftest-cpu.json
@@ -87,6 +88,7 @@ jobs:
           cat selftest-coreml.json || true
       - name: Try the AI check on the Apple GPU (MLX)
         continue-on-error: true
+        timeout-minutes: 15
         run: python dev/mlx_probe.py
       - name: Upload to the release
         run: gh release upload "$TAG" release/Tiro-mac-arm64.dmg --clobber
