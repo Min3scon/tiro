@@ -73,9 +73,12 @@ class UpdateController(QObject):
     @Slot(object)
     def _on_status(self, st: Status) -> None:
         self.status = st
-        if st.state == "ready" and st.version and self._notified != st.version:
+        if st.state in ("ready", "available") and st.version and self._notified != st.version:
             self._notified = st.version
-            self.app.tray.notify_update(st)
+            if st.state == "ready":
+                self.app.tray.notify_update(st)
+            else:
+                self.app.tray.notify_available(st)
         self.app.tray.set_update(st if st.state in ("ready", "available") else None)
         w = self.app.settings_window
         if w is not None and w.isVisible():

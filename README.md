@@ -157,6 +157,7 @@ From version 2.0.3, Tiro on Windows keeps itself up to date:
 On a Mac, Tiro tells you when a new version is out and opens its download page; you install it by dragging the new
 app to Applications, as the first time. (Automatic updates on a Mac need an Apple Developer ID, which Tiro doesn't
 have yet: without it, macOS would ask for the microphone and accessibility permissions again after every update.)
+The Mac notice is tested on macOS in CI but not yet tried on a real Mac (untested).
 Phones and tablets don't have a Tiro app.
 
 ## Supported hardware

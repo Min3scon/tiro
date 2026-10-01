@@ -121,3 +121,44 @@ for key, _label in PAGES:
     qapp.processEvents()
     w.grab().save(str(ROOT / "dev" / f"ui_settings_{key}.png"))
 print("rendered", len(PAGES), "pages")
+
+if "--update-states" in sys.argv:  # the Updates page in every state it can show
+    from tiro.update.service import Status
+
+    last = "2026-10-01T18:00:00+00:00"
+    notes = "https://github.com/Min3scon/tiro/releases"
+    for st in (Status(state="up-to-date", detail="up to date", last_check=last),
+               Status(state="checking"),
+               Status(state="downloading", version="2.0.4", detail="Downloading 12 of 48 MB",
+                      summary="Text appears sooner after you stop talking."),
+               Status(state="ready", version="2.0.4", summary="Text appears sooner after you stop talking.",
+                      notes_url=notes, last_check=last),
+               Status(state="available", version="2.0.4", detail="Download the new version from the website",
+                      summary="Text appears sooner after you stop talking.", notes_url=notes, last_check=last),
+               Status(state="error", detail="The download didn't finish; Tiro will try again later", last_check=last),
+               Status(state="offline", detail="No internet connection", last_check=last),
+               Status(state="skipped", detail="Metered connection: Tiro will check later", last_check=last)):
+        w.app.updates.status = st
+        w.refresh_updates()
+        w.show_page("updates")
+        qapp.processEvents()
+        w.grab().save(str(ROOT / "dev" / f"ui_settings_updates_{st.state}.png"))
+    print("rendered the Updates page in 8 states")
+
+    # the tray: menu label, tooltip and notification for each update state
+    from tiro.ui import tray as tray_mod
+
+    app = w.app
+    app.engine_state, app.last_session = "ready", None
+    t = tray_mod.Tray(app)
+    shown = []
+    t.message = lambda title, text, action=None: shown.append((title, text, action))
+    for st in (None, Status(state="ready", version="2.0.4", summary="Faster."),
+               Status(state="available", version="2.0.4", summary="Faster.")):
+        t.set_update(st)
+        t._refresh()
+        print(f"tray [{st.state if st else 'none'}]: menu '{t.actions['updates'].text()}', tip '{t.tray.toolTip()}'")
+    t.notify_update(Status(state="ready", version="2.0.4", summary="Faster."))
+    t.notify_available(Status(state="available", version="2.0.4", summary="Faster."))
+    for title, text, action in shown:
+        print(f"notification: {title!r} / {text!r} -> {action}")

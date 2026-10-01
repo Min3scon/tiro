@@ -27,21 +27,21 @@ A cell holds the test name or `n/a` (with a reason) when that kind of test doesn
 |---|---|---|---|---|---|
 | Background update check (launch + ~6 h jittered, never while dictating, offline/metered aware) | `tests/test_update_service.py` (metered, offline, busy) | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | offline / metered / bad feed | ship |
 | Background download with resume; only changed packs; unchanged files hard-linked | `tests/test_update_stage.py` | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | tampered pack, corrupted local file | ship |
-| "Tiro x.y is ready" notification (click: restart now; otherwise installs at next start) | n/a (Qt) | `dev/render_settings.py` | pending | dictating: restart refused | - |
-| Tray badge + "Check for updates" / "Restart to update" menu item | n/a (Qt) | manual render | pending | n/a | - |
+| "Tiro x.y is ready" notification (click: restart now; otherwise installs at next start) | n/a (Qt) | `dev/render_settings.py --update-states` (title, text, click action) | `dev/update_e2e.py`: shown on the frozen 9.0.0 build when 9.0.1 was ready, no errors | dictating: restart refused | ship |
+| Tray badge + "Check for updates" / "Restart to update" menu item | n/a (Qt) | `dev/render_settings.py --update-states` (menu label + tooltip per state; fixed "…" that showed as "?") | `dev/update_e2e.py` (no errors) | n/a | ship |
 | Install at next start (default on; off = only when you click Restart) | `tests/test_update_service.py` | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | n/a | ship |
-| What's new after updating (CHANGELOG section, once) | n/a | `tiro/update/whatsnew.py` | pending | n/a | - |
-| Settings > Updates (status, Check now, Restart, auto toggle, install at start, channel, metered, go back) | n/a | `dev/render_settings.py` | pending | n/a | - |
+| What's new after updating (CHANGELOG section, once) | `tests/test_whatsnew.py` (this version's section only; 2.0.3 not matching 2.0.30) | n/a | n/a (a tray message) | no section: nothing shown | ship |
+| Settings > Updates (status, Check now, Restart, Download, auto toggle, install at start, channel, metered, go back) | n/a | `dev/render_settings.py --update-states`: 8 states reviewed (fixed: cut-off "available" text, missing Download button, doubled "Downloading") | n/a | n/a | ship |
 | Signed feed (Ed25519, DSSE envelope) + SHA-256 of every file; bad signature / tampering rejected | `tests/test_ed25519.py` (RFC 8032), `tests/test_update_feed.py` | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | wrong key, tampered feed, junk, replay, expired | ship |
-| Downgrade protection (except explicit roll back or a withdrawn version) | `tests/test_update_feed.py` | `tests/test_update_service.py` | pending | replayed old manifest | - |
+| Downgrade protection (except explicit roll back or a withdrawn version) | `tests/test_update_feed.py` | `tests/test_update_service.py` (replay, withdrawn) | `dev/update_e2e.py`: a failed 9.0.2 is never offered again | replayed old manifest | ship |
 | Side-by-side install, previous version kept, trial start, roll back after 2 failed starts, safe mode after 2 crashes | `tests/test_launcher.py` (6 cases, fake app) | `dev/update_e2e.py` | passed on frozen builds 9.0.0 -> 9.0.1 -> 9.0.2 | crashing build | ship |
-| Critical-update flag (skips staged rollout, stronger notice) | `tests/test_update_feed.py` | n/a | n/a | n/a | - |
-| Staged rollout percentage + withdrawn release (`update-feed.yml`) | `tests/test_update_feed.py`, `tests/test_update_service.py` | `tools/feed.py compose --rollout-all / --revoke` | pending | n/a | - |
-| Minimum OS / architecture respected | `tests/test_update_feed.py` | n/a | n/a | n/a | - |
+| Critical-update flag (skips staged rollout, stronger notice) | `tests/test_update_feed.py` | `tests/test_update_service.py` (withdrawn = critical) | n/a | n/a | ship |
+| Staged rollout percentage + withdrawn release (`update-feed.yml`) | `tests/test_update_feed.py`, `tests/test_update_service.py` | `tools/feed.py compose --rollout-all / --revoke` | `dev/update_e2e.py` (withdrawn / failed version refused) | n/a | ship |
+| Minimum OS / architecture respected | `tests/test_update_feed.py` | n/a | n/a | n/a | ship |
 | Model updates through the same feed (progress, checksum, resume, swap when idle, previous model kept) | - | - | - | - | out (Phase B: no model changes in 2.0.3) |
 | Release pipeline builds installer, packs, signed feed; refuses a version that isn't newer and a build trusting a test key | n/a | `release.yml` | pending (first run at v2.0.3) | n/a | - |
-| Privacy: update check sends only version, OS, architecture; automatic checks off sends nothing | `tests/test_update_service.py::test_user_agent_has_no_identifiers` | n/a | pending | n/a | - |
-| Mac: told about new versions, opens the download (no in-place updates until a Developer ID) | `tests/test_update_service.py` (no-inventory entry) | Mac CI build | untested on a Mac | n/a | - |
+| Privacy: update check sends only version, OS, architecture; automatic checks off sends nothing | `tests/test_update_service.py` (user agent; automatic checks off: no request until Check now), `tests/test_update_network.py` (what a check sends) | n/a | n/a | n/a | ship |
+| Mac: told about new versions, opens the download (no in-place updates until a Developer ID) | `tests/test_update_service.py` (no-inventory entry; runs on macOS in CI) | `dev/render_settings.py --update-states` (Download button, "available" notification) | not tried on a real Mac | n/a | ship (labelled untested on a real Mac) |
 
 ## Phase B1: models, Lite and the installer
 

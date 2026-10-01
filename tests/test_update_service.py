@@ -2,6 +2,7 @@
 import base64
 import hashlib
 import json
+import time
 import zipfile
 from types import SimpleNamespace
 
@@ -179,3 +180,23 @@ def test_platform_without_in_place_updates_is_only_told(rig):
     rig.svc.check()
     assert rig.statuses[-1].state == "available" and rig.statuses[-1].version == NEW
     assert not (rig.root / f"app-{NEW}").exists()
+
+
+def test_automatic_checks_off_never_go_online(rig, monkeypatch):
+    calls = []
+    monkeypatch.setattr(net, "fetch_feed", lambda url, max_bytes: calls.append(url) or rig.feeds["raw"])
+    monkeypatch.setattr(service, "FIRST_CHECK_SEC", 0.01)
+    monkeypatch.setattr(service, "INTERVAL_SEC", 0.02)
+    monkeypatch.setattr(service, "JITTER_SEC", 0)
+    rig.settings.auto_update_check = False
+    rig.svc.start()
+    try:
+        time.sleep(0.3)  # about 15 automatic rounds
+        assert calls == []
+        rig.svc.check_now()  # "Check now" still checks
+        deadline = time.time() + 5
+        while not calls and time.time() < deadline:
+            time.sleep(0.02)
+        assert len(calls) == 1
+    finally:
+        rig.svc.stop()

@@ -19,7 +19,7 @@
 The block below is rewritten every 5 minutes by `training/status.py`.
 
 <!-- LIVE-STATUS:BEGIN -->
-_Updated 2026-10-01 19:52. GPU 5% busy, 2.9/8.0 GB, 50 °C. Disk: 185 GB free on the work drive._
+_Updated 2026-10-01 20:07. GPU 5% busy, 2.9/8.0 GB, 50 °C. Disk: 185 GB free on the work drive._
 
 - ▶ **scheduler** (running, started 01 Oct 17:42): Working until 21:00: nothing left to run; queued: prepare_all, label_parakeet, tts, bench_devmini, lite_suite
   - `2026-10-01 17:42:07  scheduler up (pid 17140)`
@@ -358,6 +358,14 @@ release keys, GPU self-test 51 ms, CPU self-test 262 ms, dictation into Notepad 
 Cause: the test's Chrome window opened behind other windows, Chrome treated it as covered and stopped drawing, so
 the page never said it was ready. That was a test problem, not a Tiro one. Fix: the test brings the window forward
 and tells Chrome to keep drawing covered windows. Software rendering, tried first, was not needed and is gone.
+
+**Updates page and tray, checked state by state** (`dev/render_settings.py --update-states`, 20:30): rendering the
+Settings > Updates page in all 8 states found three bugs, now fixed: the "available" text (Macs, portable copies)
+was cut off mid-sentence and had no Download button; the download line said "Downloading" twice; and the tray menu
+showed "Check for updates?" because an earlier patch script garbled the "…" character. Copies that can't update
+themselves now also get a one-time "Tiro x.y is available" notice. New tests: What's new picks only this version's
+notes, and with automatic checks off Tiro sends nothing until you click Check now. The rebuilt app passed the smoke
+test again (20:40): Notepad 53 ms, console 48 ms, Chrome 18 ms, GPU self-test 51 ms, CPU 257 ms.
 
 **Incident, 19:18 (fixed):** the update test's Tiro copies used the F24 hotkey and the real microphone, and the
 release smoke test (also F24) ran at the same time, so those copies opened your microphone 4 times for a few

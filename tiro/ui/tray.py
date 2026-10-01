@@ -181,9 +181,9 @@ class Tray:
         if up is not None and up.state == "ready":
             self.actions["updates"].setText(f"Restart to update to {APP_NAME} {up.version}")
         elif up is not None and up.state == "available":
-            self.actions["updates"].setText(f"Get {APP_NAME} {up.version}?")
+            self.actions["updates"].setText(f"Get {APP_NAME} {up.version}…")
         else:
-            self.actions["updates"].setText("Check for updates?")
+            self.actions["updates"].setText("Check for updates…")
         self.mic_menu.clear()
         group = QActionGroup(self.mic_menu)
         default = app.default_mic_name()
@@ -219,6 +219,11 @@ class Tray:
         else:
             text = summary + "Click to restart now, or it installs the next time Tiro starts."
         self.message(f"{APP_NAME} {st.version} is ready", text, action="update")
+
+    def notify_available(self, st) -> None:
+        """'Tiro x.y is available' (a copy that can't update itself, e.g. on a Mac): click to open the download."""
+        summary = (st.summary.strip() + "\n") if st.summary else ""
+        self.message(f"{APP_NAME} {st.version} is available", summary + "Click to download it.", action="update")
 
     def set_update(self, st) -> None:
         self.update_status = st

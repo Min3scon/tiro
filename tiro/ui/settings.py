@@ -525,7 +525,10 @@ class SettingsWindow(QWidget):
         self.update_notes = QPushButton("See what's new")
         self.update_notes.setObjectName("link")
         self.update_notes.clicked.connect(self._open_update_notes)
-        for b in (self.update_notes, self.update_check, self.update_restart):
+        self.update_download = QPushButton("Download")  # a copy that can't update itself (Mac, portable)
+        self.update_download.setObjectName("primary")
+        self.update_download.clicked.connect(self.app.updates.open_download_page)
+        for b in (self.update_notes, self.update_check, self.update_restart, self.update_download):
             b.setCursor(Qt.CursorShape.PointingHandCursor)
             buttons.addWidget(b)
         bh = QWidget()
@@ -558,8 +561,9 @@ class SettingsWindow(QWidget):
         self.update_back.clicked.connect(self._roll_back)
         self._row(grid, 0, "Previous version", self.update_back,
                   "Switch back to the version you had before the last update. Tiro restarts.")
+        system = "macOS" if sys.platform == "darwin" else "Windows"
         privacy = QLabel(
-            "What an update check sends: only Tiro's version, your Windows version and processor type, like any "
+            f"What an update check sends: only Tiro's version, your {system} version and processor type, like any "
             "download does. No account, no ID, no audio and no text. Every update is signed; Tiro refuses anything "
             "that doesn't match the signature, and keeps your previous version so it can go back if a new one "
             "doesn't start.")
@@ -582,26 +586,30 @@ class SettingsWindow(QWidget):
                 when = ""
         texts = {
             "checking": "Checking for updates…",
-            "downloading": f"Downloading {APP_NAME} {st.version}… {st.detail}",
+            "downloading": f"Preparing {APP_NAME} {st.version}. {st.detail or 'Downloading'}…",
             "ready": f"{APP_NAME} {st.version} is ready. Restart to finish updating.",
-            "available": f"{APP_NAME} {st.version} is available. Download it from the website.",
+            "available": f"{APP_NAME} {st.version} is available.",
             "offline": st.detail or "Couldn't reach the update server.",
             "skipped": st.detail,
             "error": st.detail or "The last check didn't work.",
             "up-to-date": "You're up to date.",
         }
-        line = texts.get(st.state, "You're up to date." if st.last_check else "Not checked yet.")
+        line = texts.get(st.state, "You're up to date." if st.last_check else "Not checked yet.").strip()
+        parts = [line if not line or line.endswith((".", "\u2026")) else line + "."]
         if when and st.state in ("up-to-date", "idle", "offline", "skipped", "error"):
-            line += f"  Last checked {when}."
+            parts.append(f"Last checked {when}.")
         if self.app.safe_mode:
-            line += "  Safe mode is on."
-        self.update_state.setText(line)
+            parts.append("Safe mode is on.")
+        self.update_state.setText(" ".join(p for p in parts if p))
+        waiting = st.state in ("ready", "available")
         for i in range(self.nav.count()):  # a dot next to "Updates" while one is waiting
             item = self.nav.item(i)
             if item.data(Qt.ItemDataRole.UserRole) == "updates":
-                item.setText("Updates  \u25cf" if st.state in ("ready", "available") else "Updates")
+                item.setText("Updates  \u25cf" if waiting else "Updates")
         self.update_restart.setVisible(st.state == "ready")
         self.update_restart.setEnabled(not self.app.dictating)
+        self.update_download.setVisible(st.state == "available")
+        self.update_check.setVisible(not waiting)
         self.update_check.setEnabled(st.state not in ("checking", "downloading"))
         self.update_notes.setVisible(bool(st.notes_url) and st.state in ("ready", "available"))
         prev = self.app.updates.service.rollback_target()
