@@ -19,6 +19,7 @@ cuda = [(str(CU13 / name), "cuda") for name in (
     "nvrtc64_130_0.dll", "nvrtc-builtins64_134.dll",
 )]
 cuda += [(str(p), "cuda") for p in sorted(CUDNN.glob("cudnn*64_9.dll"))]
+_all_cuda_names = {Path(src).name.lower() for src, _dest in cuda}
 if NO_CUDA:
     cuda = []
 
@@ -60,7 +61,8 @@ def _keep(entry):
     name = dest.rsplit("/", 1)[-1]
     if dest.startswith("nvidia/") or name == "opengl32sw.dll":
         return False
-    if NO_CUDA and name.startswith(("onnxruntime_providers_cuda", "onnxruntime_providers_tensorrt")):
+    if NO_CUDA and (name in _all_cuda_names or name.startswith(("onnxruntime_providers_cuda",
+                                                                 "onnxruntime_providers_tensorrt"))):
         return False
     return not (name in _cuda_names and not dest.startswith("cuda/"))
 

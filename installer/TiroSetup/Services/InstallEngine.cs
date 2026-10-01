@@ -196,7 +196,9 @@ namespace TiroSetup.Services
             await Shell.StopTiroAsync(Path.Combine(staging, "Tiro.exe"), opt.InstallDir, ct);
             Report("Installing files…", doneDownloadBase);
             var root = opt.InstallDir;
-            var oldVersion = Shell.FindExisting()?.Version;
+            var existing = Shell.FindExisting();  // only if it is this very folder (another install is not ours)
+            var oldVersion = existing != null && string.Equals(Path.GetFullPath(existing.Dir).TrimEnd('\\'),
+                Path.GetFullPath(root).TrimEnd('\\'), StringComparison.OrdinalIgnoreCase) ? existing.Version : null;
             var migrated = InstallState.MigrateFlat(root, oldVersion);  // Tiro 2.0.x was installed flat
             var state = InstallState.Load(root) ?? new InstallState();
             var runningBefore = state.Current ?? migrated;

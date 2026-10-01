@@ -13,6 +13,7 @@ $cpu = "device=cpu"
 $matrix = @(
     @{ tag = "baseline2-browser";      tail = "0"; reuse = "0"; wav = "";    runs = 6; targets = "browser"; extra = "" },
     @{ tag = "baseline2-browser-long"; tail = "0"; reuse = "0"; wav = $long; runs = 3; targets = "browser"; extra = "" },
+    @{ tag = "after-browser-long";     tail = "1"; reuse = "1"; wav = $long; runs = 3; targets = "browser"; extra = "" },
     @{ tag = "baseline2-cpu";          tail = "0"; reuse = "0"; wav = "";    runs = 6; targets = "notepad"; extra = $cpu },
     @{ tag = "baseline2-cpu-long";     tail = "0"; reuse = "0"; wav = $long; runs = 3; targets = "notepad"; extra = $cpu },
     @{ tag = "after-cpu";              tail = "1"; reuse = "1"; wav = "";    runs = 6; targets = "notepad"; extra = $cpu },

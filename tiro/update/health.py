@@ -4,7 +4,6 @@ detector, Qt, the assets) but touches no settings, hotkeys, microphone or speech
 from __future__ import annotations
 
 import json
-import os
 import traceback
 
 from tiro import __version__
@@ -15,7 +14,6 @@ ASSETS = (("vad", "silero_vad.onnx"), ("sounds", "selftest.wav"), ("icons", "che
 def run(out: str) -> int:
     result: dict = {"ok": False, "version": __version__}
     try:
-        os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
         import numpy as np
 
         from tiro.paths import asset

@@ -11,7 +11,7 @@ ROOT = Path(SPECPATH)
 sys.path.insert(0, str(ROOT))
 from tiro import __version__  # noqa: E402
 
-datas = [(str(ROOT / "assets"), "assets")]
+datas = [(str(ROOT / "assets"), "assets"), (str(ROOT / "CHANGELOG.md"), "assets")]
 datas += collect_data_files("onnx_asr")
 datas += copy_metadata("onnx-asr") + copy_metadata("onnxruntime")
 binaries, hidden = [], []

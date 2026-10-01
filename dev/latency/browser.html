@@ -13,11 +13,19 @@
 <textarea id="t" autofocus></textarea>
 <script>
   const t = document.getElementById("t");
-  // After each change is painted (next animation frame), tell the test harness the new length.
-  t.addEventListener("input", () => {
+  // After a change is painted (next animation frame), tell the test harness the newest length. At most one
+  // report is in flight, so a long dictation never builds up a queue of stale reports.
+  let sent = -1, inflight = false;
+  function report() {
     const n = t.value.length;
-    document.title = "TIRO-TEST-BROWSER " + n;
-    requestAnimationFrame(() => setTimeout(() => fetch("/len?n=" + n, {cache: "no-store"}).catch(() => {}), 0));
+    if (inflight || n === sent) return;
+    inflight = true;
+    sent = n;
+    fetch("/len?n=" + n, {cache: "no-store"}).catch(() => {}).finally(() => { inflight = false; report(); });
+  }
+  t.addEventListener("input", () => {
+    document.title = "TIRO-TEST-BROWSER " + t.value.length;
+    requestAnimationFrame(() => setTimeout(report, 0));
   });
   window.addEventListener("focus", () => t.focus());
 </script>

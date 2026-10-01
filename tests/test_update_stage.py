@@ -123,3 +123,14 @@ def test_cleanup_keeps_current_previous_and_pending(tmp_path):
         (tmp_path / f"app-{v}").mkdir()
     st.cleanup(tmp_path, {"1.1.0", "1.0.0", "1.2.0"})
     assert sorted(p.name for p in tmp_path.iterdir()) == ["app-1.0.0", "app-1.1.0", "app-1.2.0"]
+
+
+def test_not_enough_disk_space_stops_before_anything_is_written(rig, tmp_path, monkeypatch):
+    import collections
+
+    root, cur, offer, _new, _f, _ = rig
+    usage = collections.namedtuple("usage", "total used free")
+    monkeypatch.setattr(st.shutil, "disk_usage", lambda path: usage(100 << 30, 100 << 30, 10 << 20))  # 10 MB free
+    with pytest.raises(st.StageError, match="disk space"):
+        st.stage(offer, root, cur, tmp_path / "dl", have_gpu=True, health=False)
+    assert not (root / "app-1.1.0").exists() and not (root / "app-1.1.0.partial").exists()

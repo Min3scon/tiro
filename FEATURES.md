@@ -16,7 +16,7 @@ A cell holds the test name or `n/a` (with a reason) when that kind of test doesn
 | Fast end of speech: no fixed tail; stop at once if already quiet, else wait for the word to end (max 0.4 s) | `tests/test_stream.py` | latency matrix | Notepad 342 -> 54 ms median | key released mid-word: waits (TAIL_MAX) | ship |
 | Words appear while speaking (streaming, stable commits only); final decode reused after a pause | `tests/test_stream.py` (reuse, mid-speech release) | `dev/eval_final_reuse.py`: 940/955 identical, reuse 13 vs 20 word errors on the rest | long dictation 433 -> 24 ms | release mid-speech: fresh decode | ship |
 | Warm model (preload, warm-up of all GPU shape buckets, GPU wake on key-down); language model yields the GPU to speech | n/a | `dev/llm_coldstart.py` | first dictation after start 1.4 s -> 24 ms; after 3 min idle 92 ms | n/a | ship |
-| Fast text insertion per app (type / paste / bracketed paste for terminals), clipboard restored | - | - | - | - | - |
+| Text insertion: type or paste (Shift+Insert in consoles), every character in order, clipboard restored | n/a | `dev/insertion_e2e.py`: 15/15 (accents, 5 scripts, emoji with joiners, newlines, 2,289 chars; clipboard restored) | latency matrix (Notepad, console, Chrome) | focus moved: guard drops text | ship (auto-paste per app left out: see PROGRESS) |
 | Correction pass within budget (tier 0 skip, tier 1 ms-level, tier 2 deadline 150 ms, safe late swaps) | `tests/test_correct.py` | accuracy report | correction 0.0-0.4 ms at the end in the matrix | LLM busy: skipped, never waits | ship |
 
 | Global hotkey on a native thread (never starved while a model loads) | `core/tests/test_hotkey.cc` (15 cases, same as `tests/test_hotkey.py`) | `dev/hook_gil_probe.py --native`: 29/29 taps swallowed in time during a model load (Python hook: 4 got through in 2.8 s, up to 2.2 s late) | latency matrix | DLL missing -> Python hook | ship |
@@ -25,23 +25,23 @@ A cell holds the test name or `n/a` (with a reason) when that kind of test doesn
 
 | Feature | Unit | Int | E2E | Fail | Result |
 |---|---|---|---|---|---|
-| Background update check (launch + ~6 h jittered, never while dictating, offline/metered aware) | - | - | - | - | - |
-| Background download with resume (delta where possible) | - | - | - | - | - |
-| "Tiro x.y is ready" notification (Restart to update / Later / See what's new) | - | - | - | - | - |
-| Tray badge + "Check for updates" / "Update ready" menu items | - | - | - | - | - |
-| Install on quit (default on) | - | - | - | - | - |
-| What's new page after updating (from CHANGELOG) | - | - | - | - | - |
-| Settings > Updates (version, check, last checked, auto toggle, channel, metered toggle, roll back, Updates off) | - | - | - | - | - |
-| Signed feed + SHA-256 verification, bad signature rejected | - | - | - | - | - |
-| Downgrade protection (except explicit roll back) | - | - | - | - | - |
-| Atomic install, previous version kept, auto roll back on failed self-test / 2 crashes | - | - | - | - | - |
-| Critical-update flag | - | - | - | - | - |
-| Staged rollout percentage + pulled release | - | - | - | - | - |
-| Minimum OS / architecture respected | - | - | - | - | - |
-| Model updates through the same feed (progress, checksum, resume, swap when idle, previous model kept) | - | - | - | - | - |
-| Release pipeline builds installer, packages, signed feed, checksums; refuses bad versions | - | - | - | - | - |
-| Privacy: update check sends only version, OS, architecture; Updates off sends nothing | - | - | - | - | - |
-| Mac updater (Sparkle or equivalent) | - | - | - | - | - |
+| Background update check (launch + ~6 h jittered, never while dictating, offline/metered aware) | `tests/test_update_service.py` (metered, offline, busy) | `dev/update_e2e.py` | pending | offline / metered / bad feed | - |
+| Background download with resume; only changed packs; unchanged files hard-linked | `tests/test_update_stage.py` | `dev/update_e2e.py` | pending | tampered pack, corrupted local file | - |
+| "Tiro x.y is ready" notification (click: restart now; otherwise installs at next start) | n/a (Qt) | `dev/render_settings.py` | pending | dictating: restart refused | - |
+| Tray badge + "Check for updates" / "Restart to update" menu item | n/a (Qt) | manual render | pending | n/a | - |
+| Install at next start (default on; off = only when you click Restart) | `tests/test_update_service.py` | `dev/update_e2e.py` | pending | n/a | - |
+| What's new after updating (CHANGELOG section, once) | n/a | `tiro/update/whatsnew.py` | pending | n/a | - |
+| Settings > Updates (status, Check now, Restart, auto toggle, install at start, channel, metered, go back) | n/a | `dev/render_settings.py` | pending | n/a | - |
+| Signed feed (Ed25519, DSSE envelope) + SHA-256 of every file; bad signature / tampering rejected | `tests/test_ed25519.py` (RFC 8032), `tests/test_update_feed.py` | `dev/update_e2e.py` | pending | wrong key, tampered feed, junk, replay, expired | - |
+| Downgrade protection (except explicit roll back or a withdrawn version) | `tests/test_update_feed.py` | `tests/test_update_service.py` | pending | replayed old manifest | - |
+| Side-by-side install, previous version kept, trial start, roll back after 2 failed starts, safe mode after 2 crashes | `tests/test_launcher.py` (6 cases, fake app) | `dev/update_e2e.py` | pending | crashing build | - |
+| Critical-update flag (skips staged rollout, stronger notice) | `tests/test_update_feed.py` | n/a | n/a | n/a | - |
+| Staged rollout percentage + withdrawn release (`update-feed.yml`) | `tests/test_update_feed.py`, `tests/test_update_service.py` | `tools/feed.py compose --rollout-all / --revoke` | pending | n/a | - |
+| Minimum OS / architecture respected | `tests/test_update_feed.py` | n/a | n/a | n/a | - |
+| Model updates through the same feed (progress, checksum, resume, swap when idle, previous model kept) | - | - | - | - | out (Phase B: no model changes in 2.0.3) |
+| Release pipeline builds installer, packs, signed feed; refuses a version that isn't newer and a build trusting a test key | n/a | `release.yml` | pending (first run at v2.0.3) | n/a | - |
+| Privacy: update check sends only version, OS, architecture; automatic checks off sends nothing | `tests/test_update_service.py::test_user_agent_has_no_identifiers` | n/a | pending | n/a | - |
+| Mac: told about new versions, opens the download (no in-place updates until a Developer ID) | `tests/test_update_service.py` (no-inventory entry) | Mac CI build | untested on a Mac | n/a | - |
 
 ## Phase B1: models, Lite and the installer
 
@@ -129,7 +129,7 @@ A cell holds the test name or `n/a` (with a reason) when that kind of test doesn
 
 | Feature | Unit | Int | E2E | Fail | Result |
 |---|---|---|---|---|---|
-| Safe mode (flag / hold Shift; auto after 2 crashed starts) | - | - | - | - | - |
+| Safe mode (hold Shift / `--safe-mode`; automatic after 2 failed starts; corrections, learning, GPU, native hook off; tray item to leave) | `tests/test_launcher.py::test_two_failed_starts_mean_safe_mode` | settings overrides never saved (`Settings.apply_safe_mode`) | pending | crashing start | - |
 | Per-feature crash isolation (a failing feature disables only itself) | - | - | - | - | - |
 | Long-run soak (RAM flat, no growing delay) | - | - | - | - | - |
 | Resource pressure (busy CPU, tight RAM, game, battery, heat) | - | - | - | - | - |

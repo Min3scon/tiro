@@ -3,10 +3,13 @@
 ## Current state
 
 - **Round:** "beat Wispr Flow" plan (pasted 2026-10-01 17:30). Branch `lite`; `main` stays releasable.
-- **Phase:** A1 fixes measured and in code; A2 updater code written (feed, staging, launcher, service, Settings page).
-- **Next:** A1 "after" matrix (`dev/latency/run_after.ps1`), decide decode reuse from `dev/score_final_reuse.py`,
-  then A2: CHANGELOG, release workflow (feed signing, packs, launcher, native DLL), installer on the versioned
-  layout + migration, then the v2.0.3 release and installing it on this PC.
+- **Phase:** A done in code and measured (A1 table below); A2 updater built and unit/launcher-tested; version 2.0.3.
+- **Next:** update end-to-end test on frozen test builds (`dev/update_e2e.py`), installer test
+  (`dev/installer_e2e.py`), local full build + `dev/release_smoke.ps1`, merge `lite` -> `main`, tag v2.0.3 (CI
+  builds, publishes, signs the feed), install on this PC with `dev/install_on_pc.ps1` (backup + roll back), then
+  Phase B.
+- **Keys:** update-signing key `ci-2026a` is the GitHub secret `TIRO_UPDATE_KEY`; the offline key
+  `offline-2026a` is only in `work/keys/` (never committed) until you move it to a password manager.
 - **Background jobs:** `training/scheduler.py` (pid file `work/logs/scheduler.pid`). It runs the queue in
   `work/schedule.json` today 18:00-21:00, then continuously from Fri 2 Oct 00:00. Logs are in `work/logs/<job>.out`.
   The queue: prepare_all, label_parakeet, tts, bench_devmini, lite_suite.
@@ -17,7 +20,7 @@
 The block below is rewritten every 5 minutes by `training/status.py`.
 
 <!-- LIVE-STATUS:BEGIN -->
-_Updated 2026-10-01 18:57. GPU 8% busy, 7.9/8.0 GB, 52 °C. Disk: 188 GB free on the work drive._
+_Updated 2026-10-01 19:22. GPU 5% busy, 2.9/8.0 GB, 50 °C. Disk: 182 GB free on the work drive._
 
 - ▶ **scheduler** (running, started 01 Oct 17:42): Working until 21:00: nothing left to run; queued: prepare_all, label_parakeet, tts, bench_devmini, lite_suite
   - `2026-10-01 17:42:07  scheduler up (pid 17140)`
@@ -67,6 +70,50 @@ _Updated 2026-10-01 18:57. GPU 8% busy, 7.9/8.0 GB, 52 °C. Disk: 188 GB free on
 | Measuring the Claude Code CLI after the fixes | Claude Code started asking "do you trust this folder?" for every test folder (even `D:\`, listed as trusted). Answering it is the user's decision, so the test refuses to type into it. Baseline before that: 359 ms short / 403 ms long; the same console input path after the fixes: 52 ms / 24 ms. |
 | Mac automatic updates | Need an Apple Developer ID (see Decisions); Macs are told about new versions instead. |
 | Model updates through the feed | Not needed for 2.0.3 (no model changes); the feed format has a `models` section for Phase B. |
+
+## Phase B plan (order of work)
+
+Each item ships only with a passing FEATURES.md row; otherwise it stays off or is left out, with the reason.
+1. **Lite inside Tiro** (B1): Settings "Engine: Standard / Lite" + "Resource use"; Lite runs the shared C++ engine's
+   streaming session; measured rung table; installer picks Lite on weak machines; switching needs no reinstall.
+2. **Sound set** (B5): the synthesised set in `tools/sounds/design.py`, preloaded playback, Settings > Sounds,
+   mic-leak and latency tests.
+3. **Everyday wins**: snippets, per-app formatting, Polish mode (off by default, local model, shows changes, one-key
+   undo), command mode on selected text.
+4. **Voice setup and read-along** (B2), cheap personal learning (pause/pace -> endpointing, correction rules),
+   My voice page with resets and deletion.
+5. **Noise** (B3): measured comparison (none / classic / neural), fail-open gate in shadow mode first.
+6. **Voiceprint** (B4): only with enrolment and a confident match; off otherwise.
+7. **Standard model decision** on identical test sets (v2 vs Parakeet Unified); distillation only if it beats the
+   off-the-shelf models (training runs in the background from the queue).
+
+## Beat Wispr Flow: their features and where Tiro stands
+
+From `work/research/wispr_flow.md` (their own docs, changelog and independent reviews, read 2026-10-01). Their
+numbers are their claims. Tiro numbers are measured here, on this PC.
+
+| Their feature (public info) | Tiro |
+|---|---|
+| Speed: "<700 ms" target from end of speech (no published measurement); desktop shows no text until you stop | Words typed while you talk; the rest lands 24-54 ms after the key comes up (A1, RTX 3070) |
+| Cloud only; no offline mode; audio and context processed in the US | Everything on the device; works offline (win) |
+| Free tier 2,000 words/week; Pro $12-15/month; no lifetime licence | Free and open source, no limit (win) |
+| ~800 MB RAM idle, 8-10 s start on Windows (How-To Geek) | to measure in Phase B (Lite rungs from ~200 MB) |
+| Punctuation, capitals, ~30 spoken symbols, spoken lists | Punctuation and capitals from the model; "new line"/"new paragraph". Spoken symbols and lists: Phase B |
+| Filler removal (none/light/medium; medium rewrites) | Fillers removed (um, uh); rewriting only in the optional Polish mode (Phase B, off by default) |
+| Backtrack ("2 actually 3" -> "3") | Polish mode candidate (Phase B); never in normal dictation (strict swap-only rule) |
+| App-adaptive styles (formal/casual per app) | Per-app formatting profiles: Phase B |
+| Context awareness (sends screen and text-box contents) | Local only: history and dictionary on the device; never password fields |
+| Personal dictionary + auto-learn from your corrections | Dictionary, "Fix last transcription", learning from history (local); voice-specific learning in Phase B |
+| Snippets (spoken trigger -> saved text) | Phase B |
+| Push-to-talk, hands-free, double-tap lock | Same (hold, toggle, double-tap lock, Esc cancels) |
+| Command Mode / Transforms (edit selected text by voice) | Phase B (command mode on selected text, local model) |
+| Whisper / quiet speech (relies on a close mic) | Phase B3 (noise and quiet-speech work, measured) |
+| 100+ languages, one per dictation | English (best model) or 25 European languages |
+| Mac, Windows x64, iPhone, Android; no Linux / iPad / Windows on ARM | Windows x64 and Mac Apple Silicon today; others in the platform plan, labelled until tested |
+| Updates: app store / their updater | Signed in-app updates with roll back (A2) |
+
+Wins to keep: offline and private, free, faster after you stop, learns your words locally, roll back on bad
+updates. Not to be named or shown in Tiro's marketing (standing rule).
 
 ---
 
@@ -260,15 +307,45 @@ the Chrome baseline below was re-measured the same way.
 |---|---|---|---|
 | Notepad | 342 ms (742) | **54 ms** (55) | 2-5 ms |
 | Console program | 374 ms (387) | **53 ms** (57) | 2-5 ms |
-| Chrome text box, typing | see below | **54 ms** (59) | 4 ms |
+| Chrome text box, typing | 353 ms (393) | **54 ms** (59) | 4 ms |
 | Chrome text box, paste | – | **6 ms** (23) | 2 ms |
 | First dictations after Tiro starts (Notepad) | 1,370-1,470 ms | **24 ms** (25) | |
 | First dictation after 3 min idle (Notepad) | – | 92 ms (108) | |
 | Notepad, long (16.6 s, 4 sentences) | 433 ms (456) | **24 ms** (24) | |
 | Console, long | 429 ms (446) | **24 ms** (35) | |
+| Chrome, long | 446 ms (464) | **29 ms** (36) | |
+| Notepad, CPU only (no GPU) | 496 ms (513) | **25 ms** (52) | |
+| Notepad, CPU only, long | 862 ms (1,218) | **32 ms** (426: one run released before the pause decode, so it decoded fresh) | |
 
 What's left is the app drawing the last few characters (about 3.5 ms per typed character in Chrome, ~1-2 ms in
 Notepad and the console). Inside Tiro, release → typed is now 2-5 ms when you'd paused before letting go.
+
+## Phase A2: in-app updates (2026-10-01 18:10-19:20)
+
+Research: `work/research/updater.md` (Velopack, tufup, WinSparkle/Sparkle, custom). Chosen: a small custom updater
+(see Decisions). How it works:
+- **Feed:** one signed file per channel (`stable.json`, `beta.json`) on a permanent `update-feed` pre-release;
+  Ed25519 signature over the manifest (DSSE envelope), a serial that only grows (replays refused), an expiry
+  (refreshed monthly by `update-feed.yml`), staged rollout per release, withdrawn versions, minimum OS.
+- **Client** (`tiro/update/`): checks 2 min after start and every ~6 h (never while dictating, not on metered
+  connections unless allowed; off = no network), stages the new version next to the running one (unchanged files
+  hard-linked, only changed packs downloaded with resume, every file checked against the signed inventory), runs
+  its health check, and queues it for the next start.
+- **Launcher** (`installer/TiroLauncher`, the new `Tiro.exe` at the top of the install folder): starts the queued
+  version on trial; it must confirm it came up (speech model loaded, self-test clip transcribed), else it's tried
+  once more and then rolled back for good. Two failed normal starts -> safe mode.
+- **Installer:** installs the same versioned layout and moves an old flat 2.0.x install aside as "previous".
+- **Release pipeline:** builds the native hook and launcher, publishes the update packs, then a `feed` job signs
+  and publishes the feed with the `TIRO_UPDATE_KEY` secret (set; offline key kept off-line).
+
+Tests so far: RFC 8032 vectors, feed rules (17), staging (7), service (11), launcher with a fake app (6), feed
+tool dry run with the real key. End-to-end on frozen builds: `dev/update_e2e.py` (see below).
+
+**Incident, 19:18 (fixed):** the update test's Tiro copies used the F24 hotkey and the real microphone, and the
+release smoke test (also F24) ran at the same time, so those copies opened your microphone 4 times for a few
+seconds. Nothing was typed or kept (history was off in that profile). Now test copies get a silent test recording
+instead of the microphone, an empty typing allow-list and their own key (F22), and the smoke test refuses to start
+while another test's copy runs.
 
 **Incident, 18:55 (fixed):** your real Windows autostart entry for Tiro pointed at the source checkout
 (`pythonw run_tiro.pyw --autostart`) instead of your copy (`dist\Tiro\Tiro.exe`). A run from source "repairs"

@@ -27,7 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from tiro.update import ed25519, feed  # noqa: E402
+from tiro.update import ed25519, feed
 
 
 def cmd_keygen(a) -> None:
@@ -101,7 +101,8 @@ def cmd_verify(a) -> None:
         print(f"  {plat}: {e['version']} ({e.get('rollout_percent', 100)}%)")
         if not a.check_assets:
             continue
-        for name, asset in [("inventory", e["inventory"]), *e["packs"].items()]:
+        assets = ([("inventory", e["inventory"])] if "inventory" in e else []) + list(e.get("packs", {}).items())
+        for name, asset in assets:
             req = urllib.request.Request(asset["url"], method="HEAD", headers={"User-Agent": "Tiro-release-check"})
             try:
                 with urllib.request.urlopen(req, timeout=60) as r:

@@ -13,9 +13,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from tiro import GITHUB_REPO, __version__  # noqa: E402
+from release_notes import section
 
-from release_notes import section  # noqa: E402
+from tiro import GITHUB_REPO, __version__
 
 
 def main() -> None:

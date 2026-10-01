@@ -776,6 +776,17 @@ class TiroApp(QObject):
             self.settings.whats_new_seen = __version__
             self.settings.save()
 
+    def restart_normally(self) -> None:
+        """Leave safe mode: start Tiro again (through the launcher when installed) and quit this copy."""
+        import subprocess
+        import sys
+
+        if self.updates.relaunch():
+            return
+        if getattr(sys, "frozen", False):
+            subprocess.Popen([sys.executable, "--after-restart"], close_fds=True)
+            self.quit()
+
     def show_whats_new(self) -> None:
         from PySide6.QtWidgets import QMessageBox
 

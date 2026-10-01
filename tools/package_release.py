@@ -23,8 +23,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from tiro import __version__  # noqa: E402
-from tiro.models import MODELS  # noqa: E402
+from tiro import __version__
+from tiro.models import MODELS
 
 DIST = ROOT / "build" / "dist" / "Tiro"  # (--dist / --out for test builds)
 OUT = ROOT / "release"
@@ -156,15 +156,17 @@ def hf_files(repo: str) -> tuple[str, dict[str, dict]]:
 
 
 def main() -> None:
-    global DIST, OUT
+    global DIST, OUT, __version__
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", default="Min3scon/tiro")
     ap.add_argument("--dist", type=Path, help="the PyInstaller folder (default build/dist/Tiro)")
     ap.add_argument("--out", type=Path, help="where release files go (default release/)")
     ap.add_argument("--base-url", help="download address of this release's files (tests: a local server)")
     ap.add_argument("--no-models", action="store_true", help="skip the Hugging Face model entries (offline tests)")
+    ap.add_argument("--version", help="the build's version when it isn't the source's (test builds)")
     args = ap.parse_args()
     DIST, OUT = args.dist or DIST, args.out or OUT
+    __version__ = args.version or __version__
     if not (DIST / "Tiro.exe").is_file():
         sys.exit("build first: tools/build.ps1")
 

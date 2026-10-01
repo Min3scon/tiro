@@ -17,7 +17,6 @@ from __future__ import annotations
 import argparse
 import base64
 import functools
-import hashlib
 import http.server
 import json
 import os
@@ -31,7 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from tiro.update import ed25519, feed  # noqa: E402
+from tiro.update import ed25519, feed
 
 E2E = ROOT / "work" / "update-e2e"
 PY = ROOT / ".venv" / "Scripts" / "python.exe"
@@ -79,7 +78,7 @@ def build(version: str, pub: str, crash: str) -> Path:
 
 def package(app: Path, version: str, server: Path, port: int) -> Path:
     out = server / f"v{version}"
-    run([PY, ROOT / "tools" / "package_release.py", "--dist", app, "--out", out, "--no-models",
+    run([PY, ROOT / "tools" / "package_release.py", "--dist", app, "--out", out, "--no-models", "--version", version,
          "--base-url", f"http://127.0.0.1:{port}/v{version}"])
     return out / "update-fragment-win-x64.json"
 
@@ -159,15 +158,28 @@ def main() -> int:
         shutil.rmtree(profile)
     profile.mkdir()
     (profile / "settings.json").write_text(json.dumps({
-        "hotkey": "f24", "setup_done": True, "welcome_shown": True, "device": "cpu", "ai_correction": False,
+        "hotkey": "f22", "setup_done": True, "welcome_shown": True, "device": "cpu", "ai_correction": False,
         "history": False, "sounds": False, "auto_update_check": True, "install_on_quit": True,
         "whats_new_seen": "9.0.0"}))
     local = E2E / "localappdata"
     if local.exists():
         shutil.rmtree(local)
     local.mkdir()
+    # Isolation: these copies never hear the real microphone (a silent test recording instead), may type into no
+    # window (empty allow-list), and listen to a key no other test presses (F22).
+    silence = E2E / "silence.wav"
+    import wave
+
+    with wave.open(str(silence), "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(16000)
+        w.writeframes(b"\0\0" * 16000)
+    no_windows = E2E / "allowed-windows.txt"
+    no_windows.write_text("")
     env = {**os.environ, "TIRO_CONFIG_DIR": str(profile), "LOCALAPPDATA": str(local),
-           "TIRO_UPDATE_FEED_URL": f"http://127.0.0.1:{port}/{{channel}}.json", "TIRO_UPDATE_FIRST_CHECK": "3"}
+           "TIRO_UPDATE_FEED_URL": f"http://127.0.0.1:{port}/{{channel}}.json", "TIRO_UPDATE_FIRST_CHECK": "3",
+           "TIRO_TEST_WAV": str(silence), "TIRO_TEST_TARGET_HWND_FILE": str(no_windows)}
     log = local / "Tiro" / "logs" / "tiro.log"
 
     def logtext() -> str:
@@ -181,8 +193,14 @@ def main() -> int:
 
     def quit_running() -> None:
         cur = state()["current"]
-        subprocess.run([str(inst / f"app-{cur}" / "Tiro.exe"), "--quit"], env=env, timeout=30)
-        wait_for(lambda: not running(), 30, "Tiro to quit")
+        for _ in range(3):  # (a copy that is still starting may not be listening yet: ask again)
+            subprocess.run([str(inst / f"app-{cur}" / "Tiro.exe"), "--quit"], env=env, timeout=30)
+            try:
+                wait_for(lambda: not running(), 15, "Tiro to quit")
+                return
+            except AssertionError:
+                continue
+        raise AssertionError("timed out waiting for: Tiro to quit")
 
     def running() -> bool:
         out = subprocess.run(["powershell", "-NoProfile", "-Command",

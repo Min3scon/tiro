@@ -139,7 +139,8 @@ From version 2.0.3, Tiro on Windows keeps itself up to date:
 
 - It checks for a new version about two minutes after it starts and then every few hours, **never while you're
   dictating**, and not on a metered connection unless you allow it.
-- It downloads **only the files that changed** (a typical update is a few MB) and checks every file against a list
+- It downloads **only the files that changed** (an update to Tiro's own code is about 10 MB, not the 1.3 GB a full
+  install with GPU support takes) and checks every file against a list
   signed by the release pipeline. Anything that doesn't match is thrown away.
 - The new version is installed **next to** the current one and takes over the next time Tiro starts (or click
   **Restart to update**). If it doesn't start properly twice, Tiro goes back to the version you had and won't try that

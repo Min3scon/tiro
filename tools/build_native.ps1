@@ -16,18 +16,18 @@ if ($mingw -and $cmakeDir) {
         -DCMAKE_C_COMPILER=x86_64-w64-mingw32-clang -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-clang++ `
         -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_SYSTEM_PROCESSOR=x64
     if ($LASTEXITCODE -ne 0) { throw "cmake configure failed" }
-    cmake --build $build --target tiro_hook tiro-tests -j 4
+    cmake --build $build --target tiro_hook tiro-hook-tests -j 4
     if ($LASTEXITCODE -ne 0) { throw "native build failed" }
     $bin = $build
 } else {
     cmake -S (Join-Path $root "core") -B $build -A x64
     if ($LASTEXITCODE -ne 0) { throw "cmake configure failed" }
-    cmake --build $build --config Release --target tiro_hook tiro-tests
+    cmake --build $build --config Release --target tiro_hook tiro-hook-tests
     if ($LASTEXITCODE -ne 0) { throw "native build failed" }
     $bin = Join-Path $build "Release"
 }
-& (Join-Path $bin "tiro-tests.exe")
-if ($LASTEXITCODE -ne 0) { throw "native logic tests failed" }
+& (Join-Path $bin "tiro-hook-tests.exe")
+if ($LASTEXITCODE -ne 0) { throw "hotkey tests failed" }
 $dll = Get-ChildItem $bin -Filter "*tiro_hook.dll" | Select-Object -First 1
 Copy-Item $dll.FullName (Join-Path $out "tiro_hook.dll") -Force
 Write-Host "native: $out\tiro_hook.dll"

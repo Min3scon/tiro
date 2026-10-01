@@ -168,6 +168,8 @@ def main(argv: list[str] | None = None) -> int:
             app.quit()
 
     server.newConnection.connect(on_connection)
+    while server.hasPendingConnections():  # a request ("quit") that arrived while Tiro was still starting
+        on_connection()
     if args.settings:
         app.show_settings()
 

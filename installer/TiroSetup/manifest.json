@@ -1,16 +1,16 @@
 {
-  "version": "2.0.0",
+  "version": "2.0.3",
   "repo": "Min3scon/tiro",
   "app": {
-    "url": "https://github.com/Min3scon/tiro/releases/download/v2.0.0/Tiro-2.0.0-app-win64.zip",
-    "size": 75526046,
-    "sha256": "d4917b8e8de4a7a755de8a4e5f597b7b30e7e921f753ccddb50bf98f89a373a0",
-    "installed_bytes": 187402516
+    "url": "https://github.com/Min3scon/tiro/releases/download/v2.0.3/Tiro-2.0.3-app-win64.zip",
+    "size": 76000529,
+    "sha256": "4c2bbcbf9fa3911de558cfbe78e8df1005d05146111bd12d5b566d5a0a1c1e8e",
+    "installed_bytes": 188682879
   },
   "gpu": {
-    "url": "https://github.com/Min3scon/tiro/releases/download/v2.0.0/Tiro-2.0.0-gpu-runtime-win64.zip",
+    "url": "https://github.com/Min3scon/tiro/releases/download/v2.0.3/Tiro-2.0.3-gpu-runtime-win64.zip",
     "size": 1196398562,
-    "sha256": "522a055ec48652d535f158cfef782fce27ed976ed82a54fb47c9d41ef7e1eaef",
+    "sha256": "3ec13151202e952d0248100c4f370931c45fc4907ee2e994f5fb408ab1204c00",
     "installed_bytes": 1671196728,
     "cuda": "13.0",
     "min_driver": 580,

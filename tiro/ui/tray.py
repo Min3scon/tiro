@@ -41,6 +41,7 @@ MENU: tuple[tuple[str, str], ...] = (
     ("autostart", "Launch at login" if IS_MAC else "Start with Windows"),
     ("settings", "Settings…"),
     ("updates", "Check for updates…"),
+    ("safe_restart", "Leave safe mode (restart)"),
     ("-", ""),
     ("quit", f"Quit {APP_NAME}"),
 )
@@ -148,6 +149,7 @@ class Tray:
             "autostart": lambda: app.set_autostart(checked),
             "settings": app.show_settings,
             "updates": app.updates_action,
+            "safe_restart": app.restart_normally,
             "quit": app.quit,
         }[key]()
 
@@ -174,6 +176,7 @@ class Tray:
         self.actions["mode_hold"].setChecked(s.mode == "hold")
         self.actions["mode_toggle"].setChecked(s.mode == "toggle")
         self.actions["autostart"].setChecked(app.autostart_enabled())
+        self.actions["safe_restart"].setVisible(bool(getattr(app, "safe_mode", False)))
         up = self.update_status
         if up is not None and up.state == "ready":
             self.actions["updates"].setText(f"Restart to update to {APP_NAME} {up.version}")
