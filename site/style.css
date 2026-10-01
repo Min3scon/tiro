@@ -107,3 +107,8 @@ footer a { color: var(--text-2); }
   main section { padding-top: 56px; padding-bottom: 56px; }
   th:nth-child(3), td:nth-child(3) { display: none; }
 }
+
+.update-banner { margin: 10px auto 0; max-width: 620px; font-size: 14px; color: var(--text-2, #c9c6d6);
+  background: rgba(230, 80, 142, 0.08); border: 1px solid rgba(230, 80, 142, 0.35); border-radius: 10px;
+  padding: 8px 14px; }
+.update-banner a { color: inherit; font-weight: 600; }

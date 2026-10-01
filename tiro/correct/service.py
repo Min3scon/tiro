@@ -166,7 +166,8 @@ class CorrectionService:
 
     # ------------------------------------------------------------------ tier 2: language model
     def configure_language(self, *, enabled: bool, choice: str, device: str, vram_gb: float | None, gpu_lock,
-                           on_status: Callable[[str], None] | None = None, allow_download: bool = True) -> None:
+                           on_status: Callable[[str], None] | None = None, allow_download: bool = True,
+                           gpu_yield: Callable[[], bool] | None = None) -> None:
         """(Re)load the tier-2 model in the background to match the settings.
 
         choice: auto | small | tiny. device: where the speech model runs ("cuda" or "cpu"); the language
@@ -223,7 +224,8 @@ class CorrectionService:
                     where = "Apple GPU"
                 else:
                     onnx_file = next(f for f in spec.variant_files(variant) if f.endswith(".onnx"))
-                    lm = LanguageScorer(folder, device=lm_device, gpu_lock=gpu_lock, file=onnx_file)
+                    lm = LanguageScorer(folder, device=lm_device, gpu_lock=gpu_lock, file=onnx_file,
+                                        gpu_yield=gpu_yield)
                     where = "GPU" if lm_device == "cuda" else "CPU"
                 lm.load()
                 if gen != self._lm_gen:

@@ -10,7 +10,7 @@ from __future__ import annotations
 import sys
 from typing import TYPE_CHECKING
 
-from PySide6.QtCore import QTimer, Qt
+from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QAction, QActionGroup, QCursor, QFont
 from PySide6.QtWidgets import QHBoxLayout, QLabel, QMenu, QSystemTrayIcon, QVBoxLayout, QWidget, QWidgetAction
 
@@ -129,6 +129,10 @@ class Tray:
         self.menu.aboutToShow.connect(self._refresh)
         self.tray.setContextMenu(self.menu)
         self.tray.activated.connect(self._activated)
+        self.tray.messageClicked.connect(self._message_clicked)
+        self._message_action: str | None = None
+        self.update_status = None  # tiro.update.service.Status when an update is ready / available
+        self._state = "busy"
         self.tray.show()
 
     def _trigger(self, key: str, checked: bool) -> None:
@@ -143,7 +147,7 @@ class Tray:
             "mode_toggle": lambda: app.update_setting("mode", "toggle"),
             "autostart": lambda: app.set_autostart(checked),
             "settings": app.show_settings,
-            "updates": app.check_for_updates,
+            "updates": app.updates_action,
             "quit": app.quit,
         }[key]()
 
@@ -170,6 +174,13 @@ class Tray:
         self.actions["mode_hold"].setChecked(s.mode == "hold")
         self.actions["mode_toggle"].setChecked(s.mode == "toggle")
         self.actions["autostart"].setChecked(app.autostart_enabled())
+        up = self.update_status
+        if up is not None and up.state == "ready":
+            self.actions["updates"].setText(f"Restart to update to {APP_NAME} {up.version}")
+        elif up is not None and up.state == "available":
+            self.actions["updates"].setText(f"Get {APP_NAME} {up.version}?")
+        else:
+            self.actions["updates"].setText("Check for updates?")
         self.mic_menu.clear()
         group = QActionGroup(self.mic_menu)
         default = app.default_mic_name()
@@ -183,8 +194,57 @@ class Tray:
 
     def set_state(self, state: str) -> None:
         """idle | live | busy"""
-        self.tray.setIcon(self.icons.get(state, self.icons["idle"]))
-        self.tray.setToolTip(f"{APP_NAME} — {self.app.status_line()}")
+        self._state = state
+        icon = self.icons.get(state, self.icons["idle"])
+        if self.update_status is not None and state != "live":
+            icon = _badged(icon)  # a small dot: an update is waiting
+        self.tray.setIcon(icon)
+        tip = f"{APP_NAME} — {self.app.status_line()}"
+        if self.update_status is not None and self.update_status.state == "ready":
+            tip += f" · {APP_NAME} {self.update_status.version} is ready"
+        self.tray.setToolTip(tip)
 
-    def message(self, title: str, text: str) -> None:
-        self.tray.showMessage(title, text, self.icons["idle"], 5000)
+    def message(self, title: str, text: str, action: str | None = None) -> None:
+        self._message_action = action
+        self.tray.showMessage(title, text, self.icons["idle"], 8000)
+
+    def notify_update(self, st) -> None:
+        """'Tiro x.y is ready': a notification that never interrupts; click it to restart now."""
+        summary = (st.summary.strip() + "\n") if st.summary else ""
+        if st.critical:
+            text = summary + "This update fixes a serious problem. Click to restart now."
+        else:
+            text = summary + "Click to restart now, or it installs the next time Tiro starts."
+        self.message(f"{APP_NAME} {st.version} is ready", text, action="update")
+
+    def set_update(self, st) -> None:
+        self.update_status = st
+        self.set_state(self._state)
+
+    def _message_clicked(self) -> None:
+        action, self._message_action = self._message_action, None
+        if action == "update":
+            self.app.updates_action()
+        elif action == "whats_new":
+            self.app.show_whats_new()
+
+
+def _badged(icon):
+    """The tray icon with a small accent dot in the corner."""
+    from PySide6.QtGui import QColor, QIcon, QPainter, QPixmap
+
+    out = QIcon()
+    for size in (16, 20, 24, 32, 48, 64):
+        pm = icon.pixmap(size, size)
+        if pm.isNull():
+            continue
+        pm = QPixmap(pm)
+        p = QPainter(pm)
+        p.setRenderHint(QPainter.RenderHint.Antialiasing)
+        d = max(5, int(size * 0.38))
+        p.setPen(QColor(theme.INK_950))
+        p.setBrush(QColor(theme.ROSE))
+        p.drawEllipse(size - d - 1, size - d - 1, d, d)
+        p.end()
+        out.addPixmap(pm)
+    return out

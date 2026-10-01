@@ -84,11 +84,29 @@ def log_dir() -> Path:
     return path
 
 
+def install_root() -> Path | None:
+    """The versioned install this copy runs from (Programs\\Tiro with state.json and app-X.Y.Z folders), or None
+    for a portable or development copy. See tiro.update.state."""
+    override = os.environ.get("TIRO_INSTALL_ROOT")  # tests
+    if override:
+        return Path(override)
+    if not FROZEN:
+        return None
+    here = app_root()
+    if here.name.startswith("app-") and (here.parent / "state.json").is_file():
+        return here.parent
+    return None
+
+
 def model_search_dirs() -> list[Path]:
-    """Model folders in priority order: next to the exe first (Windows), then the per-user data folder."""
+    """Model folders in priority order: the install's shared models folder (every version uses the same models),
+    next to the exe (older flat installs), then the per-user data folder."""
     dirs = [data_dir() / "models"]
     if not (IS_MAC and FROZEN):  # never inside the signed .app bundle
         dirs.insert(0, app_root() / "models")
+        root = install_root()
+        if root is not None:
+            dirs.insert(0, root / "models")
     return dirs
 
 

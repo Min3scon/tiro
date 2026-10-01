@@ -1,11 +1,13 @@
 # PyInstaller spec for Tiro: one-folder, windowed (no console), custom icon + version resource.
 # Build with tools\build.ps1 (it also copies the speech models next to Tiro.exe).
 
+import os
 from pathlib import Path
 
 from PyInstaller.utils.hooks import collect_data_files, copy_metadata
 
 ROOT = Path(SPECPATH)
+NO_CUDA = os.environ.get("TIRO_BUILD_NO_CUDA") == "1"  # small CPU-only builds for the update tests
 SITE = ROOT / ".venv" / "Lib" / "site-packages"
 CU13 = SITE / "nvidia" / "cu13" / "bin" / "x86_64"
 CUDNN = SITE / "nvidia" / "cudnn" / "bin"
@@ -17,19 +19,27 @@ cuda = [(str(CU13 / name), "cuda") for name in (
     "nvrtc64_130_0.dll", "nvrtc-builtins64_134.dll",
 )]
 cuda += [(str(p), "cuda") for p in sorted(CUDNN.glob("cudnn*64_9.dll"))]
+if NO_CUDA:
+    cuda = []
 
-datas = [(str(ROOT / "assets"), "assets")]
+native = ROOT / "build" / "native" / "tiro_hook.dll"  # tools\build_native.ps1 (global hotkey on a native thread)
+if not native.is_file():
+    raise SystemExit("build the native hook first: tools\\build_native.ps1")
+native_bins = [(str(native), ".")]
+
+datas = [(str(ROOT / "assets"), "assets"), (str(ROOT / "CHANGELOG.md"), "assets")]
 datas += collect_data_files("onnx_asr")  # preprocessor graphs + filterbanks
 datas += copy_metadata("onnx-asr") + copy_metadata("onnxruntime-gpu")
 
 a = Analysis(
     [str(ROOT / "run_tiro.pyw")],
     pathex=[str(ROOT)],
-    binaries=cuda,
+    binaries=cuda + native_bins,
     datas=datas,
     hiddenimports=["PySide6.QtNetwork", "tokenizers", "rapidfuzz.process", "rapidfuzz.distance.Levenshtein",
                    "tiro.platform.windows.winutil", "tiro.platform.windows.injector", "tiro.platform.windows.secure",
-                   "tiro.platform.windows.autostart", "tiro.platform.windows.sounds", "tiro.platform.windows.hook"],
+                   "tiro.platform.windows.autostart", "tiro.platform.windows.sounds", "tiro.platform.windows.hook",
+                   "tiro.platform.windows.native_hook"],
     excludes=[
         "tkinter", "pytest", "jiwer", "pyarrow", "huggingface_hub", "hf_xet", "httpx2", "nvidia", "tiro.platform.mac",
         "mlx", "mlx_lm", "transformers", "torch", "objc", "Quartz", "AppKit",
@@ -49,6 +59,8 @@ def _keep(entry):
     dest = entry[0].replace("\\", "/").lower()
     name = dest.rsplit("/", 1)[-1]
     if dest.startswith("nvidia/") or name == "opengl32sw.dll":
+        return False
+    if NO_CUDA and name.startswith(("onnxruntime_providers_cuda", "onnxruntime_providers_tensorrt")):
         return False
     return not (name in _cuda_names and not dest.startswith("cuda/"))
 

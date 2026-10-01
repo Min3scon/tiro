@@ -38,6 +38,7 @@
         <a class="btn ghost" id="secondary-dl" href="https://github.com/Min3scon/tiro/releases/latest">Other platforms</a>
       </div>
       <p class="fine" id="dl-note">Windows 10/11 · Mac with Apple Silicon (M1 or newer). Intel Macs aren't supported.</p>
+      <p class="update-banner">Already have Tiro? <a href="https://github.com/Min3scon/tiro/releases/latest/download/TiroSetup.exe">Install the latest version</a> once (your settings and history are kept). From 2.0.3 on, it updates itself.</p>
       <div class="intel-warning" id="intel-warning" hidden>
         This looks like an <b>Intel Mac</b>. Tiro for Mac needs Apple Silicon (M1 or newer), so it won't run here, sorry.
       </div>
@@ -52,7 +53,7 @@
         <article><h3>Accurate</h3><p>NVIDIA's Parakeet speech model, one of the most accurate open models, with punctuation, capitals and voice-activity detection.</p></article>
         <article><h3>Gets your names right</h3><p>Learns the names, brands and terms you use, so “GeoGuessr”, “Siobhan” or “Kubernetes” come out the way you write them.</p></article>
         <article><h3>Never rewrites you</h3><p>Corrections can only swap a misheard word for one that sounds like it. It never rephrases, reorders or tidies your words.</p></article>
-        <article><h3>Fast</h3><p>On an NVIDIA GPU, six seconds of speech is understood in about 0.05 s. Text streams in while you talk.</p></article>
+        <article><h3>Fast</h3><p>Text streams in while you talk, and the rest lands about 0.05 s after you let go of the key (measured on an RTX 3070).</p></article>
         <article><h3>Types anywhere</h3><p>Email, chat, code editors, forms, documents: whatever has the cursor. Paste mode restores your clipboard.</p></article>
         <article><h3>Fix it once</h3><p>Press Ctrl+Alt+F to correct the last dictation. Tiro remembers the fix and gets it right from then on.</p></article>
       </div>
@@ -82,7 +83,7 @@
         <ul>
           <li>Learning from your dictation can be switched off, and your history cleared with one click.</li>
           <li>Tiro never learns from, saves or corrects anything you dictate into password fields.</li>
-          <li>Logs never contain what you say. The only downloads are Tiro and its models.</li>
+          <li>Logs never contain what you say. The only network use is downloading Tiro and its models, and the update check, which sends only Tiro's version, your Windows version and processor type (you can switch it off).</li>
         </ul>
       </div>
     </section>
@@ -112,7 +113,8 @@
     <section id="faq" class="faq">
       <h2>Questions</h2>
       <details><summary>Is it really free?</summary><p>Yes. Tiro is open source under the MIT licence. There's no account and no subscription.</p></details>
-      <details><summary>Does it need the internet?</summary><p>Only to download Tiro and its models during setup. After that it works offline.</p></details>
+      <details><summary>Does it need the internet?</summary><p>Only to download Tiro and its models during setup, and to check for updates (Settings → Updates can switch that off). Dictation always works offline.</p></details>
+      <details><summary>How do updates work?</summary><p>On Windows, Tiro checks now and then (never while you dictate), downloads only what changed, checks every file against a signed list and installs it the next time it starts. If a new version doesn't start properly, Tiro goes back to the one you had. On a Mac it tells you about a new version and opens the download.</p></details>
       <details><summary>My Mac says Tiro can't be opened.</summary><p>Tiro isn't signed with a paid Apple Developer ID, so macOS asks once. Open System Settings → Privacy &amp; Security and click <b>Open Anyway</b> next to the message about Tiro. <a href="https://github.com/Min3scon/tiro#mac-apple-silicon">Step-by-step instructions</a>.</p></details>
       <details><summary>Which languages?</summary><p>English by default (the most accurate model). During setup you can pick a model for 25 European languages instead.</p></details>
       <details><summary>What's the default key?</summary><p>Right Ctrl on Windows and Right Option (⌥) on a Mac. Hold it while you talk. You can change it to almost any key.</p></details>

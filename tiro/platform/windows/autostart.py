@@ -8,7 +8,7 @@ import winreg
 from pathlib import Path
 
 from tiro import APP_NAME
-from tiro.paths import FROZEN, app_root
+from tiro.paths import FROZEN, app_root, install_root
 
 log = logging.getLogger(__name__)
 RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
@@ -16,7 +16,10 @@ RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
 
 def command() -> str:
     if FROZEN:
-        return f'"{sys.executable}" --autostart'
+        # installed with versions side by side: start through the launcher, so updates and roll back apply
+        root = install_root()
+        exe = root / "Tiro.exe" if root is not None and (root / "Tiro.exe").is_file() else Path(sys.executable)
+        return f'"{exe}" --autostart'
     pythonw = Path(sys.executable).with_name("pythonw.exe")
     return f'"{pythonw}" "{app_root() / "run_tiro.pyw"}" --autostart'
 
@@ -47,8 +50,13 @@ def set_enabled(on: bool) -> bool:
 
 
 def refresh_path() -> None:
-    """If autostart is on but points at an old location (the app folder moved), fix it."""
-    if not is_enabled():
+    """If autostart is on but points at an old location (the app folder moved), fix it.
+
+    Only a real installed copy does this: a run from source or with a test profile (TIRO_CONFIG_DIR) must never
+    repoint the user's autostart at itself."""
+    import os
+
+    if not FROZEN or os.environ.get("TIRO_CONFIG_DIR") or not is_enabled():
         return
     try:
         with winreg.OpenKey(winreg.HKEY_CURRENT_USER, RUN_KEY) as key:

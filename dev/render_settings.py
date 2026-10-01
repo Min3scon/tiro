@@ -54,8 +54,29 @@ class StubService:
                 ("Obsidian", 4), ("Nando's", 3), ("PyTorch", 3)]
 
 
-class StubApp:
+class _UpdService:
+    def rollback_target(self):
+        return "2.0.2"
+
+
+class _Updates:
     def __init__(self):
+        from tiro.update.service import Status
+
+        self.status = Status(state="ready", version="2.0.4", summary="Text appears sooner after you stop talking.",
+                             notes_url="https://github.com/Min3scon/tiro/releases", last_check="2026-10-01T12:00:00+00:00")
+        self.service = _UpdService()
+
+    def __getattr__(self, name):
+        return lambda *a, **k: None
+
+
+class StubApp:
+    safe_mode = False
+    dictating = False
+
+    def __init__(self):
+        self.updates = _Updates()
         self.settings = Settings()
         self.settings.show_latency = True
         self.settings.dictionary = ["GeoGuessr", "Kubernetes", "super bass -> Supabase"]

@@ -20,11 +20,16 @@ _CHOICES = {
     "overlay_position": ("bottom", "top"),
     "correction_mode": ("strict", "balanced", "aggressive"),
     "ai_model": ("auto", "small", "tiny"),
+    "update_channel": ("stable", "beta"),
 }
 _RANGES = {"correction_threshold": (0.0, 0.99), "correction_budget_ms": (40, 1000), "hands_free_pause_sec": (0.5, 10.0)}
 
 
 DEFAULT_HOTKEY = "ralt" if sys.platform == "darwin" else "rctrl"  # Right Option on a Mac, Right Ctrl on Windows
+
+# Safe mode (hold Shift while starting Tiro, or automatic after two failed starts): plain dictation only.
+SAFE_MODE = {"correction": False, "ai_correction": False, "history": False, "learn_corrections": False,
+             "instant_start": False, "device": "cpu"}
 
 
 @dataclass
@@ -59,6 +64,12 @@ class Settings:
     history: bool = True  # learn your vocabulary from what you dictate (stored only on this computer)
     fix_hotkey: str = "ctrl+alt+f"  # open "Fix last transcription"
     show_latency: bool = False  # debug panel in settings
+    # updates (tiro.update)
+    auto_update_check: bool = True  # look for updates now and then; off = no network unless you click Check now
+    install_on_quit: bool = True  # a downloaded update is installed the next time Tiro starts
+    update_channel: str = "stable"  # stable | beta
+    update_on_metered: bool = False  # also check and download on a metered connection
+    whats_new_seen: str = ""  # the version whose "What's new" was last shown
 
     @property
     def hotkey_spec(self) -> HotkeySpec:
@@ -116,10 +127,17 @@ class Settings:
             setattr(s, key, value)
         return s
 
+    def apply_safe_mode(self) -> None:
+        """Safe mode: optional features off for this run only (your saved settings don't change)."""
+        self._safe = {k: getattr(self, k) for k in SAFE_MODE}
+        for k, v in SAFE_MODE.items():
+            setattr(self, k, v)
+
     def save(self) -> None:
         try:
             tmp = self.path().with_suffix(".tmp")
-            data = {**getattr(self, "_extra", {}), **asdict(self)}
+            # in safe mode the saved values stay what they were, unless you changed them yourself since
+            data = {**getattr(self, "_extra", {}), **asdict(self), **getattr(self, "_safe", {})}
             tmp.write_text(json.dumps(data, indent=2), encoding="utf-8")
             tmp.replace(self.path())
         except Exception:

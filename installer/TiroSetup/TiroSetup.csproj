@@ -38,6 +38,8 @@
     <Resource Include="Images\*.png" />
     <Resource Include="tiro.ico" />
     <EmbeddedResource Include="manifest.json" LogicalName="manifest.json" />
+    <!-- the launcher that becomes Programs\Tiro\Tiro.exe (built first by installer\build.ps1) -->
+    <EmbeddedResource Include="..\out\launcher\Tiro.exe" LogicalName="TiroLauncher.exe" />
   </ItemGroup>
 
 </Project>

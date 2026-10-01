@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Test double for the launcher tests: behaves like a Tiro version that starts fine, crashes, or never
+       confirms its start, depending on a "behaviour.txt" file next to it. Never shipped. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>Tiro</AssemblyName>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+</Project>

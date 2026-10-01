@@ -16,11 +16,17 @@ option(TIRO_BUILD_TESTS "Build the unit tests" ON)
 option(TIRO_SHARED "Build tiro_core as a shared library (DLL/.so/.dylib)" ON)
 set(ORT_ROOT "" CACHE PATH "ONNX Runtime package root (contains include/ and lib/)")
 
-if(NOT ORT_ROOT)
-  message(FATAL_ERROR "Set ORT_ROOT to an ONNX Runtime package (include/ + lib/)")
+if(ORT_ROOT)
+  set(TIRO_ENGINE ON)
+  find_path(ORT_INCLUDE onnxruntime_c_api.h PATHS ${ORT_ROOT}/include ${ORT_ROOT}/include/onnxruntime NO_DEFAULT_PATH REQUIRED)
+  find_library(ORT_LIB NAMES onnxruntime PATHS ${ORT_ROOT}/lib NO_DEFAULT_PATH REQUIRED)
+else()
+  # without ONNX Runtime only the pieces that don't need it are built (hotkey DLL, logic tests)
+  message(STATUS "ORT_ROOT not set: building the hotkey library and the tests only")
+  set(TIRO_ENGINE OFF)
 endif()
-find_path(ORT_INCLUDE onnxruntime_c_api.h PATHS ${ORT_ROOT}/include ${ORT_ROOT}/include/onnxruntime NO_DEFAULT_PATH REQUIRED)
-find_library(ORT_LIB NAMES onnxruntime PATHS ${ORT_ROOT}/lib NO_DEFAULT_PATH REQUIRED)
+
+if(TIRO_ENGINE)
 
 set(MOONSHINE third_party/moonshine)
 add_library(tiro_moonshine STATIC
@@ -70,11 +76,25 @@ endif()
 if(NOT MSVC)
   target_compile_options(tiro_core PRIVATE -Wall -Wextra)
 endif()
+endif()  # TIRO_ENGINE
+
+if(WIN32)
+  # The global hotkey: a tiny DLL without ONNX Runtime, so it can start before any model is loaded.
+  add_library(tiro_hook SHARED src/hotkey.cc src/win_hook.cc)
+  target_compile_definitions(tiro_hook PRIVATE TIRO_BUILDING_HOOK)
+  target_include_directories(tiro_hook PUBLIC include PRIVATE src third_party)
+  if(MINGW)
+    target_link_options(tiro_hook PRIVATE -static -static-libgcc -static-libstdc++)
+  endif()
+  if(NOT MSVC)
+    target_compile_options(tiro_hook PRIVATE -Wall -Wextra)
+  endif()
+endif()
 
 if(TIRO_BUILD_TESTS)
   # pure logic tests (no models needed): every platform build runs them
-  add_executable(tiro-tests tests/test_text.cc tests/test_correct.cc tests/test_ladder.cc src/text.cc src/correct.cc
-                            src/ladder.cc)
+  add_executable(tiro-tests tests/test_text.cc tests/test_correct.cc tests/test_ladder.cc tests/test_hotkey.cc
+                            src/text.cc src/correct.cc src/ladder.cc src/hotkey.cc)
   target_include_directories(tiro-tests PRIVATE src third_party)
   if(MINGW)
     target_link_options(tiro-tests PRIVATE -static -static-libgcc -static-libstdc++)
@@ -83,7 +103,7 @@ if(TIRO_BUILD_TESTS)
   add_test(NAME tiro-tests COMMAND tiro-tests)
 endif()
 
-if(TIRO_BUILD_TOOLS)
+if(TIRO_BUILD_TOOLS AND TIRO_ENGINE)
   add_executable(tiro-transcribe tools/transcribe.cc)
   target_link_libraries(tiro-transcribe PRIVATE tiro_core)
   if(MINGW)

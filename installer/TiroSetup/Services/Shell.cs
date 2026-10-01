@@ -39,11 +39,12 @@ namespace TiroSetup.Services
                 var dir = k?.GetValue("InstallLocation") as string;
                 if (string.IsNullOrEmpty(dir) || !File.Exists(Path.Combine(dir, "Tiro.exe"))) return null;
                 var models = Path.Combine(dir, "models");
+                var appDir = InstallState.CurrentAppDir(dir) ?? dir;  // versioned layout, or the old flat one
                 return new Existing
                 {
                     Dir = dir,
                     Version = k.GetValue("DisplayVersion") as string ?? "",
-                    HasGpuRuntime = File.Exists(Path.Combine(dir, "_internal", "cuda", "cudnn64_9.dll")),
+                    HasGpuRuntime = File.Exists(Path.Combine(appDir, "_internal", "cuda", "cudnn64_9.dll")),
                     ModelKey = Directory.Exists(Path.Combine(models, "parakeet-tdt-0.6b-v3")) &&
                                !Directory.Exists(Path.Combine(models, "parakeet-tdt-0.6b-v2"))
                         ? "parakeet-tdt-0.6b-v3" : "parakeet-tdt-0.6b-v2",
@@ -121,17 +122,32 @@ namespace TiroSetup.Services
             }
         }
 
-        /// <summary>Ask any running Tiro to quit (its single-instance channel), then make sure it's gone.</summary>
-        public static async Task StopTiroAsync(string anyTiroExe, CancellationToken ct)
+        /// <summary>
+        /// Ask the running Tiro to quit (its single-instance channel), then make sure no copy of Tiro from this
+        /// install folder is left running. Copies of Tiro elsewhere (another folder, a development build) are
+        /// asked to quit but never killed.
+        /// </summary>
+        public static async Task StopTiroAsync(string anyTiroExe, string installDir, CancellationToken ct)
         {
             if (!Process.GetProcessesByName("Tiro").Any()) return;
             if (anyTiroExe != null && File.Exists(anyTiroExe))
                 await RunTiroAsync(anyTiroExe, "--quit", TimeSpan.FromSeconds(15), ct).ConfigureAwait(false);
-            for (var i = 0; i < 40 && Process.GetProcessesByName("Tiro").Any(); i++)
+            for (var i = 0; i < 40 && Running(installDir).Any(); i++)
                 await Task.Delay(250, ct).ConfigureAwait(false);
-            foreach (var p in Process.GetProcessesByName("Tiro"))
+            foreach (var p in Running(installDir))
             {
                 try { p.Kill(); p.WaitForExit(5000); } catch { }
+            }
+        }
+
+        static System.Collections.Generic.IEnumerable<Process> Running(string installDir)
+        {
+            var prefix = Path.GetFullPath(installDir).TrimEnd('\\') + "\\";
+            foreach (var p in Process.GetProcessesByName("Tiro"))
+            {
+                string path = null;
+                try { path = p.MainModule?.FileName; } catch { }  // other user / elevated: not ours to stop
+                if (path != null && path.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) yield return p;
             }
         }
 

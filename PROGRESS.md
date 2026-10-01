@@ -3,8 +3,10 @@
 ## Current state
 
 - **Round:** "beat Wispr Flow" plan (pasted 2026-10-01 17:30). Branch `lite`; `main` stays releasable.
-- **Phase:** A1, finding where the delay goes between speech ending and text appearing (Standard app).
-- **Next:** time every stage, test in a terminal, Notepad and a browser box, fix the biggest delay first.
+- **Phase:** A1 fixes measured and in code; A2 updater code written (feed, staging, launcher, service, Settings page).
+- **Next:** A1 "after" matrix (`dev/latency/run_after.ps1`), decide decode reuse from `dev/score_final_reuse.py`,
+  then A2: CHANGELOG, release workflow (feed signing, packs, launcher, native DLL), installer on the versioned
+  layout + migration, then the v2.0.3 release and installing it on this PC.
 - **Background jobs:** `training/scheduler.py` (pid file `work/logs/scheduler.pid`). It runs the queue in
   `work/schedule.json` today 18:00-21:00, then continuously from Fri 2 Oct 00:00. Logs are in `work/logs/<job>.out`.
   The queue: prepare_all, label_parakeet, tts, bench_devmini, lite_suite.
@@ -15,9 +17,9 @@
 The block below is rewritten every 5 minutes by `training/status.py`.
 
 <!-- LIVE-STATUS:BEGIN -->
-_Updated 2026-10-01 17:42. GPU 10% busy, 3.7/8.0 GB, 51 °C. Disk: 188 GB free on the work drive._
+_Updated 2026-10-01 18:57. GPU 8% busy, 7.9/8.0 GB, 52 °C. Disk: 188 GB free on the work drive._
 
-- ▶ **scheduler** (running, started 01 Oct 17:42): Paused until Thu 18:00 (heavy work runs Thu 01 Oct 18:00-21:00, Fri 02 Oct 00:00 onwards); queued: prepare_all, label_parakeet, tts, bench_devmini, lite_suite
+- ▶ **scheduler** (running, started 01 Oct 17:42): Working until 21:00: nothing left to run; queued: prepare_all, label_parakeet, tts, bench_devmini, lite_suite
   - `2026-10-01 17:42:07  scheduler up (pid 17140)`
 - ✓ **tts** (finished, started 01 Oct 15:49)
   - `2026-10-01 15:49:10  120000 sentences, 60 shards to synthesise with 3 workers`
@@ -50,10 +52,21 @@ _Updated 2026-10-01 17:42. GPU 10% busy, 3.7/8.0 GB, 51 °C. Disk: 188 GB free o
 | 10-01 | Vocabulary bias only helps FINISH a term (no bonus for starting one) | the upstream start bonus changed ordinary words ("ranked" -> "rank") |
 | 10-01 | One app, one installer; Lite and Standard switchable in Settings | user decision |
 | 10-01 | Heavy jobs today only 18:00-21:00, then normal | user decision |
+| 10-01 | No fixed 0.25 s listening tail after the key comes up: stop at once if you'd already stopped talking, else wait for the word to end (max 0.4 s) | the tail was ~275 of ~320 ms in every dictation |
+| 10-01 | Global hotkey moves to a native thread (`tiro_hook.dll`, C++ port of the hotkey state machine, same tests) | the Python hook needs Python's lock: while a model loaded, keyboard input stalled system-wide (4 of 28 taps got through in 2.8 s, up to 2.2 s late) and a press could be lost; native: 29 of 29, none late |
+| 10-01 | The correction model yields the GPU whenever a speech decode is waiting or a final decode is due | first dictations after start took 1.4 s: the final decode queued behind the correction model |
+| 10-01 | Updater: own signed feed + side-by-side versions + launcher with trial start and roll back (not Velopack, tufup, WinSparkle) | research (`work/research/updater.md`): each framework misses at least three of resume, signed feed, keep previous version, staged rollout; Velopack's uninstall would also wipe `%LOCALAPPDATA%\Tiro` |
+| 10-01 | Feed signature: Ed25519 in pure Python (RFC 8032 vectors pass), DSSE envelope with serial + expiry | no extra crypto dependency in the app; serial stops replays, expiry stops freezes |
+| 10-01 | Mac: updates stay "tell me and open the download" until the app has a Developer ID | ad-hoc signed apps lose Microphone/Accessibility permission on every update (Apple TN3127) |
 
 ## Left out and why
 
-_(nothing yet)_
+| What | Why |
+|---|---|
+| Automatic switch to pasting in browsers / Electron apps | Typing the last ~15 characters costs ~50 ms more than pasting in Chrome (54 vs 6 ms), too small to justify touching the clipboard when you chose "Type it". Paste stays a setting. |
+| Measuring the Claude Code CLI after the fixes | Claude Code started asking "do you trust this folder?" for every test folder (even `D:\`, listed as trusted). Answering it is the user's decision, so the test refuses to type into it. Baseline before that: 359 ms short / 403 ms long; the same console input path after the fixes: 52 ms / 24 ms. |
+| Mac automatic updates | Need an Apple Developer ID (see Decisions); Macs are told about new versions instead. |
+| Model updates through the feed | Not needed for 2.0.3 (no model changes); the feed format has a `models` section for Phase B. |
 
 ---
 
@@ -181,3 +194,88 @@ Note on the RAM column of the first candidate benchmarks: those runs measured th
 loading included, so the "peak" there is not the model's. RAM is measured with the native engine instead
 (`tiro-transcribe`). For example, Moonshine Streaming small at 4-bit/8-bit peaks at 230 MB, and that includes ONNX
 Runtime and buffers.
+
+## Phase A1: make dictation fast (started 2026-10-01 17:40)
+
+**Problem reported:** dictating into the Claude Code text box (a terminal) takes a few seconds between finishing
+speaking and the text appearing. The target is about 300 ms.
+
+**Method:**
+- `tiro/session.py` now records stage timestamps and logs one line per dictation:
+  "latency: release->typed … (tail, decode, correction, typing)".
+- Setting `TIRO_TIMING_LOG` makes it also write JSON lines.
+- `dev/latency_e2e.py` drives the real app from source, with:
+  - the F24 hotkey;
+  - an isolated profile;
+  - a WAV file as the microphone;
+  - a guard that only lets it type into windows the test opened.
+
+It times key release → last character visible, polling every 5 ms, in four targets:
+- **notepad** (Win32 edit control);
+- **term** (a plain console program, measuring keystroke delivery);
+- **claude** (the real Claude Code CLI 2.1.216 in a console window, read-only plan mode, never sent);
+- **browser** (Chrome text box).
+
+Windows Terminal isn't installed on this PC, so "terminal" means the classic console window.
+
+### A1 baseline (2026-10-01 18:00, v2.0.2 code, GPU, typing)
+
+Measured with `dev/latency/run_baseline.ps1`. Each row: 6 dictations of a 3.5 s sentence (or 3 of a 16.6 s,
+four-sentence one). "Visible" = key release → last character on screen. Tiro's own stage timing comes from
+`tiro/session.py`.
+
+| Target | Visible, median (p95) | Release → typed, inside Tiro | Where Tiro's time goes |
+|---|---|---|---|
+| Notepad | 342 ms (742) | ~320 ms | listening tail 275, final decode 40-60, typing 3-6 |
+| Console program | 374 ms (387) | ~325 ms | same |
+| Claude Code (console) | 359 ms (364) | ~323 ms | same |
+| Chrome text box | 528 ms (540) | ~323 ms | same, plus ~200 ms inside Chrome |
+| Notepad, long | 433 ms (456) | ~400 ms | tail 275, final decode 110-150 (longer window) |
+| Console, long | 429 ms (446) | | |
+| Claude Code, long | 403 ms (411) | | |
+
+What the numbers say:
+1. **The fixed 0.25 s listening tail is most of the delay.** After the key comes up, v2.0.2 always keeps
+   listening for 250 ms (plus up to 30 ms of loop granularity), even when you finished speaking long before.
+2. **The first dictations after Tiro starts were slow: 1.37-1.47 s.** The final decode waited 1.1-1.2 s.
+   The correction model's first (cold) runs share the GPU lock with the speech model, so the speech model
+   queued behind them. Once warm, the final decode takes 40-60 ms.
+3. **A hotkey press while the correction model is loading is lost.** The F24 press 1-5 s after "speech model
+   ready" did nothing. The keyboard hook is Python code; loading a model holds Python's lock for seconds, and
+   Windows silently removes a hook that doesn't answer in time. v2.0.2 re-installs it after loading or every
+   60 s.
+4. **Chrome adds ~200 ms on top of Tiro**, about one screen frame per typed character (15 characters typed at
+   the end).
+5. Long dictations type most words while you talk (203 of 218 characters), so the end cost barely grows.
+
+### A1 after the fixes (2026-10-01 18:52-19:02, same tests)
+
+Fixes: no fixed listening tail; the decode made during your pause is reused at the end (`dev/eval_final_reuse.py`:
+940 of 955 eligible clips identical; on the 15 others the reused decode made 13 word errors against 20 for a
+fresh one, difference not significant); the correction model yields the GPU to speech decoding; the hotkey runs on
+a native thread. Browser numbers now come from the page itself (it reports each change after it is painted), so
+the Chrome baseline below was re-measured the same way.
+
+| Target | Before: median (p95) | After: median (p95) | Inside Tiro after (release → typed) |
+|---|---|---|---|
+| Notepad | 342 ms (742) | **54 ms** (55) | 2-5 ms |
+| Console program | 374 ms (387) | **53 ms** (57) | 2-5 ms |
+| Chrome text box, typing | see below | **54 ms** (59) | 4 ms |
+| Chrome text box, paste | – | **6 ms** (23) | 2 ms |
+| First dictations after Tiro starts (Notepad) | 1,370-1,470 ms | **24 ms** (25) | |
+| First dictation after 3 min idle (Notepad) | – | 92 ms (108) | |
+| Notepad, long (16.6 s, 4 sentences) | 433 ms (456) | **24 ms** (24) | |
+| Console, long | 429 ms (446) | **24 ms** (35) | |
+
+What's left is the app drawing the last few characters (about 3.5 ms per typed character in Chrome, ~1-2 ms in
+Notepad and the console). Inside Tiro, release → typed is now 2-5 ms when you'd paused before letting go.
+
+**Incident, 18:55 (fixed):** your real Windows autostart entry for Tiro pointed at the source checkout
+(`pythonw run_tiro.pyw --autostart`) instead of your copy (`dist\Tiro\Tiro.exe`). A run from source "repairs"
+autostart to itself on start (`autostart.refresh_path`). Fixed in code (only an installed copy without a test
+profile may do that) and your entry restored to `"D:\dictation\dist\Tiro\Tiro.exe" --autostart` (checked with an
+unvirtualized process).
+
+Not reproduced: "a few seconds" in steady state. The few-seconds cases match points 2 and 3 (first dictations
+after start or wake, a press during loading). Note that your PC still runs Tiro 1.0.0, which is older than all of
+this.

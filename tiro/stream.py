@@ -17,6 +17,10 @@ import numpy as np
 from tiro.asr import Word
 from tiro.textproc import ends_sentence, norm_word
 
+# finalize(reuse=True): the last partial decode stands in for the final one when no speech came after it and it
+# already had this much trailing pause (so the last word was complete and its punctuation decided).
+REUSE_MIN_SILENCE_SEC = 0.2
+
 
 @dataclass
 class StreamParams:
@@ -56,6 +60,7 @@ class StreamingTranscriber:
         self.committed: list[Word] = []
         self.last_commit_end = float("-inf")
         self.decodes = 0
+        self.reused = False  # did the last finalize() reuse the pause decode?
         self._ring: list[np.ndarray] = []
         self._ring_len = 0
         self.silence_run = 0  # samples of consecutive non-speech input
@@ -69,6 +74,8 @@ class StreamingTranscriber:
         self._prev_hyp: list[Word] = []
         self._speech_since_decode = 0
         self._window_speech = 0
+        self._decoded = False  # any decode of this window yet?
+        self._silence_at_decode = 0  # trailing non-speech (samples) when the last decode ran
 
     def _append(self, frame: np.ndarray, speech: bool) -> None:
         self._chunks.append(frame)
@@ -123,6 +130,8 @@ class StreamingTranscriber:
         offset = self.win_start / self.sr
         self.decodes += 1
         self._speech_since_decode = 0
+        self._decoded = True
+        self._silence_at_decode = self.silence_run
         return [w.shifted(offset) for w in self.transcribe(audio)]
 
     def _fresh(self, words: list[Word]) -> list[Word]:
@@ -177,11 +186,22 @@ class StreamingTranscriber:
         commit += self._maybe_trim()
         return StreamUpdate(commit, list(self._prev_hyp))
 
-    def finalize(self) -> StreamUpdate:
-        """Decode everything left in the window and commit all of it (end of utterance)."""
+    def can_reuse(self) -> bool:
+        """Did the last decode already hear everything said in this window, followed by a pause?"""
+        return (self._decoded and self._speech_since_decode == 0
+                and self._silence_at_decode >= REUSE_MIN_SILENCE_SEC * self.sr)
+
+    def finalize(self, reuse: bool = False) -> StreamUpdate:
+        """Commit everything left in the window (end of utterance). With reuse, the hypothesis of the last decode
+        is committed as it is when nothing was said after it (no second decode of the same speech)."""
         commit: list[Word] = []
+        self.reused = False
         if self._window_speech:
-            commit = self._fresh(self._decode())
+            if reuse and self.can_reuse():
+                commit = list(self._prev_hyp)
+                self.reused = True
+            else:
+                commit = self._fresh(self._decode())
             self._commit(commit)
         self._reset_window()
         return StreamUpdate(commit, [], final=True)

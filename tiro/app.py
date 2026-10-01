@@ -76,15 +76,31 @@ class _EngineRef:
         if eng is not None and self.app.engine_ready.is_set():
             eng.ping()
 
+    def urgent(self, on: bool) -> None:
+        eng = self.app.engine
+        flag = getattr(eng, "priority", None)
+        if flag is None:
+            return
+        if on:
+            flag.set()
+        else:
+            flag.clear()
+
 
 class TiroApp(QObject):
-    def __init__(self, qapp, *, autostarted: bool = False, setup: bool = False):
+    def __init__(self, qapp, *, autostarted: bool = False, setup: bool = False, safe_mode: bool = False,
+                 update_trial: str | None = None, rolled_back_from: str | None = None):
         super().__init__()
         self.qapp = qapp
         self.autostarted = autostarted
         self.setup_window = None
         self._engine_started = False
         self.settings = Settings.load()
+        self.safe_mode = safe_mode
+        self.rolled_back_from = rolled_back_from
+        if safe_mode:
+            log.warning("safe mode: optional features are off for this run")
+            self.settings.apply_safe_mode()
         self.bridge = _Bridge()
         self.bridge.action.connect(self._on_action, Qt.ConnectionType.QueuedConnection)
         self.bridge.session_state.connect(self._on_session_state, Qt.ConnectionType.QueuedConnection)
@@ -138,6 +154,9 @@ class TiroApp(QObject):
         self.overlay.show_text = self.settings.show_live_text
         self.tray = Tray(self)
         self.settings_window = None
+        from tiro.update.controller import UpdateController
+
+        self.updates = UpdateController(self, update_trial=update_trial)
 
         self.fix_key = ChordHotkey(self._fix_spec(), on_fire=lambda: self.bridge.action.emit("fix_last"))
         self.machine = HotkeyMachine(
@@ -153,13 +172,44 @@ class TiroApp(QObject):
         self._download_cancel: threading.Event | None = None
         self.hub: audio.MicHub | None = None  # open microphone for "instant start"
         self._sync_hub()
-        self.hook = KeyboardHook(self._on_key, can_reinstall=lambda: not self.machine.active and not self.machine.down)
-        self.hook.start()
+        self.native_keys = self._start_native_hook()
+        if self.native_keys is None:
+            self.hook = KeyboardHook(self._on_key,
+                                     can_reinstall=lambda: not self.machine.active and not self.machine.down)
+            self.hook.start()
         autostart.refresh_path()
         if not setup:
             self.start_engine()  # (during setup the wizard starts it once the models are downloaded)
+        self.updates.start()
 
     # ================================================================== keyboard hook (hook thread)
+    def _start_native_hook(self):
+        """Windows: run the hotkey on a native thread (tiro_hook.dll). The Python hook needs Python's lock for
+        every key press, and while a model loads that lock can be busy long enough for Windows to drop the hook,
+        losing a press of the hotkey. Falls back to the Python hook if the DLL is missing or fails."""
+        import sys
+
+        if sys.platform != "win32" or os.environ.get("TIRO_PY_HOOK") == "1" or self.safe_mode:
+            return None
+        try:
+            from tiro.platform.windows import native_hook
+
+            if not native_hook.available():
+                log.info("keyboard hook: Python (tiro_hook.dll not found)")
+                return None
+            nk = native_hook.NativeHotkeys(
+                self.settings.hotkey_spec, self._fix_spec(), mode=self.settings.mode,
+                double_tap_lock=self.settings.double_tap_lock, on_action=self.bridge.action.emit,
+                on_fix=lambda: self.bridge.action.emit("fix_last"), on_typed=self._note_typed)
+            nk.start()
+        except Exception:
+            log.exception("native keyboard hook unavailable; using the Python one")
+            return None
+        self.hook = nk
+        self.machine = nk.machine
+        self.fix_key = nk.fix_key
+        return nk
+
     def _on_key(self, vk: int, down: bool, scan: int, flags: int, injected: bool) -> bool:
         if self.fix_key.on_key(vk, down):
             return True
@@ -268,7 +318,11 @@ class TiroApp(QObject):
             correction_budget_ms=float(s.correction_budget_ms),
             late_fixes=s.late_fixes,
             on_finish=self._session_finished,
+            on_speech=(lambda: self.native_keys.set_speech(True)) if self.native_keys is not None else None,
         )
+        if self.native_keys is not None:
+            self.native_keys.set_speech(False)
+        self.updates.service.dictation_started()  # update downloads pause while you dictate
         self.session.start()
         # Audio is captured from the first instant, but the overlay and chime wait a moment: if the key turns
         # out to be half of a shortcut (Shift + letter, Ctrl + C) nothing should flash or beep.
@@ -347,6 +401,7 @@ class TiroApp(QObject):
 
     def _session_finished(self, sess: DictationSession) -> None:
         """Runs on the session thread once a dictation is over (whatever the outcome)."""
+        self.updates.service.dictation_ended()
         ok = sess.error is None and not sess._cancel.is_set()
         text = sess.text if ok else ""
         self.correction.end(text, app=sess.app_name, title=sess.window_title, secure=sess.private)
@@ -367,7 +422,7 @@ class TiroApp(QObject):
         self.correction.configure_language(
             enabled=s.ai_correction and s.correction, choice=s.ai_model, device=eng.device,
             vram_gb=eng.gpu_info.memory_gb if eng.gpu_info else None, gpu_lock=eng._lock,
-            on_status=self.bridge.lm_status.emit,
+            gpu_yield=getattr(eng, "wants_gpu", None), on_status=self.bridge.lm_status.emit,
         )
 
     @Slot(str)
@@ -515,6 +570,9 @@ class TiroApp(QObject):
         if state == "ready":
             self.hook.reinstall()  # loading the model may have made Windows drop the keyboard hook
             self.tray.set_state("idle")
+            if self.engine is not None:
+                self.updates.engine_ready(self.engine)  # confirms this start to the launcher
+            self._start_notices()
             if self.engine and self.engine.fallback_reason and self.settings.device != "cpu":
                 log.warning("running on CPU: %s", self.engine.fallback_reason)
             if not self.settings.welcome_shown and not self.autostarted:
@@ -525,6 +583,10 @@ class TiroApp(QObject):
                                     "ok", seconds=5.0)
         elif state == "error":
             self.overlay.notify(message, "error", seconds=6.0)
+            if self.updates.update_trial:
+                # a new version that can't load the speech model: let the launcher go back to the previous one
+                log.error("update trial failed: %s", message)
+                QTimer.singleShot(500, lambda: os._exit(3))
         self.tray.set_state("idle" if state in ("ready", "error") else "busy")
         if self.settings_window is not None and self.settings_window.isVisible():
             self.settings_window.refresh()
@@ -552,6 +614,7 @@ class TiroApp(QObject):
     def update_setting(self, key: str, value) -> None:
         if getattr(self.settings, key) == value:
             return
+        getattr(self.settings, "_safe", {}).pop(key, None)  # your own choice, even in safe mode
         setattr(self.settings, key, value)
         self.settings.save()
         if key in ("hotkey", "mode", "double_tap_lock"):
@@ -674,46 +737,59 @@ class TiroApp(QObject):
         _open_path(self.data_folder())
 
     def check_for_updates(self) -> None:
-        """Ask GitHub for the newest release (the only request Tiro makes, and only when you ask)."""
-        self.overlay.notify("Checking for updates…", "ok", seconds=2.0)
+        """'Check now' (tray or Settings): ask the signed update feed right away."""
+        self.updates.check_now()
+        self.show_settings("updates")
 
-        def work():
-            import json
-            import urllib.request
-
-            from tiro import GITHUB_REPO, WEBSITE, __version__
-
-            try:
-                req = urllib.request.Request(f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest",
-                                             headers={"Accept": "application/vnd.github+json", "User-Agent": "Tiro"})
-                with urllib.request.urlopen(req, timeout=10) as resp:
-                    latest = json.load(resp).get("tag_name", "").lstrip("v")
-            except Exception as exc:
-                log.info("update check failed: %s", exc)
-                self.bridge.update_result.emit("error", "")
-                return
-
-            def parts(v):
-                return tuple(int(x) for x in v.split(".") if x.isdigit())
-
-            newer = bool(latest) and parts(latest) > parts(__version__)
-            self.bridge.update_result.emit("newer" if newer else "current", latest if newer else WEBSITE)
-
-        threading.Thread(target=work, name="tiro-update-check", daemon=True).start()
+    def updates_action(self) -> None:
+        """The tray's update item: restart into a ready update, fetch an available one, or check."""
+        st = self.updates.status
+        if st.state == "ready":
+            self.updates.restart_to_update()
+        elif st.state == "available":
+            self.updates.open_download_page()
+        else:
+            self.check_for_updates()
 
     @Slot(str, str)
-    def _on_update_result(self, state: str, value: str) -> None:
-        from tiro import WEBSITE
+    def _on_update_result(self, state: str, value: str) -> None:  # (kept for old callers)
+        self.check_for_updates()
 
-        if state == "newer":
-            self.overlay.notify(f"Tiro {value} is available. Opening the download page…", "ok", seconds=5.0)
-            import webbrowser
+    def _start_notices(self) -> None:
+        """Once per start: safe mode, a version that was rolled back, or what's new after an update."""
+        if getattr(self, "_notices_done", False):
+            return
+        self._notices_done = True
+        from tiro import __version__
 
-            webbrowser.open(WEBSITE)
-        elif state == "current":
-            self.overlay.notify("You have the latest version of Tiro.", "ok", seconds=3.5)
-        else:
-            self.overlay.notify("Couldn't check for updates (no connection?).", "warning", seconds=4.0)
+        if self.safe_mode:
+            self.tray.message(f"{APP_NAME} is in safe mode",
+                              "Extras (corrections, learning, GPU) are off for now. Restart Tiro to go back to normal.")
+        elif self.rolled_back_from:
+            self.tray.message(f"{APP_NAME} went back to {__version__}",
+                              f"Version {self.rolled_back_from} didn't start properly on this PC, so Tiro is using "
+                              f"{__version__} again and won't try {self.rolled_back_from} again.")
+        elif self.settings.setup_done and self.settings.whats_new_seen != __version__:
+            if self.settings.whats_new_seen or self.updates.update_trial:
+                self.tray.message(f"{APP_NAME} was updated to {__version__}", "Click to see what's new.",
+                                  action="whats_new")
+            self.settings.whats_new_seen = __version__
+            self.settings.save()
+
+    def show_whats_new(self) -> None:
+        from PySide6.QtWidgets import QMessageBox
+
+        from tiro import __version__
+        from tiro.update.whatsnew import section
+
+        box = QMessageBox()
+        box.setWindowTitle(f"What's new in {APP_NAME} {__version__}")
+        box.setText(section(__version__) or "Fixes and improvements.")
+        box.setTextFormat(Qt.TextFormat.MarkdownText)
+        box.setStandardButtons(QMessageBox.StandardButton.Ok)
+        box.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
+        box.show()
+        self._whats_new_box = box
 
     def open_logs(self) -> None:
         _open_path(log_dir())
@@ -724,6 +800,7 @@ class TiroApp(QObject):
 
     def quit(self) -> None:
         log.info("quitting")
+        self.updates.stop()
         if self.session is not None:
             self.session.cancel()
         self.correction.close()

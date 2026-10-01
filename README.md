@@ -12,6 +12,9 @@ Fast, accurate dictation for Windows and Mac that runs entirely on your own comp
 [Website](https://min3scon.github.io/tiro/) ·
 [All releases](https://github.com/Min3scon/tiro/releases)
 
+> **Using Tiro 2.0.2 or older?** [Install the latest version](https://github.com/Min3scon/tiro/releases/latest/download/TiroSetup.exe)
+> once (your settings, dictionary and history are kept). From 2.0.3 on, Tiro updates itself.
+
 ![Tiro dictating into an editor: the overlay shows the words as they arrive](docs/images/hero.png)
 
 </div>
@@ -27,6 +30,7 @@ Fast, accurate dictation for Windows and Mac that runs entirely on your own comp
 - [What it is](#what-it-is)
 - [Features](#features)
 - [Install](#install): [Windows](#windows) · [Mac](#mac-apple-silicon)
+- [Updates](#updates)
 - [Supported hardware](#supported-hardware)
 - [How Tiro picks the best setup for your computer](#how-tiro-picks-the-best-setup-for-your-computer)
 - [Accuracy: how Tiro gets your words right](#accuracy-how-tiro-gets-your-words-right)
@@ -39,8 +43,7 @@ Fast, accurate dictation for Windows and Mac that runs entirely on your own comp
 
 ## What it is
 
-Tiro is a push-to-talk dictation app in the spirit of Wispr Flow. It lives in your system tray (Windows) or menu
-bar (Mac). Hold your dictation key anywhere: in an email, a chat, a code editor or a form. Talk naturally, and
+Tiro is a push-to-talk dictation app. It lives in your system tray (Windows) or menu bar (Mac). Hold your dictation key anywhere: in an email, a chat, a code editor or a form. Talk naturally, and
 the text streams into the app you're using with punctuation and capitals. A small overlay shows your words as
 they're recognised.
 
@@ -59,8 +62,9 @@ locally. Nothing you say is sent anywhere.
   [Accuracy](#accuracy-how-tiro-gets-your-words-right).
 - **Never rewrites you.** Corrections can only swap a misheard word for one that sounds like it. The rules are
   enforced in code (details below).
-- **Fast.** On an NVIDIA GPU, six seconds of speech is understood in about 0.05 s. The correction pass adds about
-  0.1 ms in a typical commit and under 2 ms at the 95th percentile.
+- **Fast.** Words are typed while you talk, and the rest lands about 0.05 s after you let go of the key (measured on
+  an RTX 3070 into Notepad, a console window and a Chrome text box). The correction pass adds about 0.1 ms in a
+  typical commit and under 2 ms at the 95th percentile.
 - **Types anywhere.** It types into the focused app, or pastes if you prefer (your clipboard is restored). Smart
   spacing joins dictation onto what you typed, and fillers ("um", "uh") are removed. Say "new line" or
   "new paragraph" for breaks.
@@ -70,6 +74,8 @@ locally. Nothing you say is sent anywhere.
 - **A real installer.** It checks your CPU, GPU, graphics memory and RAM, picks the fastest setup, explains why in
   plain English, runs a real speed test and lets you try dictating before you finish.
 - **Private by design.** No accounts, no telemetry, no cloud. It never learns from password fields.
+- **Updates itself, safely.** New versions download in the background, are checked against a signed list, and install
+  the next time Tiro starts. If one doesn't start properly, Tiro goes back to the version you had.
 
 ## Install
 
@@ -126,6 +132,31 @@ Tiro for Mac needs a Mac with Apple Silicon (M1, M2, M3, M4 or newer) and macOS 
 > Hold <kbd>⌘ Command</kbd> and drag icons you don't need out of the menu bar (or move Tiro further right), or
 > quit a few menu bar apps. You can also open Tiro's settings from Launchpad: opening Tiro again while it's
 > running shows its settings.
+
+## Updates
+
+From version 2.0.3, Tiro on Windows keeps itself up to date:
+
+- It checks for a new version about two minutes after it starts and then every few hours, **never while you're
+  dictating**, and not on a metered connection unless you allow it.
+- It downloads **only the files that changed** (a typical update is a few MB) and checks every file against a list
+  signed by the release pipeline. Anything that doesn't match is thrown away.
+- The new version is installed **next to** the current one and takes over the next time Tiro starts (or click
+  **Restart to update**). If it doesn't start properly twice, Tiro goes back to the version you had and won't try that
+  one again. **Settings → Updates → Go back** returns to the previous version at any time.
+- **What a check sends:** only Tiro's version, your Windows version and your processor type (in the request's
+  User-Agent), like any download. No account, no ID, nothing you said or typed.
+- **Settings → Updates** shows the status and lets you switch automatic checks off (then Tiro never goes online
+  unless you click **Check now**), choose the Stable or Beta channel, and allow downloads on metered connections.
+- **Safe mode:** hold **Shift** while starting Tiro to start it with the extras off (corrections, learning, GPU). It
+  also starts that way by itself if it failed to start twice in a row.
+- Windows may show a SmartScreen warning for new downloads because Tiro isn't code-signed yet; updates installed by
+  Tiro itself don't go through SmartScreen.
+
+On a Mac, Tiro tells you when a new version is out and opens its download page; you install it by dragging the new
+app to Applications, as the first time. (Automatic updates on a Mac need an Apple Developer ID, which Tiro doesn't
+have yet: without it, macOS would ask for the microphone and accessibility permissions again after every update.)
+Phones and tablets don't have a Tiro app.
 
 ## Supported hardware
 
@@ -280,8 +311,9 @@ case, it's 12.2 ms at the 95th percentile.
   secure. On Windows it checks for password edit boxes and UI Automation's *IsPassword* flag; on a Mac, macOS's
   secure input mode and secure text fields. If it can't tell, it doesn't learn.
 - Logs never contain what you dictate.
-- The only network traffic is downloading Tiro and its models (from GitHub and Hugging Face) during setup, and
-  "Check for updates" when you click it.
+- The only network traffic is downloading Tiro and its models (from GitHub and Hugging Face) during setup, and the
+  update check (see [Updates](#updates): it sends only Tiro's version, your Windows version and processor type). You
+  can switch automatic update checks off in **Settings → Updates**.
 
 <div align="center"><img src="docs/images/settings-privacy.png" width="640" alt="Privacy settings"></div>
 

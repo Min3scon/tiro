@@ -64,6 +64,7 @@ namespace TiroSetup
                 o.ModelKey = args.Contains("--multilingual") ? "parakeet-tdt-0.6b-v3" : "parakeet-tdt-0.6b-v2";
                 o.InstallDir = Arg("--dir") ?? o.InstallDir;
                 o.StartWithWindows = !args.Contains("--no-autostart");
+                o.NoShell = args.Contains("--no-shell");  // tests: leave Windows integration alone
                 Log($"system: {ctx.System.CpuName}; GPU: {ctx.Recommendation.GpuTitle} usable={ctx.Recommendation.GpuUsable}");
                 Log($"installing to {o.InstallDir} gpu={o.UseGpu} model={o.ModelKey}");
                 var engine = new InstallEngine(ctx.Manifest, o);

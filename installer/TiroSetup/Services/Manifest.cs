@@ -20,7 +20,11 @@ namespace TiroSetup.Services
 
         public static Manifest Load()
         {
-            using (var s = Assembly.GetExecutingAssembly().GetManifestResourceStream("manifest.json"))
+            // tests only: a manifest file pointing at a local server instead of the built-in one
+            var test = System.Environment.GetEnvironmentVariable("TIRO_SETUP_MANIFEST");
+            using (var s = !string.IsNullOrEmpty(test) && File.Exists(test)
+                       ? File.OpenRead(test)
+                       : Assembly.GetExecutingAssembly().GetManifestResourceStream("manifest.json"))
             {
                 var settings = new DataContractJsonSerializerSettings { UseSimpleDictionaryFormat = true };
                 return (Manifest)new DataContractJsonSerializer(typeof(Manifest), settings).ReadObject(s);

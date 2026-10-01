@@ -110,6 +110,40 @@ def test_short_utterance_is_committed_on_finalize():
     assert committed == ["Yes."]
 
 
+def _run_reuse(words, total_sec, speech_spans):
+    asr = FakeAsr(words)
+    calls = []
+
+    def counting(audio):
+        calls.append(len(audio))
+        return asr(audio)
+
+    st = StreamingTranscriber(counting, StreamParams())
+    committed = []
+    for i in range(int(total_sec * SR) // FRAME):
+        t = i * FRAME / SR
+        st.push(frame_audio(i), any(a <= t < b for a, b in speech_spans))
+        if st.due():
+            committed += [w.text for w in st.step().committed]
+    before = len(calls)
+    committed += [w.text for w in st.finalize(reuse=True).committed]
+    return committed, st, len(calls) - before
+
+
+def test_final_decode_reused_after_a_pause():
+    words, end = _timeline("pick up some milk and bread on the way home.")
+    committed, st, finals = _run_reuse(words, end + 0.6, [(0.4, end)])
+    assert committed == [w for w, _, _ in words]
+    assert st.reused and finals == 0  # the decode made during the pause already had every word
+
+
+def test_final_decode_runs_when_the_key_comes_up_mid_speech():
+    words, end = _timeline("pick up some milk and bread on the way home.")
+    committed, st, finals = _run_reuse(words, end + 0.05, [(0.4, end)])
+    assert not st.reused and finals == 1
+    assert committed == [w for w, _, _ in words]
+
+
 def test_repeated_word_after_finalize_is_not_deduplicated():
     asr = FakeAsr([("Yes.", 0.5, 0.8), ("Yes,", 1.9, 2.2), ("really.", 2.3, 2.6)])
     st = StreamingTranscriber(asr, StreamParams())

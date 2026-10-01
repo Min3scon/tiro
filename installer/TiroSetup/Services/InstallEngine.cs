@@ -19,6 +19,7 @@ namespace TiroSetup.Services
         public string InstallDir = Shell.DefaultInstallDir;
         public bool StartWithWindows = true;
         public bool DesktopShortcut;
+        public bool NoShell;  // tests only: no shortcuts, no Apps & features entry, no autostart
     }
 
     public enum StepState { Pending, Active, Done, Skipped, Failed }
@@ -64,7 +65,11 @@ namespace TiroSetup.Services
         public event Action<InstallProgress> ProgressChanged;
         public SelfTestResult TestResult;
         public bool FellBackToCpu;
+        /// <summary>The launcher (shortcuts, autostart and Apps &amp; features point here).</summary>
         public string TiroExe => Path.Combine(opt.InstallDir, "Tiro.exe");
+        /// <summary>This version's own folder (versioned layout: app-X.Y.Z next to the launcher).</summary>
+        public string AppDir => InstallState.VersionDir(opt.InstallDir, manifest.Version);
+        string AppExe => Path.Combine(AppDir, "Tiro.exe");
 
         int iApp = -1, iGpu = -1, iModel = -1, iInstall, iSetup, iTest;
         long totalDownload, doneDownloadBase;
@@ -182,24 +187,42 @@ namespace TiroSetup.Services
                 Set(iModel, StepState.Done);
             }
 
-            // ---- install
+            // ---- install (side by side: the version that runs today stays intact as the "previous" one)
             Set(iInstall, StepState.Active);
             Report("Closing Tiro if it's running…", doneDownloadBase);
             var staging = Path.Combine(temp, "app");
             if (Directory.Exists(staging)) Directory.Delete(staging, true);
             Extract(appZip, staging);
-            await Shell.StopTiroAsync(Path.Combine(staging, "Tiro.exe"), ct);
+            await Shell.StopTiroAsync(Path.Combine(staging, "Tiro.exe"), opt.InstallDir, ct);
             Report("Installing files…", doneDownloadBase);
-            var internalDir = Path.Combine(opt.InstallDir, "_internal");
-            if (Directory.Exists(internalDir)) Directory.Delete(internalDir, true);
-            var exe = TiroExe;
-            if (File.Exists(exe)) File.Delete(exe);
-            CopyTree(staging, opt.InstallDir);
+            var root = opt.InstallDir;
+            var oldVersion = Shell.FindExisting()?.Version;
+            var migrated = InstallState.MigrateFlat(root, oldVersion);  // Tiro 2.0.x was installed flat
+            var state = InstallState.Load(root) ?? new InstallState();
+            var runningBefore = state.Current ?? migrated;
+            if (Directory.Exists(AppDir)) Directory.Delete(AppDir, true);  // reinstalling this version: fresh copy
+            try { Directory.Move(staging, AppDir); }
+            catch (IOException)  // another drive than the temp folder: copy instead
+            {
+                Directory.CreateDirectory(AppDir);
+                CopyTree(staging, AppDir);
+                try { Directory.Delete(staging, true); } catch { }
+            }
             if (opt.UseGpu)
             {
                 Report("Installing the GPU runtime…", doneDownloadBase);
-                Extract(gpuZip, opt.InstallDir);
+                Extract(gpuZip, AppDir);
             }
+            InstallState.WriteLauncher(root);
+            if (runningBefore != null && runningBefore != manifest.Version) state.Previous = runningBefore;
+            state.Current = manifest.Version;
+            state.Pending = null;
+            state.Trial = null;
+            state.Unconfirmed = 0;
+            state.Bad.Remove(manifest.Version);
+            state.Save(root);
+            state.Cleanup(root);
+            var exe = TiroExe;
             var self = Assembly.GetExecutingAssembly().Location;
             var setupCopy = Path.Combine(opt.InstallDir, "TiroSetup.exe");
             if (!string.Equals(Path.GetFullPath(self), Path.GetFullPath(setupCopy), StringComparison.OrdinalIgnoreCase))
@@ -209,12 +232,16 @@ namespace TiroSetup.Services
             // ---- Windows integration + settings
             Set(iSetup, StepState.Active);
             Report("Setting up Windows…", doneDownloadBase);
-            Shell.CreateShortcut(Shell.StartMenuShortcut, exe, "Tiro: speak anywhere, it types for you");
-            if (opt.DesktopShortcut) Shell.CreateShortcut(Shell.DesktopShortcut, exe, "Tiro");
-            else if (File.Exists(Shell.DesktopShortcut)) File.Delete(Shell.DesktopShortcut);
-            Shell.RegisterUninstall(opt.InstallDir, manifest.Version, Shell.DirectorySize(opt.InstallDir));
-            await Shell.RunTiroAsync(exe,
-                $"--set device={(opt.UseGpu ? "auto" : "cpu")} --set model={opt.ModelKey} --set autostart={(opt.StartWithWindows ? "true" : "false")}",
+            if (!opt.NoShell)
+            {
+                Shell.CreateShortcut(Shell.StartMenuShortcut, exe, "Tiro: speak anywhere, it types for you");
+                if (opt.DesktopShortcut) Shell.CreateShortcut(Shell.DesktopShortcut, exe, "Tiro");
+                else if (File.Exists(Shell.DesktopShortcut)) File.Delete(Shell.DesktopShortcut);
+                Shell.RegisterUninstall(opt.InstallDir, manifest.Version, Shell.DirectorySize(opt.InstallDir));
+            }
+            await Shell.RunTiroAsync(AppExe,
+                $"--set device={(opt.UseGpu ? "auto" : "cpu")} --set model={opt.ModelKey}" +
+                (opt.NoShell ? "" : $" --set autostart={(opt.StartWithWindows ? "true" : "false")}"),
                 TimeSpan.FromSeconds(30), ct);
             Set(iSetup, StepState.Done);
 
@@ -225,7 +252,7 @@ namespace TiroSetup.Services
             if (opt.UseGpu && (TestResult == null || TestResult.Device != "cuda"))
             {
                 FellBackToCpu = true;  // e.g. a driver problem: Tiro still works on the CPU
-                await Shell.RunTiroAsync(exe, "--set device=cpu", TimeSpan.FromSeconds(30), ct);
+                await Shell.RunTiroAsync(AppExe, "--set device=cpu", TimeSpan.FromSeconds(30), ct);
             }
             Set(iTest, TestResult != null && TestResult.Ok ? StepState.Done : StepState.Failed);
             ProgressChanged?.Invoke(new InstallProgress { Fraction = 1, Status = "Done" });
@@ -236,7 +263,7 @@ namespace TiroSetup.Services
         {
             var outFile = Path.Combine(temp, "selftest.json");
             if (File.Exists(outFile)) File.Delete(outFile);
-            await Shell.RunTiroAsync(TiroExe, $"--selftest \"{outFile}\" --device {device}", TimeSpan.FromMinutes(3), ct);
+            await Shell.RunTiroAsync(AppExe, $"--selftest \"{outFile}\" --device {device}", TimeSpan.FromMinutes(3), ct);
             if (!File.Exists(outFile)) return new SelfTestResult { Ok = false, Error = "The self-test didn't produce a result." };
             using (var f = File.OpenRead(outFile))
                 return (SelfTestResult)new DataContractJsonSerializer(typeof(SelfTestResult)).ReadObject(f);
@@ -271,7 +298,8 @@ namespace TiroSetup.Services
         public static async Task UninstallAsync(string dir, bool removeUserData, Action<string> status, CancellationToken ct)
         {
             status("Closing Tiro…");
-            await Shell.StopTiroAsync(Path.Combine(dir, "Tiro.exe"), ct);
+            var appDir = InstallState.CurrentAppDir(dir);
+            await Shell.StopTiroAsync(appDir != null ? Path.Combine(appDir, "Tiro.exe") : null, dir, ct);
             status("Removing shortcuts and settings entries…");
             Shell.Unregister();
             status("Deleting files…");

@@ -218,6 +218,10 @@ class ParakeetEngine:
         self.fallback_reason: str | None = None
         self._asr = None
         self._lock = threading.Lock()
+        # Set while a dictation's final decode is due: the language model starts no new GPU work meanwhile.
+        self.priority = threading.Event()
+        self._waiting = 0  # decodes waiting for the GPU (the language model yields to them)
+        self._waiting_lock = threading.Lock()
         self.vocabulary = None  # tiro.vocab.Vocabulary whose spellings are boosted while decoding
         self._boost_args: tuple | None = None
         self._recent_ac: deque[AcousticContext] = deque(maxlen=4)  # keeps the last few decodes re-scorable
@@ -357,6 +361,8 @@ class ParakeetEngine:
         self.transcribe(noise)
         if self.device in ("cuda", "coreml"):
             self.transcribe(np.tile(noise, 6))  # prime the 20 s bucket as well
+            if self.device == "cuda":
+                self.transcribe(np.tile(noise, 13))  # and the 30 s one (long dictations), so none is planned live
 
     @property
     def ready(self) -> bool:
@@ -394,6 +400,10 @@ class ParakeetEngine:
         asr.boost = BoostTrie(seqs, start_bonus, cont_bonus, inword) if seqs else None
         return len(seqs)
 
+    def wants_gpu(self) -> bool:
+        """Should other GPU work (the language model) wait? Yes while a decode is queued or a final one is due."""
+        return self._waiting > 0 or self.priority.is_set()
+
     def ping(self) -> None:
         """Cheap inference that wakes the GPU clocks and re-primes the common bucket shape."""
         if self._asr is not None:
@@ -408,9 +418,18 @@ class ParakeetEngine:
             return []
         wav = np.ascontiguousarray(audio, dtype=np.float32)[None, :]
         lens = np.array([wav.shape[1]], dtype=np.int64)
-        with self._lock:
+        with self._waiting_lock:
+            self._waiting += 1
+        try:
+            self._lock.acquire()
+        finally:
+            with self._waiting_lock:
+                self._waiting -= 1
+        try:
             result = next(iter(self._asr.recognize_batch(wav, lens)))
             ac = self._asr.last_acoustic
+        finally:
+            self._lock.release()
         words = tokens_to_words(result.tokens or [], result.timestamps or [], result.logprobs)
         if ac is not None and len(ac.ids) == len(result.tokens or []):
             self._recent_ac.append(ac)

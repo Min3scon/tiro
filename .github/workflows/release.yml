@@ -1,14 +1,15 @@
 name: Release
 
-# Push a tag like v2.0.0 to build the Windows installer + app zips and the macOS .dmg, test them, and publish
-# them as a GitHub release.
+# Push a tag like v2.0.3 to build the Windows installer, app zips and update packs plus the macOS .dmg, test them,
+# publish them as a GitHub release, and then sign and publish the in-app update feed (tag vX.Y.Z -> stable channel,
+# vX.Y.Z-beta.N -> beta channel only).
 on:
   push:
     tags: ["v*"]
   workflow_dispatch:
     inputs:
       tag:
-        description: "Existing tag to (re)build, e.g. v2.0.0"
+        description: "Existing tag to (re)build, e.g. v2.0.3"
         required: true
 
 permissions:
@@ -24,10 +25,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - name: Refuse a version that isn't new
+        run: |
+          v="${TAG#v}"
+          grep -q "__version__ = \"$v\"" tiro/__init__.py || { echo "tiro/__init__.py is not $v"; exit 1; }
+          latest=$(gh release view --json tagName -q .tagName 2>/dev/null || echo v0.0.0)
+          python3 - "$v" "${latest#v}" <<'EOF'
+          import sys
+          sys.path.insert(0, ".")
+          from tiro.update.feed import newer
+          new, old = sys.argv[1], sys.argv[2]
+          if not newer(new, old) and new != old:
+              sys.exit(f"{new} is not newer than the latest release {old}")
+          EOF
       - name: Create a draft release (if it doesn't exist yet)
         run: |
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --draft --title "Tiro ${TAG#v}" \
-            --notes-file .github/release-notes.md
+          python3 tools/release_notes.py "${TAG#v}" > notes.md
+          prerelease=""; [[ "$TAG" == *-* ]] && prerelease="--prerelease"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --draft $prerelease --title "Tiro ${TAG#v}" \
+            --notes-file notes.md
 
   windows:
     needs: draft
@@ -49,8 +67,15 @@ jobs:
           uv pip install --python .venv\Scripts\python.exe -r requirements-windows.txt
       - name: Unit tests
         run: .venv\Scripts\python.exe -m pytest -q
-      - name: Build Tiro.exe, release zips and TiroSetup.exe
+      - name: Build the native hotkey, Tiro.exe, release zips, update packs, launcher and TiroSetup.exe
         run: powershell -NoProfile -ExecutionPolicy Bypass -File tools\build.ps1
+      - name: Health check (and refuse a build that trusts a test key)
+        run: |
+          $p = Start-Process -FilePath build\dist\Tiro\Tiro.exe -ArgumentList '--health','health.json' -Wait -PassThru
+          Get-Content health.json
+          $h = Get-Content health.json | ConvertFrom-Json
+          if ($p.ExitCode -ne 0 -or -not $h.ok) { throw "health check failed" }
+          if ($h.keys -contains "e2e-test" -or $h.keys.Count -lt 1) { throw "wrong update keys in the build: $($h.keys)" }
       - name: Smoke test (download the CPU speech model, transcribe the test clip)
         run: |
           .venv\Scripts\python.exe -c "from tiro.models import MODELS, download_model; download_model(MODELS['parakeet-tdt-0.6b-v2'], variant='int8')"
@@ -59,7 +84,12 @@ jobs:
           if ($p.ExitCode -ne 0) { throw "self-test failed" }
       - name: Upload to the release
         run: |
-          gh release upload $env:TAG (Get-ChildItem release\TiroSetup.exe, release\Tiro-*-win64.zip, release\manifest.json).FullName --clobber
+          $files = Get-ChildItem release\TiroSetup.exe, release\Tiro-*-win64*.zip, release\Tiro-*-win64-files.json, release\manifest.json
+          gh release upload $env:TAG $files.FullName --clobber
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fragment-win-x64
+          path: release/update-fragment-win-x64.json
 
   macos:
     needs: draft
@@ -92,6 +122,12 @@ jobs:
         run: python dev/mlx_probe.py
       - name: Upload to the release
         run: gh release upload "$TAG" release/Tiro-mac-arm64.dmg --clobber
+      - name: Feed entry (Macs are told about new versions; they update by installing the new .dmg)
+        run: python tools/mac_fragment.py release/Tiro-mac-arm64.dmg > update-fragment-mac-arm64.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fragment-mac-arm64
+          path: update-fragment-mac-arm64.json
 
   publish:
     needs: [windows, macos]
@@ -99,4 +135,42 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Publish the release
-        run: gh release edit "$TAG" --draft=false --latest
+        run: |
+          if [[ "$TAG" == *-* ]]; then gh release edit "$TAG" --draft=false --prerelease --latest=false
+          else gh release edit "$TAG" --draft=false --latest; fi
+
+  feed:
+    # Signs and publishes the update feed that copies of Tiro check. Needs the TIRO_UPDATE_KEY secret (see README,
+    # "Releasing"). Re-run this job alone if it failed: it is safe to repeat.
+    needs: publish
+    runs-on: ubuntu-latest
+    concurrency: update-feed
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/download-artifact@v4
+        with:
+          path: fragments
+      - name: Compose, sign, verify and publish the feed
+        env:
+          TIRO_UPDATE_KEY: ${{ secrets.TIRO_UPDATE_KEY }}
+        run: |
+          set -e
+          gh release view update-feed >/dev/null 2>&1 || gh release create update-feed --prerelease --latest=false \
+            --title "Update feed" --notes "Signed files that copies of Tiro check for updates. Not a download."
+          channels="beta"; [[ "$TAG" == *-* ]] || channels="stable beta"
+          for ch in $channels; do
+            rm -rf prev && mkdir prev
+            gh release download update-feed -p "$ch.json" -D prev 2>/dev/null || true
+            prev=""; [ -f "prev/$ch.json" ] && prev="--previous prev/$ch.json"
+            python tools/feed.py compose --channel "$ch" $prev --allow-same \
+              --fragment fragments/fragment-win-x64/update-fragment-win-x64.json \
+              --fragment fragments/fragment-mac-arm64/update-fragment-mac-arm64.json --out "manifest-$ch.json"
+            python tools/feed.py sign "manifest-$ch.json" --keyid ci-2026a --out "$ch.json"
+            python tools/feed.py verify "$ch.json" --check-assets
+            gh release upload update-feed "$ch.json" --clobber
+          done

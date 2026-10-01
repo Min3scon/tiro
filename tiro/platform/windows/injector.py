@@ -124,7 +124,8 @@ def _test_guard_ok() -> bool:
     fg = winutil.foreground_window()
     if hwnd_file:
         try:
-            allowed = {int(x) for x in open(hwnd_file, encoding="utf-8").read().split() if x.strip()}
+            with open(hwnd_file, encoding="utf-8") as f:
+                allowed = {int(x) for x in f.read().split() if x.strip()}
         except (OSError, ValueError):
             allowed = set()
         return fg in allowed

@@ -12,12 +12,14 @@ A cell holds the test name or `n/a` (with a reason) when that kind of test doesn
 
 | Feature | Unit | Int | E2E | Fail | Result |
 |---|---|---|---|---|---|
-| Stage timing log (capture, end of speech, model, transcription, correction, insertion) | - | - | - | - | - |
-| Fast end of speech (VAD endpointing, tuned silence) | - | - | - | - | - |
-| Words appear while speaking (streaming, stable commits only) | - | - | - | - | - |
-| Warm model (preload, no idle unload, warm-up pass, GPU clock wake) | - | - | - | - | - |
+| Stage timing log (capture, end of speech, model, transcription, correction, insertion) | n/a (logging) | `dev/latency_e2e.py` reads it | latency matrix | n/a | ship |
+| Fast end of speech: no fixed tail; stop at once if already quiet, else wait for the word to end (max 0.4 s) | `tests/test_stream.py` | latency matrix | Notepad 342 -> 54 ms median | key released mid-word: waits (TAIL_MAX) | ship |
+| Words appear while speaking (streaming, stable commits only); final decode reused after a pause | `tests/test_stream.py` (reuse, mid-speech release) | `dev/eval_final_reuse.py`: 940/955 identical, reuse 13 vs 20 word errors on the rest | long dictation 433 -> 24 ms | release mid-speech: fresh decode | ship |
+| Warm model (preload, warm-up of all GPU shape buckets, GPU wake on key-down); language model yields the GPU to speech | n/a | `dev/llm_coldstart.py` | first dictation after start 1.4 s -> 24 ms; after 3 min idle 92 ms | n/a | ship |
 | Fast text insertion per app (type / paste / bracketed paste for terminals), clipboard restored | - | - | - | - | - |
-| Correction pass within budget (tier 0 skip, tier 1 ms-level, tier 2 deadline 150 ms, safe late swaps) | - | - | - | - | - |
+| Correction pass within budget (tier 0 skip, tier 1 ms-level, tier 2 deadline 150 ms, safe late swaps) | `tests/test_correct.py` | accuracy report | correction 0.0-0.4 ms at the end in the matrix | LLM busy: skipped, never waits | ship |
+
+| Global hotkey on a native thread (never starved while a model loads) | `core/tests/test_hotkey.cc` (15 cases, same as `tests/test_hotkey.py`) | `dev/hook_gil_probe.py --native`: 29/29 taps swallowed in time during a model load (Python hook: 4 got through in 2.8 s, up to 2.2 s late) | latency matrix | DLL missing -> Python hook | ship |
 
 ## Phase A2: updates
 

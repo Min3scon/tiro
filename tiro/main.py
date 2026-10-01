@@ -60,8 +60,23 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--device", choices=["auto", "cuda", "cpu"], help="device for --selftest")
     parser.add_argument("--set", action="append", default=[], metavar="KEY=VALUE",
                         help="change a setting and exit (e.g. --set device=cpu)")
+    parser.add_argument("--health", metavar="OUT.json", help=argparse.SUPPRESS)  # updater: can this build start?
+    parser.add_argument("--update-trial", metavar="TOKEN", help=argparse.SUPPRESS)  # launcher: first start
+    parser.add_argument("--rolled-back-from", metavar="VERSION", help=argparse.SUPPRESS)
+    parser.add_argument("--safe-mode", action="store_true", help="start with all optional features off")
     args, _unknown = parser.parse_known_args(argv)
 
+    if args.health:
+        from tiro.update.health import run as health
+
+        return health(args.health)
+    if args.update_trial:
+        try:  # test builds only (tools/build.ps1 -TestCrash): a version that fails to start, to test roll back
+            from tiro._build import CRASH_ON_TRIAL
+        except ImportError:
+            CRASH_ON_TRIAL = False
+        if CRASH_ON_TRIAL:
+            os._exit(3)
     _setup_logging(args.verbose)
     log = logging.getLogger("tiro")
     if args.set:
@@ -133,7 +148,10 @@ def main(argv: list[str] | None = None) -> int:
 
     first = Settings.load()
     needs_setup = args.setup or (not first.setup_done and not args.autostart) or find_model(MODELS[first.model]) is None
-    app = TiroApp(qapp, autostarted=args.autostart, setup=needs_setup)
+    if args.update_trial and needs_setup:
+        needs_setup = False  # an update never sends anyone back through setup
+    app = TiroApp(qapp, autostarted=args.autostart, setup=needs_setup, safe_mode=args.safe_mode,
+                  update_trial=args.update_trial, rolled_back_from=args.rolled_back_from)
     if needs_setup:
         app.show_setup(installed=args.installed)
 

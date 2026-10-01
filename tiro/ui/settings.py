@@ -1,4 +1,5 @@
-"""Settings window: a sidebar of pages (General, Recognition, Accuracy, Dictionary & learning, Privacy, About)."""
+"""Settings window: a sidebar of pages (General, Recognition, Accuracy, Dictionary & learning, Privacy, Updates,
+About)."""
 
 from __future__ import annotations
 
@@ -46,6 +47,7 @@ PAGES = (
     ("accuracy", "Accuracy"),
     ("dictionary", "Dictionary & learning"),
     ("privacy", "Privacy"),
+    ("updates", "Updates"),
     ("about", "About"),
 )
 PRIVACY_PROMISE = (
@@ -497,6 +499,138 @@ class SettingsWindow(QWidget):
         folder.clicked.connect(self.app.open_data_folder)
         self._row(grid, 1, "Where it's stored", folder, str(self.app.data_folder()))
 
+    def _build_updates(self, lay) -> None:
+        s = self.app.settings
+        _card, grid = self._card(lay)
+        self.update_title = QLabel(f"{APP_NAME} {__version__}")
+        self.update_title.setObjectName("title")
+        self.update_state = QLabel()
+        self.update_state.setObjectName("subtitle")
+        self.update_state.setWordWrap(True)
+        col = QVBoxLayout()
+        col.setSpacing(2)
+        col.addWidget(self.update_title)
+        col.addWidget(self.update_state)
+        holder = QWidget()
+        holder.setLayout(col)
+        col.setContentsMargins(0, 0, 0, 0)
+        grid.addWidget(holder, 0, 0)
+        buttons = QHBoxLayout()
+        buttons.setSpacing(8)
+        self.update_restart = QPushButton("Restart to update")
+        self.update_restart.setObjectName("primary")
+        self.update_restart.clicked.connect(self.app.updates.restart_to_update)
+        self.update_check = QPushButton("Check now")
+        self.update_check.clicked.connect(self.app.updates.check_now)
+        self.update_notes = QPushButton("See what's new")
+        self.update_notes.setObjectName("link")
+        self.update_notes.clicked.connect(self._open_update_notes)
+        for b in (self.update_notes, self.update_check, self.update_restart):
+            b.setCursor(Qt.CursorShape.PointingHandCursor)
+            buttons.addWidget(b)
+        bh = QWidget()
+        bh.setLayout(buttons)
+        buttons.setContentsMargins(0, 0, 0, 0)
+        grid.addWidget(bh, 0, 1, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+
+        lay.addWidget(section_title("How Tiro updates"))
+        _card, grid = self._card(lay)
+        self.auto_update = Toggle(s.auto_update_check)
+        self.auto_update.toggled.connect(lambda v: self._set("auto_update_check", v))
+        self._row(grid, 0, "Check for updates automatically", self.auto_update,
+                  "About every six hours, never while you're dictating. Off: Tiro never goes online unless you "
+                  "click Check now.")
+        self.install_quit = Toggle(s.install_on_quit)
+        self.install_quit.toggled.connect(lambda v: self._set("install_on_quit", v))
+        self._row(grid, 1, "Install updates the next time Tiro starts", self.install_quit,
+                  "A downloaded update is put in place when Tiro next starts, so you're never interrupted.")
+        self.update_channel = Segmented([("stable", "Stable"), ("beta", "Beta")], s.update_channel)
+        self.update_channel.changed.connect(lambda v: self._set("update_channel", v))
+        self._row(grid, 2, "Channel", self.update_channel, "Beta gets new features first; they may be rougher.")
+        self.update_metered = Toggle(s.update_on_metered)
+        self.update_metered.toggled.connect(lambda v: self._set("update_on_metered", v))
+        self._row(grid, 3, "Download on metered connections", self.update_metered,
+                  "Off: on a phone hotspot or capped plan, Tiro waits for a normal connection.")
+
+        lay.addWidget(section_title("Going back"))
+        _card, grid = self._card(lay)
+        self.update_back = QPushButton("Go back")
+        self.update_back.clicked.connect(self._roll_back)
+        self._row(grid, 0, "Previous version", self.update_back,
+                  "Switch back to the version you had before the last update. Tiro restarts.")
+        privacy = QLabel(
+            "What an update check sends: only Tiro's version, your Windows version and processor type, like any "
+            "download does. No account, no ID, no audio and no text. Every update is signed; Tiro refuses anything "
+            "that doesn't match the signature, and keeps your previous version so it can go back if a new one "
+            "doesn't start.")
+        privacy.setObjectName("hint")
+        privacy.setWordWrap(True)
+        lay.addWidget(privacy)
+
+    def refresh_updates(self) -> None:
+        import datetime as dt
+
+        st = self.app.updates.status
+        when = ""
+        if st.last_check:
+            try:
+                ago = dt.datetime.now(dt.UTC) - dt.datetime.fromisoformat(st.last_check)
+                mins = int(ago.total_seconds() // 60)
+                when = ("just now" if mins < 1 else f"{mins} min ago" if mins < 60 else
+                        f"{mins // 60} h ago" if mins < 48 * 60 else f"{mins // 1440} days ago")
+            except ValueError:
+                when = ""
+        texts = {
+            "checking": "Checking for updates…",
+            "downloading": f"Downloading {APP_NAME} {st.version}… {st.detail}",
+            "ready": f"{APP_NAME} {st.version} is ready. Restart to finish updating.",
+            "available": f"{APP_NAME} {st.version} is available. Download it from the website.",
+            "offline": st.detail or "Couldn't reach the update server.",
+            "skipped": st.detail,
+            "error": st.detail or "The last check didn't work.",
+            "up-to-date": "You're up to date.",
+        }
+        line = texts.get(st.state, "You're up to date." if st.last_check else "Not checked yet.")
+        if when and st.state in ("up-to-date", "idle", "offline", "skipped", "error"):
+            line += f"  Last checked {when}."
+        if self.app.safe_mode:
+            line += "  Safe mode is on."
+        self.update_state.setText(line)
+        for i in range(self.nav.count()):  # a dot next to "Updates" while one is waiting
+            item = self.nav.item(i)
+            if item.data(Qt.ItemDataRole.UserRole) == "updates":
+                item.setText("Updates  \u25cf" if st.state in ("ready", "available") else "Updates")
+        self.update_restart.setVisible(st.state == "ready")
+        self.update_restart.setEnabled(not self.app.dictating)
+        self.update_check.setEnabled(st.state not in ("checking", "downloading"))
+        self.update_notes.setVisible(bool(st.notes_url) and st.state in ("ready", "available"))
+        prev = self.app.updates.service.rollback_target()
+        self.update_back.setEnabled(prev is not None)
+        self.update_back.setText(f"Go back to {prev}" if prev else "Nothing to go back to")
+        s = self.app.settings
+        for toggle, value in ((self.auto_update, s.auto_update_check), (self.install_quit, s.install_on_quit),
+                              (self.update_metered, s.update_on_metered)):
+            toggle.blockSignals(True)
+            toggle.setChecked(value)
+            toggle.blockSignals(False)
+        self.update_channel.set_value(s.update_channel)
+
+    def _open_update_notes(self) -> None:
+        import webbrowser
+
+        url = self.app.updates.status.notes_url
+        if url:
+            webbrowser.open(url)
+
+    def _roll_back(self) -> None:
+        prev = self.app.updates.service.rollback_target()
+        if prev is None:
+            return
+        ok = QMessageBox.question(self, "Go back?", f"Go back to {APP_NAME} {prev}? Tiro restarts now, and won't "
+                                  f"offer {__version__} again.") == QMessageBox.StandardButton.Yes
+        if ok:
+            self.app.updates.roll_back()
+
     def _build_about(self, lay) -> None:
         _card, grid = self._card(lay)
         head = QHBoxLayout()
@@ -513,9 +647,6 @@ class SettingsWindow(QWidget):
         holder.setLayout(head)
         head.setContentsMargins(0, 0, 0, 0)
         grid.addWidget(holder, 0, 0, 1, 2)
-        updates = QPushButton("Check for updates")
-        updates.clicked.connect(self.app.check_for_updates)
-        self._row(grid, 1, "Updates", updates, "Asks GitHub for the latest version. Nothing about you is sent.")
         logs = QPushButton("Open log folder")
         logs.clicked.connect(self.app.open_logs)
         self._row(grid, 2, "Logs", logs, "Logs never contain what you dictate.")
@@ -609,6 +740,7 @@ class SettingsWindow(QWidget):
         self._fill_fixes()
         self._fill_terms()
         self._refresh_stats()
+        self.refresh_updates()
 
     def _ai_status_text(self) -> str:
         s = self.app.settings

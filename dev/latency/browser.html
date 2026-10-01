@@ -13,8 +13,12 @@
 <textarea id="t" autofocus></textarea>
 <script>
   const t = document.getElementById("t");
-  // the harness reads the window title to time when the last character arrived
-  t.addEventListener("input", () => { document.title = "TIRO-TEST-BROWSER " + t.value.length; });
+  // After each change is painted (next animation frame), tell the test harness the new length.
+  t.addEventListener("input", () => {
+    const n = t.value.length;
+    document.title = "TIRO-TEST-BROWSER " + n;
+    requestAnimationFrame(() => setTimeout(() => fetch("/len?n=" + n, {cache: "no-store"}).catch(() => {}), 0));
+  });
   window.addEventListener("focus", () => t.focus());
 </script>
 </body>

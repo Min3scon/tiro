@@ -24,6 +24,15 @@ from tiro.vad import FRAME, SileroVad, SpeechGate
 log = logging.getLogger(__name__)
 
 RELEASE_TAIL_SEC = 0.25  # keep listening briefly after the key is released (people let go mid-syllable)
+# Adaptive tail: if speech had already stopped when the key came up there is nothing to wait for; if the user
+# let go mid-word, listen until the word ends (VAD quiet for TAIL_QUIET_SEC), never longer than TAIL_MAX_SEC.
+ADAPTIVE_TAIL = os.environ.get("TIRO_ADAPTIVE_TAIL", "1") != "0"
+TAIL_ALREADY_QUIET_SEC = 0.15
+TAIL_QUIET_SEC = 0.12
+TAIL_MAX_SEC = 0.4
+# At the end, reuse the decode made during the pause instead of decoding the same speech again (see
+# StreamingTranscriber.finalize); measured equal to a fresh decode on the accuracy sets (PROGRESS.md, A1).
+REUSE_FINAL = os.environ.get("TIRO_REUSE_FINAL", "1") != "0"
 LATE_FIX_MAX_AGE = 4.0  # a correction that arrives after its words were typed may replace them for this long
 LATE_FIX_MAX_CHARS = 400  # ... and only if it means retyping at most this much
 SILENT_PEAK = 3e-4  # below -70 dBFS for a whole dictation: the device is muted, virtual, or not the right one
@@ -59,7 +68,9 @@ class DictationSession:
         correction_budget_ms: float = 150.0,
         late_fixes: bool = True,
         on_finish: Callable[[DictationSession], None] | None = None,
+        on_speech: Callable[[], None] | None = None,
     ):
+        self.on_speech = on_speech  # called once, when the first speech is heard (the hotkey needs to know)
         self.start_delay = start_delay  # wait this long before opening the mic (lets shortcut chords cancel first)
         self._previous = previous  # an earlier dictation that may still be typing its last words
         self.engine = engine
@@ -111,6 +122,7 @@ class DictationSession:
         self.typed_chars_end = 0  # ... and after the key was released
         self.decode_ms_end = 0.0
         self.type_ms_end = 0.0
+        self.final_reused = False  # the end of the dictation reused the decode made during the pause
 
     # ------------------------------------------------------------------ control (any thread)
     def start(self) -> None:
@@ -164,6 +176,7 @@ class DictationSession:
                 self.cb.on_notice("error", f"Dictation failed: {exc}")
                 self.cb.on_state("error")
             finally:
+                self._urgent(False)
                 self.capture.close()
                 self._previous = None
         finally:
@@ -174,6 +187,15 @@ class DictationSession:
                     self.on_finish(self)
                 except Exception:
                     log.exception("on_finish failed")
+
+    def _urgent(self, on: bool) -> None:
+        """While the final decode is due, the language model must not start new work on the shared GPU."""
+        fn = getattr(self.engine, "urgent", None)
+        if fn is not None:
+            try:
+                fn(on)
+            except Exception:
+                log.exception("could not flag the final decode as urgent")
 
     def _probe_target(self) -> None:
         """Which app are we typing into, and is it a password field? (UI Automation can take a moment.)"""
@@ -225,19 +247,32 @@ class DictationSession:
                         now = time.perf_counter()
                         self.marks.setdefault("first_speech", now)
                         self.marks["last_speech"] = now
-                    self.speech_heard = self.speech_heard or speech
+                        if not self.speech_heard:
+                            self.speech_heard = True
+                            if self.on_speech is not None:
+                                self.on_speech()
                     stream.push(frame, speech)
                 pending = pending[n:]
             if loading and self.engine_ready.is_set():
                 loading = False
                 self.cb.on_state("listening")
             if self._stop.is_set():
+                now = time.perf_counter()
                 if stop_at is None:
-                    stop_at = time.monotonic() + RELEASE_TAIL_SEC
-                    self.marks["key_up"] = time.perf_counter()
+                    self.marks["key_up"] = now
+                    self._urgent(True)  # the final decode goes first: no new language-model work on the GPU
                     self.cb.on_state("finishing")
+                    last = self.marks.get("last_speech")
+                    if not ADAPTIVE_TAIL:
+                        stop_at = time.monotonic() + RELEASE_TAIL_SEC
+                    elif last is None or now - last >= TAIL_ALREADY_QUIET_SEC:
+                        stop_at = time.monotonic()  # nothing is still being said
+                    else:
+                        stop_at = time.monotonic() + TAIL_MAX_SEC
                 if time.monotonic() >= stop_at:
                     break
+                if ADAPTIVE_TAIL and now - self.marks.get("last_speech", 0.0) >= TAIL_QUIET_SEC:
+                    break  # the last word has ended
                 continue
             if loading:
                 continue
@@ -248,7 +283,7 @@ class DictationSession:
                 and stream.has_speech
                 and stream.silence_run >= self.hands_free_pause_sec * stream.sr
             ):
-                self._apply(stream.finalize())
+                self._apply(stream.finalize(reuse=REUSE_FINAL))
         # drain what the driver still holds, then finish the utterance
         for chunk in self.capture.drain():
             pending = np.concatenate((pending, chunk)) if pending.size else chunk
@@ -257,16 +292,22 @@ class DictationSession:
             frame = pending[i : i + FRAME]
             stream.push(frame, gate.update(self.vad(frame)))
         if self._cancel.is_set():
+            self._urgent(False)
             self.cb.on_state("cancelled")
             return
         if not self.engine_ready.wait(timeout=120):
+            self._urgent(False)
             self.cb.on_notice("error", "The speech model is still loading. Try again in a moment.")
             self.cb.on_state("error")
             return
         audio_end = time.perf_counter()
         self.marks["tail_done"] = audio_end
         before = self.correction_ms
-        upd = stream.finalize()
+        try:
+            upd = stream.finalize(reuse=REUSE_FINAL)
+        finally:
+            self._urgent(False)
+        self.final_reused = stream.reused
         self.marks["decode_done"] = time.perf_counter()
         self.decode_ms_end = (self.marks["decode_done"] - audio_end) * 1000
         self._apply(upd, final=True)
@@ -293,6 +334,7 @@ class DictationSession:
             "release_to_typed_ms": ms("key_up", "typed"),
             "tail_ms": ms("key_up", "tail_done"),
             "decode_ms": round(self.decode_ms_end, 1),
+            "reused": self.final_reused,
             "correction_ms": round(self.end_correction_ms, 1),
             "type_ms": round(self.type_ms_end, 1),
             "speech_end_to_typed_ms": ms("last_speech", "typed"),
@@ -303,10 +345,11 @@ class DictationSession:
             "app": self.app_name,
             "device": getattr(self.engine, "device", "?"),
         }
-        log.info("latency: release->typed %s ms (tail %s, decode %s, correction %s, typing %s); "
+        log.info("latency: release->typed %s ms (tail %s, decode %s%s, correction %s, typing %s); "
                  "speech end->typed %s ms; chars typed live %d, at the end %d",
-                 rec["release_to_typed_ms"], rec["tail_ms"], rec["decode_ms"], rec["correction_ms"],
-                 rec["type_ms"], rec["speech_end_to_typed_ms"], rec["chars_live"], rec["chars_end"])
+                 rec["release_to_typed_ms"], rec["tail_ms"], rec["decode_ms"], " reused" if rec["reused"] else "",
+                 rec["correction_ms"], rec["type_ms"], rec["speech_end_to_typed_ms"], rec["chars_live"],
+                 rec["chars_end"])
         path = os.environ.get("TIRO_TIMING_LOG")  # tests: one JSON line per dictation
         if path:
             try:

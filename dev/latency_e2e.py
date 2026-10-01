@@ -29,7 +29,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from tiro.injector import INPUT, INPUT_KEYBOARD, KEYBDINPUT, KEYEVENTF_KEYUP  # noqa: E402
+from tiro.injector import INPUT, INPUT_KEYBOARD, KEYBDINPUT, KEYEVENTF_KEYUP
 
 user32 = ctypes.WinDLL("user32", use_last_error=True)
 user32.FindWindowW.restype = wintypes.HWND
@@ -44,6 +44,7 @@ WM_GETTEXT, WM_GETTEXTLENGTH, WM_SETTEXT, WM_CLOSE, EM_SETMODIFY = 0x000D, 0x000
 LOG = Path(os.environ["LOCALAPPDATA"]) / "Tiro" / "logs" / "tiro.log"
 F24 = 0x87
 WORKDIR = ROOT / "work" / "results" / "latency"
+CLAUDE_CWD = os.environ.get("TIRO_TEST_CLAUDE_CWD", "D:\\")
 
 
 def key(vk: int, up: bool) -> None:
@@ -182,10 +183,13 @@ class ClaudeCode(Target):
     """The real Claude Code CLI in a console window, read-only (plan mode); text is never submitted."""
     name = "claude"
 
+    BLOCKERS = ("trust this folder", "Do you trust", "Quick safety check", "Enter to confirm")
+
     def open(self):
-        # this project folder is already trusted, so no "trust this folder?" screen can catch the typed text
+        # D:\ is a folder this user already trusts in Claude Code (so no trust question appears); plan mode is
+        # read-only, and nothing typed is ever submitted
         self.proc = subprocess.Popen(["cmd.exe", "/k", "title TIRO-TEST-CLAUDE && claude --permission-mode plan"],
-                                     cwd=str(ROOT), creationflags=subprocess.CREATE_NEW_CONSOLE)
+                                     cwd=CLAUDE_CWD, creationflags=subprocess.CREATE_NEW_CONSOLE)
         self.hwnd = find_title("TIRO-TEST-CLAUDE", 20) or (windows_of_pid(self.proc.pid) or [0])[0]
         time.sleep(6)  # let the CLI start and draw its input box
         self.peek = subprocess.Popen([sys.executable, str(ROOT / "dev" / "latency" / "console_peek.py"),
@@ -196,6 +200,18 @@ class ClaudeCode(Target):
         threading.Thread(target=self._pump, daemon=True).start()
         time.sleep(0.5)
         self.base = self._text
+        if self.blocked():
+            # A question (e.g. "do you trust this folder?") is on screen. Typed text must never answer it:
+            # give up on this target. The folder's trust is the user's decision, never the test's.
+            print("claude: Claude Code is asking a question (folder trust?); target skipped", flush=True)
+            with self._lock:
+                (WORKDIR / "claude-screen-blocked.txt").write_text(self._text, encoding="utf-8")
+            self.hwnd = 0
+
+    def blocked(self) -> bool:
+        with self._lock:
+            screen = self._text
+        return any(b in screen for b in self.BLOCKERS)
 
     def _pump(self):
         for line in self.peek.stdout:
@@ -224,33 +240,57 @@ class ClaudeCode(Target):
 
 
 class Browser(Target):
+    """A Chrome text box. The page reports its length to a local server after each change is painted
+    (requestAnimationFrame), so the time is when the text was on screen, not when a title changed."""
     name = "browser"
 
     def open(self):
+        import http.server
+
+        target = self
+        self.length = 0
+        self.base = 0
+        page = (ROOT / "dev" / "latency" / "browser.html").read_bytes()
+
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                if self.path.startswith("/len?n="):
+                    try:
+                        target.length = int(self.path.split("=", 1)[1])
+                    except ValueError:
+                        pass
+                    body, ctype = b"", "text/plain"
+                else:
+                    body, ctype = page, "text/html; charset=utf-8"
+                self.send_response(200)
+                self.send_header("Content-Type", ctype)
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+            def log_message(self, *args):
+                pass
+
+        self.server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        threading.Thread(target=self.server.serve_forever, daemon=True).start()
+        url = f"http://127.0.0.1:{self.server.server_address[1]}/"
         chrome = Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
         exe = chrome if chrome.exists() else Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
         self.profile = Path(tempfile.mkdtemp(prefix="tiro-latency-browser-"))
-        page = (ROOT / "dev" / "latency" / "browser.html").as_uri()
-        self.proc = subprocess.Popen([str(exe), f"--app={page}", f"--user-data-dir={self.profile}",
+        self.proc = subprocess.Popen([str(exe), f"--app={url}", f"--user-data-dir={self.profile}",
                                       "--no-first-run", "--no-default-browser-check", "--disable-extensions",
                                       "--window-size=900,700"])
         self.hwnd = find_title("TIRO-TEST-BROWSER", 20)
-        self.base = 0
 
     def read(self):
-        try:
-            return "x" * (int(title_of(self.hwnd).rsplit(" ", 1)[1]) - self.base)
-        except (ValueError, IndexError):
-            return ""
+        return "x" * max(0, self.length - self.base)
 
     def clear(self):
-        try:
-            self.base = int(title_of(self.hwnd).rsplit(" ", 1)[1])
-        except (ValueError, IndexError):
-            pass
+        self.base = self.length
 
     def close(self):
         subprocess.run(["taskkill", "/PID", str(self.proc.pid), "/T", "/F"], capture_output=True)
+        self.server.shutdown()
 
 
 TARGETS = {t.name: t for t in (Notepad, TermReader, ClaudeCode, Browser)}
@@ -275,6 +315,10 @@ def main() -> int:
     ap.add_argument("--settle", type=float, default=0.8)
     ap.add_argument("--tag", default="")
     ap.add_argument("--extra-settings", default="{}")
+    ap.add_argument("--set", action="append", default=[], metavar="KEY=VALUE",
+                    help="profile setting (true/false/numbers understood), e.g. --set device=cpu")
+    ap.add_argument("--first-immediately", action="store_true",
+                    help="start the first dictation as soon as the speech model is ready (language model still loading)")
     a = ap.parse_args()
 
     WORKDIR.mkdir(parents=True, exist_ok=True)
@@ -283,8 +327,12 @@ def main() -> int:
     profile = ROOT / "dev" / "latency_profile"
     profile.mkdir(exist_ok=True)
     settings = {"hotkey": "f24", "mode": "hold", "double_tap_lock": False, "sounds": False,
-                "welcome_shown": True, "setup_done": True, "insertion": a.insertion, "history": False}
+                "welcome_shown": True, "setup_done": True, "insertion": a.insertion, "history": False,
+                "auto_update_check": False, "whats_new_seen": "test"}
     settings.update(json.loads(a.extra_settings))
+    for item in a.set:
+        k, _, v = item.partition("=")
+        settings[k] = {"true": True, "false": False}.get(v.lower(), int(v) if v.isdigit() else v)
     (profile / "settings.json").write_text(json.dumps(settings), encoding="utf-8")
     hwnd_file = WORKDIR / "allowed_hwnds.txt"
     hwnd_file.write_text("", encoding="utf-8")
@@ -303,6 +351,9 @@ def main() -> int:
         tiro.kill()
         return 1
     wait_log("correction knowledge", since, timeout=40)
+    settings_now = json.loads((profile / "settings.json").read_text(encoding="utf-8"))
+    if settings_now.get("ai_correction", True) and settings_now.get("correction", True) and not a.first_immediately:
+        wait_log("instruct ready on", since, timeout=90)  # the language model too, as after a normal start
     print(f"Tiro ready after {time.time() - t0:.1f}s", flush=True)
     results = {"wav": a.wav, "duration": duration, "insertion": a.insertion, "targets": {}}
     try:
@@ -311,6 +362,10 @@ def main() -> int:
             tgt.open()
             if not tgt.hwnd:
                 print(f"{name}: window not found, skipped")
+                try:
+                    tgt.close()  # never leave a test window behind
+                except Exception as exc:  # noqa: BLE001
+                    print(f"{name}: close failed: {exc}")
                 continue
             with open(hwnd_file, "a", encoding="utf-8") as f:
                 f.write(f"{tgt.hwnd}\n")
@@ -328,13 +383,21 @@ def main() -> int:
                 key(F24, True)
                 last, t_last = tgt.read(), None
                 end = time.time() + 8
+                t_record = None  # when Tiro logged this dictation as finished
                 while time.time() < end:
                     cur = tgt.read()
+                    now = time.time()
                     if cur != last:
-                        last, t_last = cur, time.time()
-                    elif t_last and time.time() - t_last > a.settle:
+                        last, t_last = cur, now
+                    if t_record is None and last_timing(timing, n_before) is not None:
+                        t_record = now
+                    # done once Tiro has finished AND the screen has been still for `settle` seconds since
+                    if t_record is not None and now - max(t_record, t_last or 0) > a.settle:
                         break
                     time.sleep(0.005)
+                if isinstance(tgt, ClaudeCode) and tgt.blocked():
+                    print("claude: a question appeared on screen; stopping this target", flush=True)
+                    break
                 tim = last_timing(timing, n_before)
                 run = {"visible_ms": round((t_last - t_release) * 1000, 1) if t_last else None,
                        "chars": len(last), "tiro": tim}

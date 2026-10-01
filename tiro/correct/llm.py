@@ -19,6 +19,7 @@ import logging
 import threading
 import time
 from collections import OrderedDict
+from collections.abc import Callable
 from pathlib import Path
 
 import numpy as np
@@ -37,10 +38,13 @@ MAX_EXAMPLES = 4
 
 class LanguageScorer:
     def __init__(self, model_dir: Path, *, device: str = "cpu", gpu_lock: threading.Lock | None = None,
-                 file: str | None = None):
+                 file: str | None = None, gpu_yield: Callable[[], bool] | None = None):
         self.model_dir = Path(model_dir)
         self.device = device  # "cuda" | "cpu"
         self.gpu_lock = gpu_lock if device == "cuda" else None  # shared with the speech model
+        # True while the speech model wants the GPU (a decode is queued, or a dictation's final decode is due):
+        # then the language model starts no new work, so it never makes you wait for your text
+        self.gpu_yield = gpu_yield if device == "cuda" else None
         self.file = file or ("onnx/model_q4f16.onnx" if device == "cuda" else "onnx/model_q4.onnx")
         self.name = self.model_dir.name
         self._session = None
@@ -139,6 +143,8 @@ class LanguageScorer:
                 self._memo.move_to_end(key)
                 return list(hit)
         t0 = time.perf_counter()
+        if self.gpu_yield is not None and self.gpu_yield():
+            return None  # the speech model goes first
         if not self._lock.acquire(timeout=max(0.0, timeout)):
             return None
         try:
@@ -146,6 +152,10 @@ class LanguageScorer:
             remaining = timeout - (time.perf_counter() - t0)
             if gpu is not None and not gpu.acquire(timeout=max(0.0, remaining)):
                 return None  # the speech model has the GPU; don't make it wait
+            if self.gpu_yield is not None and self.gpu_yield():
+                if gpu is not None:
+                    gpu.release()
+                return None
             try:
                 gains = self._score(left_words, original, options, right_words, ex)
             finally:

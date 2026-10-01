@@ -1,0 +1,57 @@
+name: Update feed
+
+# Change what the in-app updater offers without a new build, and keep the signed feed from expiring:
+#  - Run manually: widen or narrow a staged rollout, or withdraw a bad version (copies on it go back to their
+#    previous version; nobody else is offered it).
+#  - On the 1st of every month: re-sign both channels with a fresh expiry date (a feed expires after 120 days, and
+#    an expired feed just means "no update offered", never an error).
+on:
+  schedule:
+    - cron: "17 3 1 * *"
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "stable or beta"
+        default: stable
+      rollout:
+        description: "Rollout percentage for the current release (empty: leave as is)"
+        required: false
+      withdraw:
+        description: "Version to withdraw, e.g. 2.0.4 (empty: none)"
+        required: false
+
+permissions:
+  contents: write
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  resign:
+    runs-on: ubuntu-latest
+    concurrency: update-feed
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Re-sign the feed
+        env:
+          TIRO_UPDATE_KEY: ${{ secrets.TIRO_UPDATE_KEY }}
+          CHANNEL: ${{ github.event.inputs.channel }}
+          ROLLOUT: ${{ github.event.inputs.rollout }}
+          WITHDRAW: ${{ github.event.inputs.withdraw }}
+        run: |
+          set -e
+          channels="${CHANNEL:-stable beta}"
+          for ch in $channels; do
+            rm -rf prev && mkdir prev
+            gh release download update-feed -p "$ch.json" -D prev || { echo "no $ch feed yet"; continue; }
+            args=""
+            [ -n "$ROLLOUT" ] && args="$args --rollout-all $ROLLOUT"
+            [ -n "$WITHDRAW" ] && args="$args --revoke $WITHDRAW"
+            python tools/feed.py compose --channel "$ch" --previous "prev/$ch.json" --allow-same $args --out "manifest-$ch.json"
+            python tools/feed.py sign "manifest-$ch.json" --keyid ci-2026a --out "$ch.json"
+            python tools/feed.py verify "$ch.json"
+            gh release upload update-feed "$ch.json" --clobber
+          done

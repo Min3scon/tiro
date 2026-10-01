@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- The tiny Tiro.exe at the top of the install folder: starts the version named in state.json, tries a new
+         version once, and goes back to the previous one if the new one doesn't start. No window of its own. -->
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AssemblyName>Tiro</AssemblyName>
+    <RootNamespace>TiroLauncher</RootNamespace>
+    <ApplicationIcon>..\TiroSetup\tiro.ico</ApplicationIcon>
+    <Version>2.0.3</Version>
+    <Product>Tiro</Product>
+    <Company>Tiro</Company>
+    <Description>Tiro</Description>
+    <Copyright>MIT licence</Copyright>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <DebugType>none</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+
+</Project>
